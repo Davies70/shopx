@@ -34,8 +34,7 @@ export default function Hero() {
     <div
       className='hero min-h-screen absolute top-0 left-0 right-0 bg-cover bg-center'
       style={{
-        backgroundImage:
-          'url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp)',
+        backgroundImage: 'url(/images/slide_3.webp)',
       }}
     >
       <div className='hero-overlay'></div>

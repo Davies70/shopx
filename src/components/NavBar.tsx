@@ -7,7 +7,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className='navbar shadow-sm px-4 z-50 relative text-[#f4f8fa]  uppercase'>
+      <div className='navbar shadow-sm px-4 z-50 relative text-[#f4f8fa]  uppercase pt-7'>
         {/* Left side: Logo */}
         <div tabIndex={0} className='navbar-start'>
           <a className='btn btn-ghost text-xl'>ShopApocalypse</a>
