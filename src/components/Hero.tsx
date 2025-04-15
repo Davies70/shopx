@@ -1,54 +1,172 @@
-// import Slider from 'react-slick';
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
-// import { slides } from '../data';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { slides } from '@/data';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import RevealButton from './RevealButton';
 
 export default function Hero() {
-  // const settings = {
-  //   dots: true,
-  //   infinite: true,
-  //   speed: 500,
-  //   slidesToShow: 1,
-  //   slidesToScroll: 1,
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [buttonHovered, setButtonHovered] = useState<null | string>(null);
 
-  // };
-  // return (
-  //   <Slider {...settings}>
-  //     {slides.map((item, index) => (
-  //       <div
-  //         key={index}
-  //         className='flex items-center justify-center bg-gray-100  h-screen -z-50'
-  //       >
-  //         <img
-  //           src={item.image}
-  //           alt={item.title}
-  //           className='object-cover w-full h-full'
-  //         />
-  //         <h3>{item.title}</h3>
-  //         <p>{item.subtitle}</p>
-  //       </div>
-  //     ))}
-  //   </Slider>
-  // );
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? slides.length - 1 : prevIndex - 1
+    );
+  };
+
   return (
-    <div
-      className='hero min-h-screen absolute top-0 left-0 right-0 bg-cover bg-center'
-      style={{
-        backgroundImage: 'url(/images/slide_3.webp)',
-      }}
-    >
-      <div className='hero-overlay'></div>
-      <div className='hero-content text-neutral-content text-center'>
-        <div className='max-w-md'>
-          <h1 className='mb-5 text-5xl font-bold'>Hello there</h1>
-          <p className='mb-5'>
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
-          <button className='btn btn-primary'>Get Started</button>
-        </div>
+    <div className='relative min-h-screen overflow-hidden px-[5vw]'>
+      <div className='absolute inset-0 px-[5vw]'>
+        <AnimatePresence>
+          <motion.div
+            key={currentIndex}
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            exit={{
+              y: 0,
+              scale: 0.95,
+              opacity: 0,
+              transition: { duration: 0.5 },
+            }}
+            transition={{ duration: 0.9, ease: 'easeInOut' }}
+            className='absolute inset-0 bg-cover bg-center'
+            style={{
+              backgroundImage: `url(${slides[currentIndex].image})`,
+            }}
+          >
+            <div className='relative z-10 flex flex-col items-center justify-start min-h-screen pt-[20vh] text-white'>
+              {slides.map((slide, index) =>
+                index === currentIndex ? (
+                  <AnimatePresence key={index}>
+                    <motion.div
+                      initial={{ opacity: 0, y: 50 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -50 }}
+                      transition={{ duration: 0.5, delay: 0.6 }}
+                      className='flex flex-col items-center text-center uppercase text-[30px] sm:text-[40px] lg:text-[80px] font-[600] tracking-[0.04em] leading-[1.25em]'
+                      key={index}
+                    >
+                      <h1>{slide.title_1}</h1>
+                      <h1>{slide.title_2}</h1>
+                      <h1>{slide.title_3}</h1>
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 50 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -50 }}
+                      transition={{ duration: 0.5, delay: 1 }}
+                      className='mt-5 rounded-full bg-white px-6 py-2 text-black uppercase text-sm sm:text-base cursor-pointer'
+                      onMouseEnter={() => setButtonHovered('center')}
+                      onMouseLeave={() => setButtonHovered(null)}
+                      onTouchStart={() => setButtonHovered('center')}
+                      onTouchEnd={() => setButtonHovered(null)}
+                      style={{ touchAction: 'none' }}
+                    >
+                      <RevealButton
+                        text='Shop All'
+                        isHovered={buttonHovered === 'center'}
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+                ) : null
+              )}
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
+      <div className='z-9999 absolute left-[5vw] right-[5vw] top-auto bottom-12 flex -translate-y-1/2 transform justify-between items-center p-0 text-[6px] h-12 min-h-3 m-auto '>
+        <button
+          onClick={handlePrev}
+          onMouseEnter={() => setButtonHovered('left')}
+          onMouseLeave={() => setButtonHovered(null)}
+          onTouchStart={() => setButtonHovered('left')}
+          onTouchEnd={() => setButtonHovered(null)}
+          className='cursor-pointer'
+          style={{ touchAction: 'none' }} // Prevents default touch behavior
+        >
+          <motion.div
+            whileHover={{
+              scale: 0.8,
+            }}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
+            className='w-[48px] h-[48px] rounded-full border border-[rgba(255,255,255,0.25)]  overflow-hidden  flex justify-center items-center  '
+          >
+            <motion.span
+              animate={
+                buttonHovered === 'left'
+                  ? {
+                      x: [0, '-200%', '200%', 0],
+
+                      transition: {
+                        duration: 0.6,
+                        times: [0, 0.4, 0.4, 1], // Controls timing of each keyframe
+                        ease: 'easeInOut',
+                      },
+                    }
+                  : {
+                      x: 0,
+                    }
+              }
+            >
+              <ArrowLeft size={16} className='text-[rgba(255,255,255,0.75)]' />
+            </motion.span>
+          </motion.div>
+        </button>
+        <div>
+          <div className='flex items-center justify-center gap-2'>
+            {slides.map((_, index) => (
+              <div
+                key={index}
+                className={`w-[1em] h-[1em] rounded-full mx-[9px] transition-colors duration-100 ${
+                  index === currentIndex ? 'bg-white' : 'bg-gray-500'
+                }`}
+              ></div>
+            ))}
+          </div>
+        </div>
+        <button
+          onClick={handleNext}
+          className='cursor-pointer'
+          onMouseEnter={() => setButtonHovered('right')}
+          onMouseLeave={() => setButtonHovered(null)}
+          onTouchStart={() => setButtonHovered('right')}
+          onTouchEnd={() => setButtonHovered(null)}
+          style={{ touchAction: 'none' }}
+        >
+          <motion.div
+            whileHover={{
+              scale: 0.8,
+            }}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
+            className='w-[48px] h-[48px] rounded-full border border-[rgba(255,255,255,0.25)]  overflow-hidden  flex justify-center items-center  '
+          >
+            <motion.span
+              animate={
+                buttonHovered === 'right'
+                  ? {
+                      x: [0, '200%', '-200%', 0],
+
+                      transition: {
+                        duration: 0.6,
+                        times: [0, 0.4, 0.4, 1], // Controls timing of each keyframe
+                        ease: 'easeInOut',
+                      },
+                    }
+                  : {
+                      x: 0,
+                    }
+              }
+            >
+              <ArrowRight size={16} className='text-[rgba(255,255,255,0.75)]' />
+            </motion.span>
+          </motion.div>
+        </button>
+      </div>
+      <div className='absolute inset-0 bg-black opacity-50'></div>
     </div>
   );
 }

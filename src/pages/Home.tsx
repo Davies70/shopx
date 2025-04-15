@@ -4,7 +4,7 @@ import NavBar from '../components/NavBar';
 // import Carousel from '@/components/Carousel';
 const Home = () => {
   return (
-    <div className='relative'>
+    <div className='relative bg-black'>
       <NavBar />
       <Hero />
     </div>

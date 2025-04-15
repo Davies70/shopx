@@ -1,13 +1,14 @@
 export interface Slide {
-    title: string;
-    subtitle?: string;
-    image: string;
-  }
-  
+  title_1: string;
+  title_2: string;
+  title_3: string;
+  image: string;
+}
+
 export interface Product {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    image: string;
-  }
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+}

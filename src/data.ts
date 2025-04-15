@@ -1,47 +1,55 @@
 import { Slide, Product } from './types';
 export const slides: Slide[] = [
   {
-    title: 'Prep Smart',
-    subtitle: 'Panic Less',
+    title_1: 'Your Survival',
+    title_2: 'Starts',
+    title_3: 'Here:',
     image: 'images/slide_3.webp',
   },
   {
-    title: 'Because the End is Near ',
-    subtitle: '(Probably)',
+    title_1: 'Be Ready ',
+    title_2: 'Cause',
+    title_3: 'The End is Near.',
     image: 'images/slide_2.webp',
   },
   {
-    title: 'Outrun Doomsday',
-    subtitle: 'With ShopApocalypse',
+    title_1: 'Gear up In Style',
+    title_2: 'And',
+    title_3: 'Outrun Doomsday.',
     image: 'images/slide_1.webp',
   },
-];
-
-export const secondarySlides: Slide[] = [
   {
-    title: 'Join the ranks of elite apocalypse preppers',
-    image: 'images/bride.jpg',
-  },
-  {
-    title: 'Outlast the end times in style',
-
-    image: 'images/beard_oil.jpg',
-  },
-  {
-    title: 'Because survival is the new luxury.',
-
-    image: 'images/crocs.jpg',
-  },
-  {
-    title: 'Prepare now, gloat later.',
-    image: 'images/knife.jpg',
-  },
-  {
-    title: 'Be the last one standing with snacks.',
-    image: 'images/snacks.jpg',
+    title_1: 'Be the last one',
+    title_2: 'Standing',
+    title_3: 'With our gear.',
+    image: 'images/slide_4.webp',
   },
 ];
 
+// export const secondarySlides: Slide[] = [
+//   {
+//     title: 'Join the ranks of elite apocalypse preppers',
+//     image: 'images/bride.jpg',
+//   },
+//   {
+//     title: 'Outlast the end times in style',
+
+//     image: 'images/beard_oil.jpg',
+//   },
+//   {
+//     title: 'Because survival is the new luxury.',
+
+//     image: 'images/crocs.jpg',
+//   },
+//   {
+//     title: 'Prepare now, gloat later.',
+//     image: 'images/knife.jpg',
+//   },
+//   {
+//     title: 'Be the last one standing with snacks.',
+//     image: 'images/snacks.jpg',
+//   },
+// ];
 
 export const products: Product[] = [
   {
@@ -129,4 +137,3 @@ export const products: Product[] = [
     image: 'images/cat.jpg',
   },
 ];
-  

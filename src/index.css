@@ -124,7 +124,7 @@
   body {
     @apply bg-background text-foreground;
     @apply overflow-x-hidden;
-    font-family: 'Clashdisplay', sans-serif;
+    font-family: 'Generalsans', sans-serif;
     letter-spacing: 5px;
   }
 }

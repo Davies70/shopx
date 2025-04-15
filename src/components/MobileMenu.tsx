@@ -3,6 +3,7 @@ import { Search } from 'lucide-react';
 import RevealButton from './RevealButton';
 import { useState } from 'react';
 
+//implement exit mobile view on outside click
 type MobileMenuProps = {
   isOpen: boolean;
 };
@@ -19,7 +20,7 @@ const MobileMenu = ({ isOpen }: MobileMenuProps) => {
           exit={{ height: 0 }}
           transition={{ duration: 0.4, ease: 'easeInOut' }}
           onClick={(e) => e.stopPropagation()} // Prevents closing when clicking inside
-          className='fixed min-w-[50px] top-20 left-0 z-50 flex w-full flex-col items-center justify-center bg-base-100 shadow-lg overflow-hidden'
+          className='fixed min-w-[50px] top-[100px] left-0 z-50 flex w-full flex-col items-center justify-center bg-base-100 shadow-lg overflow-hidden'
         >
           <div className='max-w-full w-full flex flex-col decorate-none p-0 border-b-[#e4e9ec] border-b justify-self-stretch px-3 justify-center items-end'>
             <form className='flex justify-center items-center bg-[#f4f8fa] max-w-[500px] my-3 mx-auto w-full py-0 z-25 outline-none border border-[rgba(255,255,255,.25)] rounded-[100px] min-w-[34px] min-h-[34px] relative'>
@@ -36,7 +37,7 @@ const MobileMenu = ({ isOpen }: MobileMenuProps) => {
             </form>
           </div>
           <div className='grid w-full items-center justify-items-stretch justify-between auto-cols-fr auto-rows-auto gap-x-4 gap-y-0'>
-            <div className='grid auto-cols-auto grid-cols-[auto] grid-rows-[auto] gap-x-13.5 py-0 w-full grid-flow-row bg-white text-black border-t-[#e4e9ec] gap-y-0 self-center col-start-1 col-end-2 row-start-1 row-end-2'>
+            <div className='grid auto-cols-auto grid-cols-[auto] grid-rows-[auto] gap-x-13.5 py-0 w-full grid-flow-row bg-white text-black border-t-[#e4e9ec] gap-y-0 self-center col-start-1 col-end-2 row-start-1 row-end-2 '>
               {['Home', 'Shop', 'About', 'Contact'].map((item) => (
                 <div
                   id={item}

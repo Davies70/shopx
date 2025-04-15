@@ -7,17 +7,13 @@ type RevealButtonProps = {
 
 export default function RevealButton({ text, isHovered }: RevealButtonProps) {
   return (
-    <button
-      className='relative inline-block overflow-hidden text-[14px] uppercase tracking-[5px] cursor-pointer'
-      style={{ height: '1em', lineHeight: '1em' }} // Ensure only one line fits
-    >
+    <button className='relative inline-block overflow-hidden text-[12px] uppercase tracking-[5px] cursor-pointer '>
       <motion.span
-        className='flex flex-col'
+        className='flex'
         initial={{ y: 0 }}
-        animate={{ y: isHovered ? '-50%' : '0%' }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        animate={{ y: isHovered ? ['150%', '0'] : '0%' }}
+        transition={{ duration: 0.7, ease: 'easeInOut' }} // Smoother easing
       >
-        <span className='block'>{text}</span>
         <span className='block'>{text}</span>
       </motion.span>
     </button>
