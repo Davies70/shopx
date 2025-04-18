@@ -4,11 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@import 'slick-carousel/slick/slick.css';
-@import 'slick-carousel/slick/slick-theme.css';
-
 @plugin "daisyui";
-
 
 :root {
   --radius: 0.625rem;
@@ -127,19 +123,9 @@
     font-family: 'Generalsans', sans-serif;
     letter-spacing: 5px;
   }
-}
 
-.slick-prev:before,
-.slick-next:before {
-  color: black !important;
-  position: absolute;
-  top: 20rem;
-}
-
-.slick-prev:before {
-  left: 40rem;
-}
-
-.slick-next:before {
-  right: 10rem;
+  .story-wrapper {
+    @apply grid bg-red-900 row-[1/2] col-[2/3] gap-x-1.5 gap-y-20 grid-cols-[auto_auto] px-0 grid-rows-[auto] auto-cols-[1fr] content-center justify-stretch items-center justify-items-center;
+    @apply min-[992px]:row-span-1 min-[992px]:col-span-3 min-[992px]:gap-x-10 min-[992px]:gap-y-4 min-[992px]:grid-cols-[auto_1fr_auto] min-[992px]:px-1.5 min-[992px]:bg-green-900; 
+  }
 }

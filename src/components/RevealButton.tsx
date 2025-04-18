@@ -7,7 +7,7 @@ type RevealButtonProps = {
 
 export default function RevealButton({ text, isHovered }: RevealButtonProps) {
   return (
-    <button className='relative inline-block overflow-hidden text-[12px] uppercase tracking-[5px] cursor-pointer '>
+    <button className='relative inline-block overflow-hidden text-[12px] uppercase tracking-[5px] cursor-pointer decorate-none'>
       <motion.span
         className='flex'
         initial={{ y: 0 }}

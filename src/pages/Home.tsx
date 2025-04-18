@@ -1,12 +1,13 @@
 import Hero from '../components/Hero';
-// import { ArrowRight } from 'lucide-react';
 import NavBar from '../components/NavBar';
-// import Carousel from '@/components/Carousel';
+import SectionOne from '@/components/SectionOne';
+
 const Home = () => {
   return (
-    <div className='relative bg-black'>
+    <div className='relative'>
       <NavBar />
       <Hero />
+      <SectionOne />
     </div>
   );
 };

@@ -1,20 +1,59 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search } from 'lucide-react';
 import RevealButton from './RevealButton';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 //implement exit mobile view on outside click
 type MobileMenuProps = {
   isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+  toggleRef: React.RefObject<HTMLButtonElement | null>;
 };
 
-const MobileMenu = ({ isOpen }: MobileMenuProps) => {
+const MobileMenu = ({ isOpen, setIsOpen, toggleRef }: MobileMenuProps) => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      menuRef.current &&
+      !menuRef.current.contains(event.target as Node) &&
+      toggleRef.current &&
+      !toggleRef.current.contains(event.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  };
+
+  const handleTouchOutside = (event: TouchEvent) => {
+    if (
+      menuRef.current &&
+      !menuRef.current.contains(event.target as Node) &&
+      toggleRef.current &&
+      !toggleRef.current.contains(event.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleTouchOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleTouchOutside);
+      // Clean up event listeners
+      // to prevent memory leaks
+      // and ensure proper functionality
+      // when the component unmounts
+    };
+  }); // Add isOpen as a dependency to re-run effect when it changes
 
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
+          ref={menuRef}
           initial={{ height: 0 }}
           animate={{ height: 'fit-content' }}
           exit={{ height: 0 }}

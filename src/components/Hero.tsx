@@ -19,7 +19,7 @@ export default function Hero() {
   };
 
   return (
-    <div className='relative min-h-screen overflow-hidden px-[5vw]'>
+    <section className='relative min-h-screen overflow-hidden px-[5vw]  bg-[#080808]'>
       <div className='absolute inset-0 px-[5vw]'>
         <AnimatePresence>
           <motion.div
@@ -33,12 +33,12 @@ export default function Hero() {
               transition: { duration: 0.5 },
             }}
             transition={{ duration: 0.9, ease: 'easeInOut' }}
-            className='absolute inset-0 bg-cover bg-center'
+            className='absolute inset-0 bg-cover bg-center flex items-center justify-center'
             style={{
               backgroundImage: `url(${slides[currentIndex].image})`,
             }}
           >
-            <div className='relative z-10 flex flex-col items-center justify-start min-h-screen pt-[20vh] text-white'>
+            <div className='relative z-10 flex flex-col items-center justify-start min-h-screen pt-[20vh] text-white max-w-[800px]'>
               {slides.map((slide, index) =>
                 index === currentIndex ? (
                   <AnimatePresence key={index}>
@@ -47,7 +47,7 @@ export default function Hero() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -50 }}
                       transition={{ duration: 0.5, delay: 0.6 }}
-                      className='flex flex-col items-center text-center uppercase text-[30px] sm:text-[40px] lg:text-[80px] font-[600] tracking-[0.04em] leading-[1.25em]'
+                      className='flex flex-col items-center text-center uppercase text-[30px] sm:text-[40px] lg:text-[80px] font-[600] tracking-[0.04em] leading-[1.25em] w-full'
                       key={index}
                     >
                       <h1>{slide.title_1}</h1>
@@ -59,7 +59,7 @@ export default function Hero() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -50 }}
                       transition={{ duration: 0.5, delay: 1 }}
-                      className='mt-5 rounded-full bg-white px-6 py-2 text-black uppercase text-sm sm:text-base cursor-pointer'
+                      className='mt-6 rounded-full bg-white px-6 py-2 text-black uppercase text-sm sm:text-base cursor-pointer'
                       onMouseEnter={() => setButtonHovered('center')}
                       onMouseLeave={() => setButtonHovered(null)}
                       onTouchStart={() => setButtonHovered('center')}
@@ -78,7 +78,7 @@ export default function Hero() {
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className='z-9999 absolute left-[5vw] right-[5vw] top-auto bottom-12 flex -translate-y-1/2 transform justify-between items-center p-0 text-[6px] h-12 min-h-3 m-auto '>
+      <div className='z-9999 absolute left-[5vw] right-[5vw] top-auto bottom-6 flex -translate-y-1/2 transform justify-between items-center p-0 text-[6px] h-12 min-h-3 m-auto '>
         <button
           onClick={handlePrev}
           onMouseEnter={() => setButtonHovered('left')}
@@ -166,7 +166,7 @@ export default function Hero() {
           </motion.div>
         </button>
       </div>
-      <div className='absolute inset-0 bg-black opacity-50'></div>
-    </div>
+      <div className='absolute inset-0 bg-[rgba(8,8,8,.3)]'></div>
+    </section>
   );
 }

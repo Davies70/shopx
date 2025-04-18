@@ -9,19 +9,19 @@ export const slides: Slide[] = [
   {
     title_1: 'Be Ready ',
     title_2: 'Cause',
-    title_3: 'The End is Near.',
+    title_3: 'The End is Near',
     image: 'images/slide_2.webp',
   },
   {
-    title_1: 'Gear up In Style',
-    title_2: 'And',
-    title_3: 'Outrun Doomsday.',
+    title_1: 'Gear up',
+    title_2: 'In Style',
+    title_3: 'For Doomsday',
     image: 'images/slide_1.webp',
   },
   {
     title_1: 'Be the last one',
     title_2: 'Standing',
-    title_3: 'With our gear.',
+    title_3: 'With our gear',
     image: 'images/slide_4.webp',
   },
 ];
