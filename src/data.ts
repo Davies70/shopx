@@ -26,6 +26,23 @@ export const slides: Slide[] = [
   },
 ];
 
+export const storyImgs: string[] = ['images/story_1.png', 'images/story_2.png'];
+
+type Story = {
+  title: string;
+  description: string;
+  image_1: string;
+  image_2: string;
+};
+
+export const storyOne: Story = {
+  title: 'Our Story',
+  description:
+    "At Stealthy Whiskers, we're more than just a store that sells cat gear. We're passionate cat owners and military enthusiasts who want to help other cat owners train their furry friends to become skilled and prepared warriors. Learn more about our story and how we got started on our mission to help cats become the best they can be.",
+  image_1: 'images/story_1.png',
+  image_2: 'images/story_2.png',
+};
+
 // export const secondarySlides: Slide[] = [
 //   {
 //     title: 'Join the ranks of elite apocalypse preppers',
