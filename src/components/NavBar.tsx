@@ -7,7 +7,6 @@ import RevealButton from './RevealButton';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [hoveredItem, setHoveredItem] = useState<null | string>(null);
   const toggleRef = useRef(null);
 
   // Use Framer Motion's scroll hooks for better performance
@@ -43,9 +42,9 @@ const Navbar = () => {
   };
 
   return (
-    <div className='flex flex-col absolute top-0 left-0 w-full'>
+    <div className='flex flex-col absolute top-0 left-0 w-full z-[1000]'>
       <motion.div
-        className='fixed top-0 left-0 w-full z-50'
+        className='fixed top-0 left-0 w-full'
         style={{
           backgroundColor,
           height: navbarHeight,
@@ -76,22 +75,14 @@ const Navbar = () => {
           </div>
 
           {/* Center Nav - Hidden on small screens */}
-          <div className='navbar-center hidden lg:flex text-xs justify-center gap-x-10 font-light h-full'>
+          <motion.div
+            className='navbar-center hidden lg:flex text-xs justify-center gap-x-10 font-light h-full'
+            style={{ color: textColor }}
+          >
             {['Home', 'Shop', 'About', 'Contact'].map((item) => (
-              <motion.a
-                key={item}
-                tabIndex={0}
-                className='w-fit h-full flex justify-center items-center cursor-pointer'
-                style={{ color: textColor }}
-                onMouseEnter={() => setHoveredItem(item)}
-                onMouseLeave={() => setHoveredItem(null)}
-                onTouchStart={() => setHoveredItem(item)}
-                onTouchEnd={() => setHoveredItem(null)}
-              >
-                <RevealButton text={item} isHovered={hoveredItem === item} />
-              </motion.a>
+              <RevealButton text={item} key={item} type='normal' />
             ))}
-          </div>
+          </motion.div>
 
           {/* Right Side: Search, Cart & Mobile Menu */}
           <div className='navbar-end flex items-center gap-4 sm:gap-8 relative'>

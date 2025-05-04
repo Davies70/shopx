@@ -1,5 +1,5 @@
-import { Slide, Product } from './types';
-export const slides: Slide[] = [
+import { Slide, Product, ProductCard } from './types';
+export const slidesOne: Slide[] = [
   {
     title_1: 'Your Survival',
     title_2: 'Starts',
@@ -26,7 +26,25 @@ export const slides: Slide[] = [
   },
 ];
 
-export const storyImgs: string[] = ['images/story_1.png', 'images/story_2.png'];
+export const slidesTwo: Slide[] = [
+  {
+    title_1: 'Join the ranks of elite apocalypse preppers',
+    image: 'images/slide_3.webp',
+  },
+  {
+    title_1: 'Be the last one standing with snacks.',
+
+    image: 'images/slide_2.webp',
+  },
+  {
+    title_1: 'Outlast the end times in style',
+    image: 'images/slide_1.webp',
+  },
+  {
+    title_1: 'Because survival is the new luxury.',
+    image: 'images/slide_4.webp',
+  },
+];
 
 type Story = {
   title: string;
@@ -42,31 +60,6 @@ export const storyOne: Story = {
   image_1: 'images/story_1.png',
   image_2: 'images/story_2.png',
 };
-
-// export const secondarySlides: Slide[] = [
-//   {
-//     title: 'Join the ranks of elite apocalypse preppers',
-//     image: 'images/bride.jpg',
-//   },
-//   {
-//     title: 'Outlast the end times in style',
-
-//     image: 'images/beard_oil.jpg',
-//   },
-//   {
-//     title: 'Because survival is the new luxury.',
-
-//     image: 'images/crocs.jpg',
-//   },
-//   {
-//     title: 'Prepare now, gloat later.',
-//     image: 'images/knife.jpg',
-//   },
-//   {
-//     title: 'Be the last one standing with snacks.',
-//     image: 'images/snacks.jpg',
-//   },
-// ];
 
 export const products: Product[] = [
   {
@@ -152,5 +145,47 @@ export const products: Product[] = [
     description: 'A bright flashlight for tactical use.',
     price: 19.99,
     image: 'images/cat.jpg',
+  },
+];
+export const productCards: ProductCard[] = [
+  {
+    id: 1,
+    images: ['images/card_1_1.png', 'images/card_1_2.png', 'images/card_1_3.png'],
+    price: '$49.99',
+    oldPrice: '$59.99',
+    productTitle: 'Survival Backpack',
+    subtitle: 'Durable and spacious for all your survival needs.',
+    labelTag: 'Best Seller',
+  },
+  {
+    id: 2,
+    images: ['images/card_2_1.png', 'images/card_2_2.png', 'images/card_2_3.png'],
+    price: '$29.99',
+    productTitle: 'Emergency Food Supply',
+    subtitle: '72-hour food supply for emergencies.',
+  },
+  {
+    id: 3,
+    images: ['images/card_3_1.png', 'images/card_3_2.png', 'images/card_3_3.png'],
+    price: '$19.99',
+    oldPrice: '$24.99',
+    productTitle: 'Water Purification Tablets',
+    subtitle: 'Ensure safe drinking water anywhere.',
+    labelTag: 'Limited Offer',
+  },
+  {
+    id: 4,
+    images: ['images/card_4_1.png', 'images/card_4_2.png', 'images/card_4_3.png'],
+    price: '$24.99',
+    productTitle: 'First Aid Kit',
+    subtitle: 'Comprehensive kit for emergency situations.',
+  },
+  {
+    id: 5,
+    images: ['images/card_5_1.png', 'images/card_5_2.png', 'images/card_5_3.png'],
+    price: '$39.99',
+    productTitle: 'Solar Charger',
+    subtitle: 'Keep your devices powered with solar energy.',
+    labelTag: 'Eco-Friendly',
   },
 ];
