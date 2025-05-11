@@ -13,7 +13,7 @@ export interface Product {
   image: string;
 }
 
-export interface ProductCard {
+export interface ProductCardType {
   id: number;
   images: string[];
   price: string;
@@ -21,4 +21,5 @@ export interface ProductCard {
   productTitle: string;
   subtitle: string;
   labelTag?: string;
+  url?: string;
 }

@@ -1,4 +1,4 @@
-import { Slide, Product, ProductCard } from './types';
+import { Slide, Product, ProductCardType } from './types';
 export const slidesOne: Slide[] = [
   {
     title_1: 'Your Survival',
@@ -147,10 +147,14 @@ export const products: Product[] = [
     image: 'images/cat.jpg',
   },
 ];
-export const productCards: ProductCard[] = [
+export const productCards: ProductCardType[] = [
   {
     id: 1,
-    images: ['images/card_1_1.png', 'images/card_1_2.png', 'images/card_1_3.png'],
+    images: [
+      'images/card_1_1.png',
+      'images/card_1_2.png',
+      'images/card_1_3.png',
+    ],
     price: '$49.99',
     oldPrice: '$59.99',
     productTitle: 'Survival Backpack',
@@ -159,14 +163,22 @@ export const productCards: ProductCard[] = [
   },
   {
     id: 2,
-    images: ['images/card_2_1.png', 'images/card_2_2.png', 'images/card_2_3.png'],
+    images: [
+      'images/card_2_1.png',
+      'images/card_2_2.png',
+      'images/card_2_3.png',
+    ],
     price: '$29.99',
     productTitle: 'Emergency Food Supply',
     subtitle: '72-hour food supply for emergencies.',
   },
   {
     id: 3,
-    images: ['images/card_3_1.png', 'images/card_3_2.png', 'images/card_3_3.png'],
+    images: [
+      'images/card_3_1.png',
+      'images/card_3_2.png',
+      'images/card_3_3.png',
+    ],
     price: '$19.99',
     oldPrice: '$24.99',
     productTitle: 'Water Purification Tablets',
@@ -175,14 +187,22 @@ export const productCards: ProductCard[] = [
   },
   {
     id: 4,
-    images: ['images/card_4_1.png', 'images/card_4_2.png', 'images/card_4_3.png'],
+    images: [
+      'images/card_4_1.png',
+      'images/card_4_2.png',
+      'images/card_4_3.png',
+    ],
     price: '$24.99',
     productTitle: 'First Aid Kit',
     subtitle: 'Comprehensive kit for emergency situations.',
   },
   {
     id: 5,
-    images: ['images/card_5_1.png', 'images/card_5_2.png', 'images/card_5_3.png'],
+    images: [
+      'images/card_5_1.png',
+      'images/card_5_2.png',
+      'images/card_5_3.png',
+    ],
     price: '$39.99',
     productTitle: 'Solar Charger',
     subtitle: 'Keep your devices powered with solar energy.',

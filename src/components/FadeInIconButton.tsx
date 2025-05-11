@@ -16,6 +16,7 @@ const FadeInIconButton = ({
   if (type === 'left') {
     return (
       <motion.button
+        aria-label='previous slide'
         onClick={onClick}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -32,7 +33,7 @@ const FadeInIconButton = ({
         whileHover={{
           scale: 0.8,
         }}
-        className='left-0 bottom-[140px] min-[992px]:bottom-[90px] border-none bg-[#080808] flex rounded-[100%] justify-center items-center w-[48px] h-[48px] z-3 right-auto cursor-pointer text-gray-400 m-auto absolute top-0 text-[10px] overflow-hidden touch-none'
+        className='left-0 bottom-[140px] min-[992px]:bottom-[90px] border-none bg-[#080808] flex rounded-[100%] justify-center items-center w-[48px] h-[48px] z-3 right-auto cursor-pointer text-gray-400 m-auto absolute top-0 text-[10px] overflow-hidden touch-none bg-scroll'
       >
         <motion.span
           animate={
@@ -57,6 +58,7 @@ const FadeInIconButton = ({
   } else {
     return (
       <motion.button
+        aria-label='next slide'
         onClick={onClick}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -71,7 +73,7 @@ const FadeInIconButton = ({
         whileHover={{
           scale: 0.8,
         }}
-        className='right-0 bottom-[140px] min-[992px]:bottom-[90px] border-none bg-[#080808] flex rounded-[100%] justify-center items-center w-[48px] h-[48px] z-3 left-auto cursor-pointer text-gray-400 m-auto absolute top-0 text-[10px] overflow-hidden touch-none'
+        className='right-0 bottom-[140px] min-[992px]:bottom-[90px] border-none bg-[#080808] flex rounded-[100%] justify-center items-center w-[48px] h-[48px] z-3 left-auto cursor-pointer text-gray-400 m-auto absolute top-0 text-[10px] overflow-hidden touch-none bg-scroll'
       >
         <motion.span
           animate={

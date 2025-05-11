@@ -56,7 +56,7 @@ const SectionTwo = () => {
         <div className='row-[1/2] col-[1/4] justify-center px-[5vw] flex'>
           <div
             aria-label='carousel'
-            className='min-[992px]:pb-[0] pb-[36px] bg-[rgba(221,221,221,0)] justify-center w-full max-w-[1500px] h-full mx-auto px-0 flex text-center clear-both relative'
+            className='relative min-[992px]:pb-[0] pb-[36px] bg-[rgba(221,221,221,0)] justify-center w-full max-w-[1500px] h-full mx-auto px-0 flex text-center clear-both'
           >
             <motion.div
               className='z-1 overflow-visible w-full whitespace-nowrap h-full relative block left-0 right-0'
