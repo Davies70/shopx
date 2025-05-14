@@ -36,6 +36,7 @@ const StoryContent = ({ title, description }: StoryContentProps) => {
           textColor='#667479'
           textSize='text-[18px]'
           borderRadius='100px'
+          isTextPadding={false}
         />
       </div>
     </div>

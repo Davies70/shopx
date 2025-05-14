@@ -32,7 +32,7 @@ const IconButton = ({
           scale: 0.8,
         }}
         transition={{ duration: 0.2, ease: 'easeInOut' }}
-        className='w-[48px] h-[48px] rounded-full  overflow-hidden  flex justify-center items-center'
+        className='w-[48px] h-[48px] rounded-full  overflow-hidden  flex justify-center items-center p-0'
         style={{
           border: `1px solid ${borderColor}`,
         }}

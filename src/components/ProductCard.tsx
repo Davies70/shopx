@@ -6,8 +6,8 @@ import { useState, useEffect, useRef } from 'react';
 type ProductCardProps = {
   product: ProductCardType;
   translateX?: number;
-  handleAnimationComplete: () => void;
-  instantJump: boolean;
+  handleAnimationComplete?: () => void;
+  instantJump?: boolean;
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -135,7 +135,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <motion.div
-      className='justify-center inline-block whitespace-normal relative h-full w-full text-left align-top'
+      className='justify-center inline-block whitespace-normal relative h-full w-full text-left align-top cursor-pointer'
       transition={
         instantJump
           ? { duration: 0 }
@@ -194,7 +194,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
                             duration: TRANSITION_DURATION,
                             ease: 'easeInOut',
                           }}
-                         
                           style={{
                             backgroundImage: `url(${product.images[currentImageIndex]})`,
                             backgroundSize: 'cover',

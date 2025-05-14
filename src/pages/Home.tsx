@@ -3,6 +3,7 @@ import NavBar from '../components/NavBar';
 import SectionOne from '@/components/SectionOne';
 import SectionTwo from '@/components/SectionTwo';
 import SectionThree from '@/components/SectionThree';
+import SectionFour from '@/components/SectionFour';
 
 const Home = () => {
   return (
@@ -12,7 +13,7 @@ const Home = () => {
       <SectionOne />
       <SectionTwo />
       <SectionThree />
-      {/* Add more sections as needed */}
+      <SectionFour />
     </div>
   );
 };
