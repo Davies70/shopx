@@ -31,3 +31,8 @@ export interface FeaturedType {
   images: string[];
   text: string;
 }
+
+export interface Review {
+  author: string;
+  review: string;
+}

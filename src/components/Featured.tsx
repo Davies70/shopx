@@ -1,6 +1,6 @@
 import RevealButtonWithIcon from './RevealButtonWithIcon';
 import { FeaturedType } from '@/types';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useRef } from 'react';
 
 import FeatureCard from './FeatureCard';
@@ -16,8 +16,13 @@ const Featured = ({ cards }: FeaturedProps) => {
     offset: ['end end', 'start start'],
   });
 
+  // Parallax transforms
   const translateY1 = useTransform(scrollYProgress, [0, 1], ['-10vw', '0vw']);
   const translateY2 = useTransform(scrollYProgress, [0, 1], ['-20vw', '0vw']);
+
+  // Use spring for smoother animation
+  const springY1 = useSpring(translateY1, { stiffness: 80, damping: 20 });
+  const springY2 = useSpring(translateY2, { stiffness: 80, damping: 20 });
 
   return (
     <div className='relative'>
@@ -43,14 +48,16 @@ const Featured = ({ cards }: FeaturedProps) => {
 
         <motion.div
           style={{
-            y: translateY1,
+            y: springY1,
+            willChange: 'transform', // Hint for GPU acceleration
           }}
         >
           <FeatureCard image={cards.images[1]} marginTop='10vw' />
         </motion.div>
         <motion.div
           style={{
-            y: translateY2,
+            y: springY2,
+            willChange: 'transform', // Hint for GPU acceleration
           }}
         >
           <FeatureCard image={cards.images[2]} marginTop='20vw' />

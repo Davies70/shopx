@@ -65,7 +65,7 @@ export default function RevealButton({
     >
       <div className='overflow-hidden items-center flex h-[1.2em]'>
         <motion.span
-          className='uppercase block whitespace-nowrap overflow-hidden'
+          className='uppercase block whitespace-nowrap overflow-hidden font-[400] leading-[1.5em]'
           initial={{ y: 0 }}
           animate={{
             y: isHovered || isParentHovered ? [translateY, '0'] : '0%',

@@ -14,16 +14,21 @@ const Home = () => {
   return (
     <div className='relative'>
       <NavBar />
-      <Hero />
-      <SectionOne />
-      <SectionTwo />
-      <SectionThree />
-      <SectionFour />
-      <SectionFive />
-      <SectionSix />
-      <SectionSeven />
-      <SectionEight />
-      <Footer />
+      <div className=''>
+        <div className='z-10 bg-[#fff] relative'>
+          <Hero />
+          <SectionOne />
+          <SectionTwo />
+          <SectionThree />
+          <SectionFour />
+          <SectionFive />
+          <SectionSix />
+          <SectionSeven />
+          <SectionEight />
+        </div>
+
+        <Footer />
+      </div>
     </div>
   );
 };

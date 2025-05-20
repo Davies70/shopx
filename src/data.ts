@@ -1,4 +1,4 @@
-import { Slide, Product, ProductCardType, FeaturedType } from './types';
+import { Slide, Product, ProductCardType, FeaturedType, Review } from './types';
 export const slidesOne: Slide[] = [
   {
     title_1: 'Your Survival',
@@ -249,4 +249,35 @@ export const footerProductLinks: string[] = [
   'Gas masks',
   'Tactical Gear',
   'Shop All',
+];
+
+export const testimonials: Review[] = [
+  {
+    review: ' "I am definitely prepared for the end of times "',
+    author: 'John Richardson',
+  },
+  {
+    review: '"My cat looks ready to lead a post-apocalyptic army. 10/10."',
+    author: 'Sarah Apocalypse',
+  },
+  {
+    review:
+      '"Finally, a backpack that fits my bunker snacks and existential dread!"',
+    author: 'Doomsday Dave',
+  },
+  {
+    review:
+      '"The emergency food supply tastes better than my cooking. Might eat it before the world ends."',
+    author: 'Hungry Hank',
+  },
+  {
+    review:
+      '"Bought the survival knife. Now I just need to survive my cooking."',
+    author: 'Chef Catastrophe',
+  },
+  {
+    review:
+      '"Solar charger works great, even powers my conspiracy theory podcasts!"',
+    author: 'Radio Rick',
+  },
 ];

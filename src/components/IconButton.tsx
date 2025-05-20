@@ -9,13 +9,15 @@ type IconButtonProps = {
   isParentFocused?: boolean;
   isParentActive?: boolean;
   borderColor?: string;
+  isCircle?: boolean;
 };
 const IconButton = ({
   onClick,
   type,
-  color,
+  color = 'rgb(255, 255, 255)',
   isParentHovered = false,
   borderColor = 'rgba(255,255,255,0.25)',
+  isCircle = true,
 }: IconButtonProps) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
@@ -34,7 +36,9 @@ const IconButton = ({
         transition={{ duration: 0.2, ease: 'easeInOut' }}
         className='w-[48px] h-[48px] rounded-full  overflow-hidden  flex justify-center items-center p-0'
         style={{
-          border: `1px solid ${borderColor}`,
+          border: isCircle ? `1px solid ${borderColor}` : 'none',
+
+          height: isCircle ? '48px' : '100%',
         }}
       >
         <motion.span
@@ -67,9 +71,13 @@ const IconButton = ({
           ) : (
             <ArrowRight
               size={16}
-              style={{
-                color,
-              }}
+              style={
+                isCircle
+                  ? { color }
+                  : isParentHovered
+                  ? { color }
+                  : { color: 'transparent' }
+              }
             />
           )}
         </motion.span>

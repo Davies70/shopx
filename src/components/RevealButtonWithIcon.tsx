@@ -11,6 +11,8 @@ type RevealButtonWithIconProps = {
   borderRadius?: string;
   iconBorderColor?: string;
   isTextPadding?: boolean;
+  iconType?: 'left' | 'right' | 'none';
+  isIconCircular?: boolean;
 };
 
 const RevealButtonWithIcon = ({
@@ -19,6 +21,8 @@ const RevealButtonWithIcon = ({
   textColor,
   iconBorderColor,
   isTextPadding = true,
+  iconType = 'right',
+  isIconCircular = true,
 }: RevealButtonWithIconProps) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
@@ -43,11 +47,12 @@ const RevealButtonWithIcon = ({
       />
 
       <IconButton
-        type='right'
+        type={iconType}
         onClick={() => console.log('clicked')}
         color={textColor}
         isParentHovered={isHovered}
         borderColor={iconBorderColor}
+        isCircle={isIconCircular}
       />
     </div>
   );
