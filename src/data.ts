@@ -1,4 +1,4 @@
-import { Slide, Product, ProductCardType } from './types';
+import { Slide, Product, ProductCardType, FeaturedType } from './types';
 export const slidesOne: Slide[] = [
   {
     title_1: 'Your Survival',
@@ -45,6 +45,27 @@ export const slidesTwo: Slide[] = [
     image: 'images/slide_4.webp',
   },
 ];
+
+export const firstFeaturedCards: FeaturedType = {
+  text: `The Purrtection Helmet is a military-grade headgear designed to
+              keep your cat safe and comfortable during any mission.`,
+  images: [
+    'images/new_card_1.png',
+    'images/new_card_2.png',
+    'images/new_card_3.png',
+  ],
+  title: ' DoomsDay Helmet',
+};
+
+export const secondFeaturedCards: FeaturedType = {
+  text: 'The Purrfect Camo Gear is the ultimate tactical outfit for your feline friend.',
+  images: [
+    'images/new_card_3.png',
+    'images/new_card_4.png',
+    'images/new_card_5.png',
+  ],
+  title: 'Camo for endtimes',
+};
 
 type Story = {
   title: string;
@@ -157,9 +178,11 @@ export const productCards: ProductCardType[] = [
     ],
     price: '$49.99',
     oldPrice: '$59.99',
+    percentOff: 17,
     productTitle: 'Survival Backpack',
     subtitle: 'Durable and spacious for all your survival needs.',
     labelTag: 'Best Seller',
+    productType: 'discount',
   },
   {
     id: 2,
@@ -171,6 +194,7 @@ export const productCards: ProductCardType[] = [
     price: '$29.99',
     productTitle: 'Emergency Food Supply',
     subtitle: '72-hour food supply for emergencies.',
+    productType: 'normal',
   },
   {
     id: 3,
@@ -180,10 +204,10 @@ export const productCards: ProductCardType[] = [
       'images/card_3_3.png',
     ],
     price: '$19.99',
-    oldPrice: '$24.99',
     productTitle: 'Water Purification Tablets',
     subtitle: 'Ensure safe drinking water anywhere.',
     labelTag: 'Limited Offer',
+    productType: 'normal',
   },
   {
     id: 4,
@@ -195,6 +219,7 @@ export const productCards: ProductCardType[] = [
     price: '$24.99',
     productTitle: 'First Aid Kit',
     subtitle: 'Comprehensive kit for emergency situations.',
+    productType: 'new',
   },
   {
     id: 5,
@@ -204,8 +229,24 @@ export const productCards: ProductCardType[] = [
       'images/card_5_3.png',
     ],
     price: '$39.99',
+    oldPrice: '$49.99',
+    percentOff: 20,
     productTitle: 'Solar Charger',
     subtitle: 'Keep your devices powered with solar energy.',
     labelTag: 'Eco-Friendly',
+    productType: 'discount',
   },
+];
+
+export const footerNavigationLinks: string[] = [
+  'Home',
+  'About',
+  'Contact',
+  'FAQ',
+];
+
+export const footerProductLinks: string[] = [
+  'Gas masks',
+  'Tactical Gear',
+  'Shop All',
 ];

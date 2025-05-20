@@ -47,12 +47,13 @@ export default function RevealButton({
         borderRadius,
         marginTop,
         fontSize: '11px',
-        paddingInline,
+
         padding: isPadding
           ? type === 'mobileNavButton'
             ? '1.5rem 0'
             : '14px 23px 14px 28px'
           : '0',
+        paddingInline,
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

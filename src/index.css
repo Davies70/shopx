@@ -120,13 +120,17 @@
   body {
     @apply bg-background text-foreground;
     @apply overflow-x-hidden;
-    font-family: 'Generalsans', sans-serif;
+    font-family: 'General Sans';
     letter-spacing: 5px;
     line-height: 20px;
     font-size: 14px;
   }
 }
 
-/* .section {
-  @apply z-10 flex justify-center max-[767px]:py-20 max-[991px]:py-25 min-[992px]:py-40 relative bg-amber-800;
-} */
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/GeneralSans-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

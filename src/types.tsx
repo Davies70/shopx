@@ -22,4 +22,12 @@ export interface ProductCardType {
   subtitle: string;
   labelTag?: string;
   url?: string;
+  percentOff?: number;
+  productType: 'new' | 'discount' | 'normal';
+}
+
+export interface FeaturedType {
+  title: string;
+  images: string[];
+  text: string;
 }

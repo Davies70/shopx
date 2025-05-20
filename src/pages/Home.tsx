@@ -4,6 +4,11 @@ import SectionOne from '@/components/SectionOne';
 import SectionTwo from '@/components/SectionTwo';
 import SectionThree from '@/components/SectionThree';
 import SectionFour from '@/components/SectionFour';
+import SectionFive from '@/components/SectionFive';
+import SectionSix from '@/components/SectionSix';
+import SectionSeven from '@/components/SectionSeven';
+import SectionEight from '@/components/SectionEight';
+import Footer from '@/components/Footer';
 
 const Home = () => {
   return (
@@ -14,6 +19,11 @@ const Home = () => {
       <SectionTwo />
       <SectionThree />
       <SectionFour />
+      <SectionFive />
+      <SectionSix />
+      <SectionSeven />
+      <SectionEight />
+      <Footer />
     </div>
   );
 };

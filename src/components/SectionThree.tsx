@@ -40,7 +40,7 @@ const SectionThree = () => {
   };
 
   return (
-    <section className='overflow-hidden py-[100px] min-[992px]:py-[160px] flex relative justify-center z-10'>
+    <section className='overflow-hidden py-[80px] min-[768px]:py-[100px] min-[992px]:py-[160px] flex relative justify-center z-10'>
       <GridWrapper>
         <div className='col-[1/4] row-[1/2] min-[992px]:col-[2/3] grid z-20 relative gap-x-4 gap-y-[48px] grid-rows-[auto] grid-cols-[1fr] content-between'>
           <div className='justify-self-center max-w-[550px]'>
