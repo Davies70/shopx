@@ -64,7 +64,7 @@ const SectionThree = () => {
               aria-label='carousel'
               className='flex h-full justify-center bg-transparent text-center clear-both relative bg-scroll'
             >
-              <motion.div className='w-[75%] min-[768px]:w-[45%] min-[992px]:w-[33.33%] overflow-visible z-1 h-full relative left-0 right-0 whitespace-nowrap block'>
+              <motion.div className='w-[75%] min-[768px]:w-[45%] min-[992px]:w-[33.33%] overflow-visible z-1 h-full relative left-0 right-0 whitespace-nowrap block will-change-transform'>
                 {productCards.map((product) => (
                   <ProductCard
                     product={product}

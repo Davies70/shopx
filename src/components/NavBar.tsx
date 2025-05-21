@@ -45,7 +45,7 @@ const Navbar = () => {
   return (
     <div className='flex flex-col absolute top-0 left-0 w-full z-[1000]'>
       <motion.div
-        className='fixed top-0 left-0 w-full'
+        className='fixed top-0 left-0 w-full '
         style={{
           backgroundColor,
           height: navbarHeight,
@@ -161,6 +161,7 @@ const Navbar = () => {
           </div>
         </GridWrapper>
         {/* Mobile Menu */}
+
         <div className='lg:hidden'>
           <MobileMenu
             isOpen={isOpen}

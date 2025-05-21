@@ -71,6 +71,9 @@ export default function RevealButton({
             y: isHovered || isParentHovered ? [translateY, '0'] : '0%',
           }}
           transition={{ duration: 0.7, ease: 'easeInOut' }} // Smoother easing
+          style={{
+            willChange: 'transform',
+          }}
         >
           {text}
         </motion.span>
