@@ -63,7 +63,7 @@ const SectionTwo = () => {
               animate={{ x: `-${currentIndex * 100}%` }}
               transition={
                 instantJump
-                  ? { duration: 0 }
+                  ? { duration: 0.01, ease: 'linear' } // almost instant, but avoids animation glitches
                   : { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }
               }
               onAnimationComplete={handleAnimationComplete}
