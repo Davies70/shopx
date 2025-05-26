@@ -76,10 +76,10 @@ const SectionTwo = () => {
                   key={index}
                   className='w-full shrink-0 whitespace-normal relative h-full inline-block align-top text-left'
                 >
-                  <div className='min-h-[65vw] p-[36px] min-[992px]:min-h-[700px] min-[768px]:p-[40px] min-[992px]:p-[80px] flex flex-col justify-end mx-[3px] overflow-hidden relative'>
+                  <div className='min-h-[70vw] p-[36px_24px] min-[768px]:min-h-[65vw]  min-[480px]:p-[36px] min-[992px]:min-h-[700px] min-[768px]:p-[40px] min-[992px]:p-[80px] flex flex-col justify-end mx-[3px] overflow-hidden relative'>
                     <div className='z-25 text-white relative max-w-[475px]'>
                       <div className='grid items-start grid-cols-1 grid-rows-1 gap-y-6 gap-x-4'>
-                        <h1 className='text-[32px] font-[600] leading-[1.35em] min-[992px]:text-[25px] tracking-[.07em] uppercase my-0'>
+                        <h1 className='text-[26px] min-[480px]:text-[32px] font-[600] leading-[1.35em] min-[992px]:text-[25px] tracking-[.07em] uppercase my-0'>
                           {slide.title_1}
                         </h1>
                         <RevealButtonWithIcon

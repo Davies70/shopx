@@ -1,27 +1,21 @@
 import { Slide, Product, ProductCardType, FeaturedType, Review } from './types';
 export const slidesOne: Slide[] = [
   {
-    title_1: 'Your Survival',
-    title_2: 'Starts',
-    title_3: 'Here:',
+    title_1: 'Your Survival starts here',
     image: 'images/slide_3.webp',
   },
   {
-    title_1: 'Be Ready ',
-    title_2: 'Cause',
-    title_3: 'The End is Near',
+    title_1: 'Be Ready Cause the end is near ',
+
     image: 'images/slide_2.webp',
   },
   {
-    title_1: 'Gear up',
-    title_2: 'In Style',
-    title_3: 'For Doomsday',
+    title_1: 'Gear up in style for doomsday',
+
     image: 'images/slide_1.webp',
   },
   {
-    title_1: 'Be the last one',
-    title_2: 'Standing',
-    title_3: 'With our gear',
+    title_1: 'Be the last one standing with our gear',
     image: 'images/slide_4.webp',
   },
 ];

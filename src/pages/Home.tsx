@@ -12,9 +12,9 @@ import Footer from '@/components/Footer';
 
 const Home = () => {
   return (
-    <div className='relative'>
+    <div className='relative m-0 min-h-full'>
       <NavBar />
-      <div className=''>
+      <div className='overflow-hidden min-[480px]:overflow-visible'>
         <div className='z-10 bg-[#fff] relative'>
           <Hero />
           <SectionOne />

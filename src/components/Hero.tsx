@@ -18,11 +18,10 @@ export default function Hero() {
   };
 
   return (
-    <section className='relative min-h-screen overflow-hidden px-[5vw]  bg-[#080808] z-[1]'>
-      <div className='absolute inset-0 px-[5vw]'>
+    <section className='min-h-[93vh] min-[480px]:min-h-[100vh] flex flex-row  bg-[#080808] justify-center'>
+      <div className='flex justify-center w-full relative overflow-hidden px-[5vw]'>
         <AnimatePresence>
           <motion.div
-            key={currentIndex}
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{
@@ -31,74 +30,79 @@ export default function Hero() {
               opacity: 0,
               transition: { duration: 0.5 },
             }}
+            className='carousel  h-full clear-both text-center max-w-[1500px] items-stretch bg-[#080808] absolute inset-0 bg-cover  flex  justify-center bg-[34%] min-[480px]:bg-[39%] min-[768px]:bg-[50%] min-[992px]:bg-[73%] bg-no-repeat '
             transition={{ duration: 0.9, ease: 'easeInOut' }}
-            className='absolute inset-0 bg-cover bg-center flex items-center justify-center'
             style={{
               backgroundImage: `url(${slidesOne[currentIndex].image})`,
             }}
+            key={currentIndex}
           >
-            <div className='relative z-10 flex flex-col items-center justify-start min-h-screen pt-[20vh] text-white max-w-[800px]'>
+            <div className='relative z-1 overflow-visible whitespace-nowrap h-full block left-0 right-0'>
               {slidesOne.map((slide, index) =>
                 index === currentIndex ? (
-                  <AnimatePresence key={index}>
-                    <motion.div
-                      initial={{ opacity: 0, y: 50 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -50 }}
-                      transition={{ duration: 0.5, delay: 0.6 }}
-                      className='flex flex-col items-center text-center uppercase text-[30px] sm:text-[40px] lg:text-[80px] font-[600] tracking-[0.04em] leading-[1.25em] w-full'
-                      key={index}
-                    >
-                      <h1>{slide.title_1}</h1>
-                      <h1>{slide.title_2}</h1>
-                      <h1>{slide.title_3}</h1>
-                    </motion.div>
-                    <motion.div
-                      initial={{ opacity: 0, y: 50 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -50 }}
-                      transition={{ duration: 0.5, delay: 1 }}
-                    >
-                      <RevealButton
-                        text='Shop All'
-                        backgroundColor='white'
-                        marginTop='36px'
-                        textColor='black'
-                        borderRadius='calc(infinity * 1px)'
-                      />
-                    </motion.div>
-                  </AnimatePresence>
+                  <motion.div
+                    className='inline-block whitespace-normal relative w-full h-full text-left align-top'
+                    key={index}
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -50 }}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                  >
+                    <div className='slide-content flex w-full h-full pt-[100px] pb-[140px] items-center justify-center'>
+                      <div className='z-[100] relative text-white grid max-w-[800px] justify-items-center grid-cols-[1fr] grid-rows-[auto_auto] text-center gap-y-[36px] gap-x-[24px]'>
+                        <motion.h1 className='text-[40px] min-[480px]:text-[48px] min-[768px]:text-[64px] min-[992px]:text-[80px] tracking-[0.04em] uppercase font-[600] leading-[1.25em]'>
+                          {slide.title_1} <br />
+                        </motion.h1>
+                        <motion.div
+                          initial={{ opacity: 0, y: 50 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -50 }}
+                          transition={{ duration: 0.5, delay: 1 }}
+                        >
+                          <RevealButton
+                            text='Shop All'
+                            backgroundColor='white'
+                            marginTop='36px'
+                            textColor='black'
+                            borderRadius='calc(infinity * 1px)'
+                          />
+                        </motion.div>
+                      </div>
+                    </div>
+                    <div className='absolute inset-0 bg-[rgba(8,8,8,.3)]'></div>
+                  </motion.div>
                 ) : null
               )}
+            </div>
+            <motion.div className='absolute overflow-hidden m-auto z-[3] bottom-[36px] left-0 right-auto top-auto'>
+              <IconButton
+                onClick={handlePrev}
+                type='left'
+                color='rgba(255,255,255,0.75)'
+              />
+            </motion.div>
+
+            <motion.div className='absolute overflow-hidden m-auto z-[3] bottom-[36px] right-0 left-auto top-auto'>
+              <IconButton
+                onClick={handleNext}
+                type='right'
+                color='rgba(255,255,255,0.75)'
+              />
+            </motion.div>
+
+            <div className='z-[2] flex absolute items-center justify-center bottom-[36px] flex-row min-[992px]:bottom-[40px] h-[48px] min-h-[12px] m-auto p-0 text-[6px] top-auto left-0 right-0 transform-none'>
+              {slidesOne.map((_, index) => (
+                <div
+                  key={index}
+                  className={`w-[1em] h-[1em] rounded-full mx-[6px] transition-colors duration-100 z-[10] ${
+                    index === currentIndex ? 'bg-white' : 'bg-gray-500'
+                  }`}
+                ></div>
+              ))}
             </div>
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className='z-9 absolute left-[5vw] right-[5vw] top-auto bottom-6 flex -translate-y-1/2 transform justify-between items-center p-0 text-[6px] h-12 min-h-3 m-auto '>
-        <IconButton
-          onClick={handlePrev}
-          type='left'
-          color='rgba(255,255,255,0.75)'
-        />
-        <div>
-          <div className='flex items-center justify-center gap-2 -z-20'>
-            {slidesOne.map((_, index) => (
-              <div
-                key={index}
-                className={`w-[1em] h-[1em] rounded-full mx-[6px] transition-colors duration-100 z-[10] ${
-                  index === currentIndex ? 'bg-white' : 'bg-gray-500'
-                }`}
-              ></div>
-            ))}
-          </div>
-        </div>
-        <IconButton
-          onClick={handleNext}
-          type='right'
-          color='rgba(255,255,255,0.75)'
-        />
-      </div>
-      <div className='absolute inset-0 bg-[rgba(8,8,8,.3)]'></div>
     </section>
   );
 }
