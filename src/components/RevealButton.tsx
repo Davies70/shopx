@@ -33,9 +33,7 @@ export default function RevealButton({
   const className =
     type === 'mobileNavButton'
       ? 'w-full h-full text-center max-w-full static flex no-underline leading-[1.2em] mx-0 items-center justify-center tracking-[5px] py-6 border-b-[#e4e9ec] border-b cursor-pointer overflow-hidden'
-      : 'relative inline-block overflow-hidden tracking-[5px] decorate-none text-sm sm:text-base cursor-pointer';
-
-  const translateY = type === 'mobileNavButton' ? '-200%' : '-200%';
+      : 'relative  inline-block overflow-hidden tracking-[5px] decorate-none text-sm sm:text-base cursor-pointer';
 
   return (
     <button
@@ -47,7 +45,6 @@ export default function RevealButton({
         borderRadius,
         marginTop,
         fontSize: '11px',
-
         padding: isPadding
           ? type === 'mobileNavButton'
             ? '1.5rem 0'
@@ -66,13 +63,24 @@ export default function RevealButton({
       <div className='overflow-hidden items-center flex h-[1.2em]'>
         <motion.span
           className='uppercase block whitespace-nowrap overflow-hidden font-[400] leading-[1.5em]'
-          initial={{ y: 0 }}
-          animate={{
-            y: isHovered || isParentHovered ? [translateY, '0'] : '0%',
+          initial={{ y: 0, opacity: 1, scale: 1 }}
+          animate={
+            isHovered || isParentHovered
+              ? {
+                  y: ['0%', '-200%', '200%', '0%'],
+                  opacity: [1, 0, 0, 1],
+                  scale: [1, 0.95, 0.95, 1],
+                }
+              : { y: '0%', opacity: 1, scale: 1 }
+          }
+          transition={{
+            duration: 0.7,
+            times: [0, 0.3, 0.3, 1],
+            ease: 'easeInOut',
           }}
-          transition={{ duration: 0.7, ease: 'easeInOut' }} // Smoother easing
           style={{
-            willChange: 'transform',
+            willChange: 'transform, opacity',
+            transformStyle: 'preserve-3d',
           }}
         >
           {text}

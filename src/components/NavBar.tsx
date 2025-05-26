@@ -40,137 +40,138 @@ const Navbar = () => {
     event.stopPropagation();
     event.preventDefault();
     setIsOpen((prevState) => !prevState);
+    console.log('Mobile menu toggled:', !isOpen);
   };
 
   return (
-    <div className='flex flex-col absolute top-0 left-0 w-full z-[1000]'>
+    <motion.div
+      style={{
+        willChange: 'width, height',
+        height: navbarHeight,
+      }}
+      transition={{ duration: 0.4 }}
+      className='fixed top-0 left-0 bottom-auto w-full flex justify-center bg-[rgba(255,255,255,0)] before:content-[""] after:clear-both after:content-[""] z-[1000]'
+    >
       <motion.div
-        className='fixed top-0 left-0 w-full '
+        className='bg-[rgba(255,255,255,0)] h-full w-full flex justify-center'
         style={{
           backgroundColor,
-          height: navbarHeight,
+          willChange: 'background',
         }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
       >
         <GridWrapper>
-          <div className='rol-[1/2] col-[2/3]'>
-            <div
-              className='navbar  z-50 relative uppercase border-none flex items-center justify-between'
-              style={{ height: '100%' }}
+          <div className='rol-[1/2] col-[2/3] grid justify-items-center justify-between grid-rows-[auto] grid-cols-[1fr_1fr] min-[992px]:grid-cols-[auto_1fr_auto] text-[rgb(255,255,255)] gap-x-[24px] gap-y-[16px] '>
+            <motion.a
+              className='logo cursor-pointer  flex uppercase tracking-[4px] justify-self-start items-center w-[110px] pl-0 text-[16px] font-[500] will-change-[filter] justify-start text-center '
+              style={{
+                fontFamily: 'Clash Display, sans-serif',
+                color: textColor,
+              }}
             >
-              {/* Left side: Logo */}
-              <div
-                tabIndex={0}
-                className='navbar-start cursor-pointer'
-                style={{
-                  fontFamily: '"Montserrat", sans-serif', // More visually appealing font
-                }}
-              >
-                <motion.a
-                  className='flex flex-col justify-center items-center text-sm sm:text-base font-medium'
-                  style={{ color: textColor }}
-                >
-                  <span>Shop</span>
-                  <span>Apocalypse</span>
-                </motion.a>
+              <div>
+                Shop <br /> Apocalypse
               </div>
-
-              {/* Center Nav - Hidden on small screens */}
-              <motion.div
-                className='navbar-center hidden lg:flex text-xs justify-center gap-x-10 font-light h-full'
-                style={{ color: textColor }}
-              >
-                {['Home', 'Shop', 'About', 'Contact'].map((item) => (
-                  <RevealButton text={item} key={item} type='normal' />
-                ))}
-              </motion.div>
-
-              {/* Right Side: Search, Cart & Mobile Menu */}
-              <div className='navbar-end flex items-center gap-4 sm:gap-8 relative'>
-                {/* Search */}
-                <motion.div
-                  className='hidden lg:flex w-8 h-8 rounded-full border border-opacity-25 justify-center items-center overflow-hidden tracking-normal'
-                  animate={{ width: isSearchOpen ? '60%' : 34 }}
-                  transition={{ duration: 0.3, ease: 'easeInOut' }}
-                  style={{ borderColor: textColor }}
-                >
-                  {!isSearchOpen ? (
-                    <motion.button
-                      onClick={() => setIsSearchOpen(true)}
-                      className='w-8 h-8 flex justify-center items-center'
-                      style={{ color: textColor }}
+            </motion.a>
+            <nav className='hidden min-[992px]:flex justify-self-stretch relative float-right'>
+              <div className='grid gap-[16px] grid-cols-[1fr_1fr_1fr] grid-rows-[auto] justify-between items-stretch w-full'>
+                <div className='grid grid-flow-col grid-cols-[auto] grid-rows-[auto] gap-y-[16px] gap-x-[54px] justify-self-center row-[1/2] col-[2/3]'>
+                  {['Home', 'Shop', 'About', 'Contact'].map((item) => (
+                    <div
+                      className='row-[span_1] col-[span_1] flex static justify-center items-center h-full'
+                      key={item}
                     >
-                      <Search size={14} className='cursor-pointer' />
-                    </motion.button>
-                  ) : (
-                    <form className='flex items-center w-full px-2'>
-                      <motion.input
-                        type='text'
-                        placeholder='Search...'
-                        autoFocus
-                        className='bg-transparent text-sm border-none outline-none w-full'
-                        style={{
-                          color: searchTextColor,
-                          fontFamily: '"Inter", sans-serif', // Clean, modern font for search
-                        }}
-                      />
-                      <motion.button
-                        type='reset'
-                        onClick={() => setIsSearchOpen(false)}
-                        className='ml-2 cursor-pointer w-8 h-8 flex justify-center items-center rounded-full'
-                        style={{ color: searchTextColor }}
-                      >
-                        <X size={16} />
-                      </motion.button>
-                    </form>
-                  )}
-                </motion.div>
-
-                {/* Shopping Cart */}
-                <motion.a
-                  tabIndex={0}
-                  className='flex cursor-pointer'
-                  style={{ color: textColor }}
-                >
-                  <div className='text-xs sm:text-sm grid min-h-9 h-9 items-center justify-center content-center auto-cols-fr grid-cols-[1fr_auto] grid-rows-[auto] uppercase gap-x-2 sm:gap-x-2 gap-y-4 font-light'>
-                    <div>Bag</div>
-                    <div className='flex items-center'>
-                      <span>(</span>
-                      <span className='px-0.5'>0</span>
-                      <span>)</span>
+                      <RevealButton text={item} key={item} type='normal' />
                     </div>
-                  </div>
-                </motion.a>
-
-                {/* Mobile Dropdown - Visible only on small screens */}
-                <div className='lg:hidden'>
-                  <motion.button
-                    aria-label='Toggle mobile menu'
-                    className='btn btn-ghost btn-circle'
-                    onClick={toggleMobileMenu}
-                    ref={toggleRef}
-                    style={{ color: textColor }}
+                  ))}
+                </div>
+                <div className='flex order-[-9999] justify-self-stretch row-[span_1] col-[span_1] min-[992px]:row-[1/2] min-[992px]:col-[3/4] flex-col justify-center items-end p-[12px] min-[992px]:pr-[6px]'>
+                  {/* Search */}
+                  <motion.div
+                    className='hidden lg:flex w-8 h-8 rounded-full border border-opacity-25 justify-center items-center overflow-hidden tracking-normal'
+                    animate={{ width: isSearchOpen ? '80%' : 34 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    style={{ borderColor: textColor }}
                   >
-                    <AlignRight />
-                  </motion.button>
+                    {!isSearchOpen ? (
+                      <motion.button
+                        onClick={() => setIsSearchOpen(true)}
+                        className='w-8 h-8 flex justify-center items-center'
+                        style={{
+                          color: 'rgba(255,255,255,.2)',
+                        }}
+                      >
+                        <Search size={14} className='cursor-pointer' />
+                      </motion.button>
+                    ) : (
+                      <form className='flex items-center w-full px-2'>
+                        <motion.input
+                          type='text'
+                          placeholder='Search...'
+                          autoFocus
+                          className='bg-transparent text-sm border-none outline-none w-full'
+                          style={{
+                            color: searchTextColor,
+                            fontFamily: '"Inter", sans-serif', // Clean, modern font for search
+                          }}
+                        />
+                        <motion.button
+                          type='reset'
+                          onClick={() => setIsSearchOpen(false)}
+                          className='ml-2 cursor-pointer w-8 h-8 flex justify-center items-center rounded-full'
+                          style={{ color: searchTextColor }}
+                        >
+                          <X size={16} />
+                        </motion.button>
+                      </form>
+                    )}
+                  </motion.div>
                 </div>
               </div>
+            </nav>
+
+            <div className='grid grid-flow-col grid-cols-[1fr] grid-rows-[auto] gap-y-[16px] gap-x-[30px] min-[992px]:gap-x-[16px] items-center self-center justify-self-end '>
+              <motion.a
+                tabIndex={0}
+                className='flex cursor-pointer'
+                style={{ color: textColor }}
+              >
+                <div className='text-xs sm:text-sm grid min-h-9 h-9 items-center justify-center content-center auto-cols-fr grid-cols-[1fr_auto] grid-rows-[auto] uppercase gap-x-2 sm:gap-x-2 gap-y-4 font-light'>
+                  <div>Bag</div>
+                  <div className='flex items-center'>
+                    <span>(</span>
+                    <span className='px-0.5'>0</span>
+                    <span>)</span>
+                  </div>
+                </div>
+              </motion.a>
+
+              <motion.button
+                aria-label='Toggle mobile menu'
+                onClick={toggleMobileMenu}
+                ref={toggleRef}
+                style={{ color: textColor }}
+                className='min-[992px]:hidden block p-0 items-center relative cursor-pointer'
+              >
+                <AlignRight
+                  size={24}
+                  className='w-[28px] align-middle max-w-full'
+                />
+              </motion.button>
             </div>
           </div>
         </GridWrapper>
-        {/* Mobile Menu */}
-
-        <div className='lg:hidden'>
-          <MobileMenu
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            toggleRef={toggleRef}
-          />
-        </div>
       </motion.div>
-    </div>
+      <div className='min[992px]:hidden absolute w-full left-0 right-0 top-full overflow-hidden bg-amber-800 z-[2000]'>
+        <MobileMenu
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          toggleRef={toggleRef}
+        />
+      </div>
+    </motion.div>
   );
 };
 

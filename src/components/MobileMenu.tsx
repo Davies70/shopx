@@ -58,7 +58,7 @@ const MobileMenu = ({ isOpen, setIsOpen, toggleRef }: MobileMenuProps) => {
           exit={{ height: 0 }}
           transition={{ duration: 0.4, ease: 'easeInOut' }}
           onClick={(e) => e.stopPropagation()} // Prevents closing when clicking inside
-          className='fixed min-w-[50px] top-[100px] left-0 z-50 flex w-full flex-col items-center justify-center bg-base-100 shadow-lg overflow-hidden'
+          className='fixed min-w-[50px]  left-0 z-50 flex w-full flex-col items-center justify-center bg-base-100 shadow-lg overflow-hidden'
         >
           <div className='max-w-full w-full flex flex-col decorate-none p-0 border-b-[#e4e9ec] border-b justify-self-stretch px-3 justify-center items-end'>
             <form className='flex justify-center items-center bg-[#f4f8fa] max-w-[500px] my-3 mx-auto w-full py-0 z-25 outline-none border border-[rgba(255,255,255,.25)] rounded-[100px] min-w-[34px] min-h-[34px] relative'>
@@ -68,7 +68,7 @@ const MobileMenu = ({ isOpen, setIsOpen, toggleRef }: MobileMenuProps) => {
               />
               <button
                 type='submit'
-                className='absolute right-1 top-1/2 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center text-sm text-white bg-[#e4e9ec] rounded-full hover:bg-[#d1d5db] focus:outline-none'
+                className='absolute cursor-pointer right-1 top-1/2 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center text-sm text-white bg-[#e4e9ec] rounded-full hover:bg-[#d1d5db] focus:outline-none'
               >
                 <Search className='text-black' size={12} />
               </button>
