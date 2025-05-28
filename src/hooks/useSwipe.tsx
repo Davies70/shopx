@@ -40,9 +40,9 @@ const useSwipe = (swipeLeft: SwipeHandler, swipeRight: SwipeHandler) => {
     const touchEndX = e.changedTouches[0].clientX;
     const swipeDistance = touchEndX - (touchStartXRef.current || 0);
     if (swipeDistance < -50) {
-      swipeLeft(); // Swipe left
+      swipeRight(); // Swipe left
     } else if (swipeDistance > 50) {
-      swipeRight();
+      swipeLeft();
     }
     touchStartXRef.current = null; // Reset after handling
   };
