@@ -14,6 +14,7 @@ type RevealButtonProps = {
   isParentHovered?: boolean;
   paddingInline?: string;
   isPadding?: boolean;
+  isOverflowHidden?: boolean;
 };
 
 export default function RevealButton({
@@ -27,13 +28,14 @@ export default function RevealButton({
   isPadding = true,
   isParentHovered,
   paddingInline,
+  isOverflowHidden = true,
 }: RevealButtonProps) {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const className =
     type === 'mobileNavButton'
-      ? 'w-full h-full text-center max-w-full static flex no-underline leading-[1.2em] mx-0 items-center justify-center tracking-[5px] py-6 border-b-[#e4e9ec] border-b cursor-pointer overflow-hidden'
-      : 'relative  inline-block overflow-hidden tracking-[5px] decorate-none text-sm sm:text-base cursor-pointer';
+      ? ' w-full h-full text-center max-w-full static flex no-underline leading-[1.5em] mx-0 items-center justify-center tracking-[5px] py-6 border-b-[#e4e9ec] border-b cursor-pointer overflow-hidden'
+      : 'leading-[1.5em] relative max-w-full inline-block overflow-hidden tracking-[5px] decorate-none text-sm sm:text-base cursor-pointer';
 
   return (
     <button
@@ -60,9 +62,12 @@ export default function RevealButton({
       onTouchEnd={() => setIsHovered(false)}
       onClick={onClick}
     >
-      <div className='overflow-hidden items-center flex h-[1.2em]'>
+      <div
+        className='items-center flex h-[1.2em]'
+        style={{ overflow: isOverflowHidden ? 'hidden' : 'visible' }}
+      >
         <motion.span
-          className='uppercase block whitespace-nowrap overflow-hidden font-[400] leading-[1.5em]'
+          className='uppercase block font-[400] text-center '
           initial={{ y: 0, opacity: 1, scale: 1 }}
           animate={
             isHovered || isParentHovered

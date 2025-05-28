@@ -40,7 +40,7 @@ const SectionThree = () => {
   };
 
   return (
-    <section className='overflow-hidden py-[80px] min-[768px]:py-[100px] min-[992px]:py-[160px] flex relative justify-center z-10'>
+    <section className='overflow-hidden py-[72px] min-[480px]:py-[80px] min-[768px]:py-[100px] min-[992px]:py-[160px] flex relative justify-center z-10'>
       <GridWrapper>
         <div className='col-[1/4] row-[1/2] min-[992px]:col-[2/3] grid z-20 relative gap-x-4 gap-y-[48px] grid-rows-[auto] grid-cols-[1fr] content-between'>
           <div className='justify-self-center max-w-[550px]'>
@@ -64,7 +64,10 @@ const SectionThree = () => {
               aria-label='carousel'
               className='flex h-full justify-center bg-transparent text-center clear-both relative bg-scroll'
             >
-              <motion.div className='w-[75%] min-[768px]:w-[45%] min-[992px]:w-[33.33%] overflow-visible z-1 h-full relative left-0 right-0 whitespace-nowrap block will-change-transform'>
+              <motion.div
+                drag='x'
+                className='w-[75%] min-[768px]:w-[45%] min-[992px]:w-[33.33%] overflow-visible z-1 h-full relative left-0 right-0 whitespace-nowrap block will-change-transform'
+              >
                 {productCards.map((product) => (
                   <ProductCard
                     product={product}

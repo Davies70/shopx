@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { slidesTwo } from '@/data';
 import GridWrapper from './GridWrapper';
 import RevealButtonWithIcon from './RevealButtonWithIcon';
 import FadeInIconButton from './FadeInIconButton';
+import useSwipe from '@/hooks/useSwipe';
 
 const SectionTwo = () => {
   const extendedSlides = [
@@ -12,7 +13,7 @@ const SectionTwo = () => {
     slidesTwo[0], // Clone of first slide
   ];
 
-  const [currentIndex, setCurrentIndex] = useState(1); // Start at first real slide
+  const [currentIndex, setCurrentIndex] = useState(0); // Start at first real slide
   const [isAnimating, setIsAnimating] = useState(false);
   const [instantJump, setInstantJump] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -29,6 +30,8 @@ const SectionTwo = () => {
     setCurrentIndex((prevIndex) => prevIndex - 1);
   };
 
+  const swipeHandlers = useSwipe(handlePrevButton, handleNextButton);
+
   const handleAnimationComplete = () => {
     setIsAnimating(false);
     if (currentIndex === extendedSlides.length - 1) {
@@ -44,9 +47,15 @@ const SectionTwo = () => {
     }
   };
 
+  useEffect(() => {
+    // Reset animation state when currentIndex changes
+    setIsAnimating(false);
+    setCurrentIndex(1);
+  }, []);
+
   return (
     <section
-      className='overflow-hidden py-[100px] min-[992px]:p-0 flex relative justify-center'
+      className='overflow-hidden p-0 flex relative justify-center'
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onTouchStart={() => setIsHovered(true)}
@@ -73,6 +82,7 @@ const SectionTwo = () => {
             >
               {extendedSlides.map((slide, index) => (
                 <motion.div
+                  {...swipeHandlers}
                   key={index}
                   className='w-full shrink-0 whitespace-normal relative h-full inline-block align-top text-left'
                 >

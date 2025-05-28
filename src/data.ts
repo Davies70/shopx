@@ -22,7 +22,7 @@ export const slidesOne: Slide[] = [
 
 export const slidesTwo: Slide[] = [
   {
-    title_1: 'Join the ranks of elite apocalypse preppers',
+    title_1: 'Join the ranks of elite preppers',
     image: 'images/slide_3.webp',
   },
   {
@@ -69,7 +69,7 @@ type Story = {
 };
 
 export const storyOne: Story = {
-  title: 'Our Story',
+  title: 'Get Ready for the End Times with Shop Apocalypse',
   description:
     "At Stealthy Whiskers, we're more than just a store that sells cat gear. We're passionate cat owners and military enthusiasts who want to help other cat owners train their furry friends to become skilled and prepared warriors. Learn more about our story and how we got started on our mission to help cats become the best they can be.",
   image_1: 'images/story_1.png',

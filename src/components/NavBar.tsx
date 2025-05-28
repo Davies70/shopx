@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Search, AlignRight, X } from 'lucide-react';
+import { Search, AlignLeft, X } from 'lucide-react';
 import MobileMenu from '@/components/MobileMenu';
 import RevealButton from './RevealButton';
 import GridWrapper from './GridWrapper';
@@ -65,26 +65,32 @@ const Navbar = () => {
         <GridWrapper>
           <div className='rol-[1/2] col-[2/3] grid justify-items-center justify-between grid-rows-[auto] grid-cols-[1fr_1fr] min-[992px]:grid-cols-[auto_1fr_auto] text-[rgb(255,255,255)] gap-x-[24px] gap-y-[16px] '>
             <motion.a
-              className='logo cursor-pointer  flex uppercase tracking-[4px] justify-self-start items-center w-[110px] pl-0 text-[16px] font-[500] will-change-[filter] justify-start text-center '
+              className='cursor-pointer  flex uppercase  justify-self-start items-center w-[110px] pl-0  font-[500] will-change-[filter] justify-start '
               style={{
                 fontFamily: 'Clash Display, sans-serif',
                 color: textColor,
               }}
             >
-              <div>
-                Shop <br /> Apocalypse
+              <div className='hidden min-[480px]:block text-[16px] text-center tracking-[4px]'>
+                <span>Shop</span> <br /> <span>Apocalypse</span>
+              </div>
+              <div className='flex flex-col leading-3 gap-0 min-[480px]:hidden text-[16px] items-center text-center tracking-[3px]'>
+                <div>Shop</div>
+                <div>Apoca</div>
+                <div>lypse</div>
               </div>
             </motion.a>
             <nav className='hidden min-[992px]:flex justify-self-stretch relative float-right'>
               <div className='grid gap-[16px] grid-cols-[1fr_1fr_1fr] grid-rows-[auto] justify-between items-stretch w-full'>
                 <div className='grid grid-flow-col grid-cols-[auto] grid-rows-[auto] gap-y-[16px] gap-x-[54px] justify-self-center row-[1/2] col-[2/3]'>
                   {['Home', 'Shop', 'About', 'Contact'].map((item) => (
-                    <div
+                    <motion.div
                       className='row-[span_1] col-[span_1] flex static justify-center items-center h-full'
                       key={item}
+                      style={{ color: textColor }}
                     >
                       <RevealButton text={item} key={item} type='normal' />
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
                 <div className='flex order-[-9999] justify-self-stretch row-[span_1] col-[span_1] min-[992px]:row-[1/2] min-[992px]:col-[3/4] flex-col justify-center items-end p-[12px] min-[992px]:pr-[6px]'>
@@ -93,14 +99,13 @@ const Navbar = () => {
                     className='hidden lg:flex w-8 h-8 rounded-full border border-opacity-25 justify-center items-center overflow-hidden tracking-normal'
                     animate={{ width: isSearchOpen ? '80%' : 34 }}
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    style={{ borderColor: textColor }}
                   >
                     {!isSearchOpen ? (
                       <motion.button
                         onClick={() => setIsSearchOpen(true)}
                         className='w-8 h-8 flex justify-center items-center'
                         style={{
-                          color: 'rgba(255,255,255,.2)',
+                          color: searchTextColor,
                         }}
                       >
                         <Search size={14} className='cursor-pointer' />
@@ -132,7 +137,7 @@ const Navbar = () => {
               </div>
             </nav>
 
-            <div className='grid grid-flow-col grid-cols-[1fr] grid-rows-[auto] gap-y-[16px] gap-x-[30px] min-[992px]:gap-x-[16px] items-center self-center justify-self-end '>
+            <div className='grid grid-flow-col grid-cols-[1fr] grid-rows-[auto] gap-y-[16px] gap-x-[10px] min-[992px]:gap-x-[18px] items-center self-center justify-self-end '>
               <motion.a
                 tabIndex={0}
                 className='flex cursor-pointer'
@@ -155,7 +160,7 @@ const Navbar = () => {
                 style={{ color: textColor }}
                 className='min-[992px]:hidden block p-0 items-center relative cursor-pointer'
               >
-                <AlignRight
+                <AlignLeft
                   size={24}
                   className='w-[28px] align-middle max-w-full'
                 />

@@ -30,13 +30,14 @@ export default function Hero() {
               opacity: 0,
               transition: { duration: 0.5 },
             }}
-            className='carousel  h-full clear-both text-center max-w-[1500px] items-stretch bg-[#080808] absolute inset-0 bg-cover  flex  justify-center bg-[34%] min-[480px]:bg-[39%] min-[768px]:bg-[50%] min-[992px]:bg-[73%] bg-no-repeat '
+            className='h-full clear-both text-center max-w-[1500px] items-stretch bg-[#080808] absolute inset-0 bg-cover  flex  justify-center bg-[34%] min-[480px]:bg-[39%] min-[768px]:bg-[50%] min-[992px]:bg-[73%] bg-no-repeat '
             transition={{ duration: 0.9, ease: 'easeInOut' }}
             style={{
               backgroundImage: `url(${slidesOne[currentIndex].image})`,
             }}
             key={currentIndex}
           >
+            <div className='absolute inset-0 bg-[rgba(8,8,8,.3)]'></div>
             <div className='relative z-1 overflow-visible whitespace-nowrap h-full block left-0 right-0'>
               {slidesOne.map((slide, index) =>
                 index === currentIndex ? (
@@ -69,7 +70,6 @@ export default function Hero() {
                         </motion.div>
                       </div>
                     </div>
-                    <div className='absolute inset-0 bg-[rgba(8,8,8,.3)]'></div>
                   </motion.div>
                 ) : null
               )}
