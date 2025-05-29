@@ -97,7 +97,6 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import clsx from 'clsx';
 
 type RevealButtonProps = {
   text: string;
@@ -128,28 +127,40 @@ export default function RevealButton({
   paddingInline,
   isOverflowHidden = true,
 }: RevealButtonProps) {
-  const [isHovered, setIsHovered] = useState(false);
+  const [animationKey, setAnimationKey] = useState<number>(0);
 
   const isMobileButton = type === 'mobileNavButton';
 
-  const buttonClasses = clsx(
+  const buttonClasses = [
     'cursor-pointer tracking-wide',
     isMobileButton
       ? 'w-full h-full text-center flex items-center justify-center border-b border-b-[#e4e9ec] py-6'
       : 'relative inline-block',
     isPadding ? (isMobileButton ? 'py-6' : 'py-[14px] px-[28px]') : 'p-0',
-    textSize
-  );
+    textSize,
+  ].join(' ');
+
+  const triggerAnimation = () => {
+    setAnimationKey((prev) => prev + 1); // forces re-mount of <motion.span>
+  };
 
   return (
     <button
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onFocus={() => setIsHovered(true)}
-      onBlur={() => setIsHovered(false)}
-      // onTouchStart={() => setIsHovered(true)}
-      // onTouchEnd={() => setIsHovered(false)}
-      onClick={onClick}
+      onClick={(e) => {
+        triggerAnimation();
+        if (onClick) {
+          onClick();
+        }
+        e.preventDefault(); // Prevent default action if needed
+      }}
+      onTouchStart={triggerAnimation}
+      onMouseEnter={triggerAnimation}
+      onMouseLeave={triggerAnimation}
+      onFocus={triggerAnimation}
+      onBlur={triggerAnimation}
+      onTouchEnd={triggerAnimation}
+      onMouseDown={triggerAnimation}
+      
       className={buttonClasses}
       style={{
         backgroundColor,
@@ -164,17 +175,14 @@ export default function RevealButton({
         style={{ overflow: isOverflowHidden ? 'hidden' : 'visible' }}
       >
         <motion.span
+          key={animationKey} // key forces re-animation
           className='uppercase font-medium text-center block'
           initial={{ y: 0, opacity: 1, scale: 1 }}
-          animate={
-            isHovered || isParentHovered
-              ? {
-                  y: ['0%', '-100%', '100%', '0%'],
-                  opacity: [1, 0, 0, 1],
-                  scale: [1, 0.98, 0.98, 1],
-                }
-              : { y: '0%', opacity: 1, scale: 1 }
-          }
+          animate={{
+            y: ['0%', '-100%', '100%', '0%'],
+            opacity: [1, 0, 0, 1],
+            scale: [1, 0.98, 0.98, 1],
+          }}
           transition={{
             duration: 0.6,
             times: [0, 0.3, 0.3, 1],
