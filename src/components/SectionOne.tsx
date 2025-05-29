@@ -18,11 +18,11 @@ const SPRING_CONFIG = {
 } as const;
 
 // Parallax ranges for different effects
-const PARALLAX_RANGES = {
-  subtle: [-20, 0, 20], // Subtle movement
-  medium: [-40, 0, 40], // Medium movement
-  strong: [-60, 0, 60], // Strong movement
-} as const;
+// const PARALLAX_RANGES = {
+//   subtle: [-20, 0, 20], // Subtle movement
+//   medium: [-40, 0, 40], // Medium movement
+//   strong: [-60, 0, 60], // Strong movement
+// } as const;
 
 const SectionOne = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -44,13 +44,13 @@ const SectionOne = () => {
   const translateY1 = useTransform(
     scrollYProgress,
     [0, 0.5, 1],
-    [...PARALLAX_RANGES.medium] // Medium parallax for first image
+    [-40, 0, 40] // Medium parallax for first image
   );
 
   const translateY2 = useTransform(
     scrollYProgress,
     [0, 0.5, 1],
-    PARALLAX_RANGES.medium.map((val) => -val) // Opposite direction for second image
+    [40, 0, -40] // Opposite direction for second image
   );
 
   // Content animations - subtle vertical movement and fade
