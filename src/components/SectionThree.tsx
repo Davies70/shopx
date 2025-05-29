@@ -4,6 +4,7 @@ import { productCards } from '@/data';
 import ProductCard from './ProductCard';
 import FadeInIconButton from './FadeInIconButton';
 import { useState } from 'react';
+import useSwipe from '@/hooks/useSwipe';
 
 const SectionThree = () => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -23,6 +24,8 @@ const SectionThree = () => {
     setIsAnimating(true);
     setCurrentIndex((prevIndex) => prevIndex - 1);
   };
+
+  const swipeHandlers = useSwipe(handlePrevButton, handleNextButton);
 
   const handleAnimationComplete = () => {
     setIsAnimating(false);
@@ -65,7 +68,7 @@ const SectionThree = () => {
               className='flex h-full justify-center bg-transparent text-center clear-both relative bg-scroll'
             >
               <motion.div
-                drag='x'
+                {...swipeHandlers}
                 className='w-[75%] min-[768px]:w-[45%] min-[992px]:w-[33.33%] overflow-visible z-1 h-full relative left-0 right-0 whitespace-nowrap block will-change-transform'
               >
                 {productCards.map((product) => (
