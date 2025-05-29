@@ -41,7 +41,7 @@ export default function RevealButton({
     <button
       className={className}
       style={{
-        touchAction: 'none',
+        // touchAction: 'none',
         backgroundColor,
         color: textColor,
         borderRadius,
@@ -74,12 +74,12 @@ export default function RevealButton({
               ? {
                   y: ['0%', '-200%', '200%', '0%'],
                   opacity: [1, 0, 0, 1],
-                  scale: [1, 0.95, 0.95, 1],
+                  scale: [1, 0.98, 0.98, 1],
                 }
               : { y: '0%', opacity: 1, scale: 1 }
           }
           transition={{
-            duration: 0.7,
+            duration: 0.6,
             times: [0, 0.3, 0.3, 1],
             ease: 'easeInOut',
           }}
