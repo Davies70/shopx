@@ -26,7 +26,6 @@ const StoryContent = ({ title, description }: StoryContentProps) => {
           text='Shop All'
           backgroundColor='#080808'
           textColor='white'
-          textSize='text-[18px]'
           borderRadius='100px'
           onClick={() => console.log('Discover the collection clicked')}
           isOverflowHidden={false}
