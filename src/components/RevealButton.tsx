@@ -147,8 +147,8 @@ export default function RevealButton({
       onMouseLeave={() => setIsHovered(false)}
       onFocus={() => setIsHovered(true)}
       onBlur={() => setIsHovered(false)}
-      onTouchStart={() => setIsHovered(true)}
-      onTouchEnd={() => setIsHovered(false)}
+      // onTouchStart={() => setIsHovered(true)}
+      // onTouchEnd={() => setIsHovered(false)}
       onClick={onClick}
       className={buttonClasses}
       style={{
