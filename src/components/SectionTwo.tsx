@@ -7,11 +7,7 @@ import FadeInIconButton from './FadeInIconButton';
 import useSwipe from '@/hooks/useSwipe';
 
 const SectionTwo = () => {
-  const extendedSlides = [
-    slidesTwo[slidesTwo.length - 1], // Clone of last slide
-    ...slidesTwo,
-    slidesTwo[0], // Clone of first slide
-  ];
+  const extendedSlides = [...slidesTwo];
 
   const [currentIndex, setCurrentIndex] = useState(0); // Start at first real slide
   const [isAnimating, setIsAnimating] = useState(false);
@@ -22,6 +18,11 @@ const SectionTwo = () => {
     if (isAnimating) return;
     setIsAnimating(true);
     setCurrentIndex((prevIndex) => prevIndex + 1);
+     if (currentIndex === extendedSlides.length ) {
+      // Jump to first real slide
+      setInstantJump(true);
+      setCurrentIndex(0);
+    }
   };
 
   const handlePrevButton = () => {
@@ -34,14 +35,14 @@ const SectionTwo = () => {
 
   const handleAnimationComplete = () => {
     setIsAnimating(false);
-    if (currentIndex === extendedSlides.length - 1) {
+    if (currentIndex === extendedSlides.length ) {
       // Jump to first real slide
       setInstantJump(true);
-      setCurrentIndex(1);
-    } else if (currentIndex === 0) {
+      setCurrentIndex(0);
+    } else if (currentIndex < 0) {
       // Jump to last real slide
       setInstantJump(true);
-      setCurrentIndex(extendedSlides.length - 2);
+      setCurrentIndex(extendedSlides.length - 1);
     } else {
       setInstantJump(false);
     }
@@ -140,7 +141,7 @@ const SectionTwo = () => {
                 <div
                   key={index}
                   className={`w-[1em] h-[1em] rounded-full mx-[6px] transition-colors duration-100 ${
-                    currentIndex - 1 === index ? 'bg-[#080808]' : 'bg-gray-500'
+                    currentIndex  === index ? 'bg-[#080808]' : 'bg-gray-500'
                   }`}
                 ></div>
               ))}
