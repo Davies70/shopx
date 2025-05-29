@@ -1,100 +1,3 @@
-// import { motion } from 'framer-motion';
-// import { useState } from 'react';
-
-// type RevealButtonProps = {
-//   text: string;
-//   backgroundColor?: string;
-//   textColor?: string;
-//   textSize?: string;
-//   padding?: string;
-//   borderRadius?: string;
-//   marginTop?: string;
-//   onClick?: () => void;
-//   type?: 'mobileNavButton' | 'normal';
-//   isParentHovered?: boolean;
-//   paddingInline?: string;
-//   isPadding?: boolean;
-//   isOverflowHidden?: boolean;
-// };
-
-// export default function RevealButton({
-//   text,
-//   onClick,
-//   backgroundColor,
-//   textColor = '',
-//   borderRadius,
-//   type = 'normal',
-//   marginTop,
-//   isPadding = true,
-//   isParentHovered,
-//   paddingInline,
-//   isOverflowHidden = true,
-// }: RevealButtonProps) {
-//   const [isHovered, setIsHovered] = useState<boolean>(false);
-
-//   const className =
-//     type === 'mobileNavButton'
-//       ? ' w-full h-full text-center max-w-full static flex no-underline leading-[1.5em] mx-0 items-center justify-center tracking-[5px] py-6 border-b-[#e4e9ec] border-b cursor-pointer overflow-hidden'
-//       : 'leading-[1.5em] relative max-w-full inline-block tracking-[5px] decorate-none text-sm sm:text-base cursor-pointer';
-
-//   return (
-//     <button
-//       className={className}
-//       style={{
-//         // touchAction: 'none',
-//         backgroundColor,
-//         color: textColor,
-//         borderRadius,
-//         marginTop,
-//         fontSize: '11px',
-//         padding: isPadding
-//           ? type === 'mobileNavButton'
-//             ? '1.5rem 0'
-//             : '14px 23px 14px 28px'
-//           : '0',
-//         paddingInline,
-//       }}
-//       onMouseEnter={() => setIsHovered(true)}
-//       onMouseLeave={() => setIsHovered(false)}
-//       onFocus={() => setIsHovered(true)}
-//       onBlur={() => setIsHovered(false)}
-//       onTouchStart={() => setIsHovered(true)}
-//       onTouchEnd={() => setIsHovered(false)}
-//       onClick={onClick}
-//     >
-//       <div
-//         className='items-center flex h-[1.2em]'
-//         style={{ overflow: isOverflowHidden ? 'hidden' : 'visible' }}
-//       >
-//         <motion.span
-//           className='uppercase block font-[400] text-center '
-//           initial={{ y: 0, opacity: 1, scale: 1 }}
-//           animate={
-//             isHovered || isParentHovered
-//               ? {
-//                   y: ['0%', '-200%', '200%', '0%'],
-//                   opacity: [1, 0, 0, 1],
-//                   scale: [1, 0.98, 0.98, 1],
-//                 }
-//               : { y: '0%', opacity: 1, scale: 1 }
-//           }
-//           transition={{
-//             duration: 0.6,
-//             times: [0, 0.3, 0.3, 1],
-//             ease: 'easeInOut',
-//           }}
-//           style={{
-//             willChange: 'transform, opacity',
-//             transformStyle: 'preserve-3d',
-//           }}
-//         >
-//           {text}
-//         </motion.span>
-//       </div>
-//     </button>
-//   );
-// }
-
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -102,7 +5,6 @@ type RevealButtonProps = {
   text: string;
   backgroundColor?: string;
   textColor?: string;
-  textSize?: string;
   borderRadius?: string;
   marginTop?: string;
   onClick?: () => void;
@@ -113,81 +15,122 @@ type RevealButtonProps = {
   isOverflowHidden?: boolean;
 };
 
+const BASE_STYLES = {
+  leadingRelaxed: 'leading-[1.5em]',
+  maxWidthFull: 'max-w-full',
+  trackingWide: 'tracking-[5px]',
+  cursor: 'cursor-pointer',
+  textTransform: 'uppercase',
+  fontWeight: 'font-[400]',
+  textAlign: 'text-center',
+} as const;
+
+const MOBILE_NAV_CLASSES = [
+  'w-full',
+  'h-full',
+  'static',
+  'flex',
+  'no-underline',
+  'mx-0',
+  'items-center',
+  'justify-center',
+  'py-6',
+  'border-b-[#e4e9ec]',
+  'border-b',
+  'overflow-hidden',
+  BASE_STYLES.leadingRelaxed,
+  BASE_STYLES.maxWidthFull,
+  BASE_STYLES.trackingWide,
+  BASE_STYLES.cursor,
+  BASE_STYLES.textAlign,
+].join(' ');
+
+const NORMAL_CLASSES = [
+  'relative',
+  'inline-block',
+  'text-sm',
+  'sm:text-base',
+  BASE_STYLES.leadingRelaxed,
+  BASE_STYLES.maxWidthFull,
+  BASE_STYLES.trackingWide,
+  BASE_STYLES.cursor,
+].join(' ');
+
+const DEFAULT_PADDING = {
+  mobileNavButton: '1.5rem 0',
+  normal: '14px 23px 14px 28px',
+} as const;
+
+const ANIMATION_CONFIG = {
+  duration: 0.6,
+  times: [0, 0.3, 0.3, 1] as const,
+  ease: 'easeInOut' as const,
+} as const;
+
 export default function RevealButton({
   text,
   onClick,
   backgroundColor,
-  textColor,
-  textSize = 'text-sm sm:text-base',
-  borderRadius = '0.5rem',
+  textColor = '',
+  borderRadius,
   type = 'normal',
   marginTop,
   isPadding = true,
-  isParentHovered,
+  isParentHovered = false,
   paddingInline,
   isOverflowHidden = true,
 }: RevealButtonProps) {
-  const [animationKey, setAnimationKey] = useState<number>(0);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const isMobileButton = type === 'mobileNavButton';
+  const shouldAnimate = isHovered || isParentHovered;
+  const className =
+    type === 'mobileNavButton' ? MOBILE_NAV_CLASSES : NORMAL_CLASSES;
 
-  const buttonClasses = [
-    'cursor-pointer tracking-wide',
-    isMobileButton
-      ? 'w-full h-full text-center flex items-center justify-center border-b border-b-[#e4e9ec] py-6'
-      : 'relative inline-block',
-    isPadding ? (isMobileButton ? 'py-6' : 'py-[14px] px-[28px]') : 'p-0',
-    textSize,
-  ].join(' ');
+  const handleInteractionStart = () => setIsHovered(true);
+  const handleInteractionEnd = () => setIsHovered(false);
 
-  const triggerAnimation = () => {
-    setAnimationKey((prev) => prev + 1); // forces re-mount of <motion.span>
+  const buttonStyle = {
+    backgroundColor,
+    color: textColor,
+    borderRadius,
+    marginTop,
+    fontSize: '11px',
+    padding: isPadding ? DEFAULT_PADDING[type] : '0',
+    paddingInline,
+  };
+
+  const animationVariants = {
+    initial: { y: 0, opacity: 1, scale: 1 },
+    animate: shouldAnimate
+      ? {
+          y: ['0%', '-200%', '200%', '0%'],
+          opacity: [1, 0, 0, 1],
+          scale: [1, 0.98, 0.98, 1],
+        }
+      : { y: '0%', opacity: 1, scale: 1 },
   };
 
   return (
     <button
-      onClick={(e) => {
-        triggerAnimation();
-        if (onClick) {
-          onClick();
-        }
-        e.preventDefault(); // Prevent default action if needed
-      }}
-      onTouchStart={triggerAnimation}
-      onMouseEnter={triggerAnimation}
-      onMouseLeave={triggerAnimation}
-      onFocus={triggerAnimation}
-      onBlur={triggerAnimation}
-      onTouchEnd={triggerAnimation}
-      onMouseDown={triggerAnimation}
-      
-      className={buttonClasses}
-      style={{
-        backgroundColor,
-        color: textColor,
-        borderRadius,
-        marginTop,
-        paddingInline,
-      }}
+      className={className}
+      style={buttonStyle}
+      onMouseEnter={handleInteractionStart}
+      onMouseLeave={handleInteractionEnd}
+      onFocus={handleInteractionStart}
+      onBlur={handleInteractionEnd}
+      onTouchStart={handleInteractionStart}
+      onTouchEnd={handleInteractionEnd}
+      onClick={onClick}
     >
       <div
-        className='flex items-center h-[1.2em]'
+        className='items-center flex h-[1.2em]'
         style={{ overflow: isOverflowHidden ? 'hidden' : 'visible' }}
       >
         <motion.span
-          key={animationKey} // key forces re-animation
-          className='uppercase font-medium text-center block'
-          initial={{ y: 0, opacity: 1, scale: 1 }}
-          animate={{
-            y: ['0%', '-100%', '100%', '0%'],
-            opacity: [1, 0, 0, 1],
-            scale: [1, 0.98, 0.98, 1],
-          }}
-          transition={{
-            duration: 0.6,
-            times: [0, 0.3, 0.3, 1],
-            ease: 'easeInOut',
-          }}
+          className={`block ${BASE_STYLES.textTransform} ${BASE_STYLES.fontWeight} ${BASE_STYLES.textAlign}`}
+          initial={animationVariants.initial}
+          animate={animationVariants.animate}
+          transition={ANIMATION_CONFIG}
           style={{
             willChange: 'transform, opacity',
             transformStyle: 'preserve-3d',
