@@ -5,6 +5,7 @@ import GridWrapper from './GridWrapper';
 import RevealButtonWithIcon from './RevealButtonWithIcon';
 import FadeInIconButton from './FadeInIconButton';
 import useSwipe from '@/hooks/useSwipe';
+import Heading from './Heading';
 
 const SectionTwo = () => {
   // Create infinite loop slides: [last, ...original, first]
@@ -111,9 +112,7 @@ const SectionTwo = () => {
                   <div className='min-h-[70vw] p-[36px_24px] min-[768px]:min-h-[65vw] min-[480px]:p-[36px] min-[992px]:min-h-[700px] min-[768px]:p-[40px] min-[992px]:p-[80px] flex flex-col justify-end mx-[3px] overflow-hidden relative'>
                     <div className='z-25 text-white relative max-w-[475px]'>
                       <div className='grid items-start grid-cols-1 grid-rows-1 gap-y-6 gap-x-4'>
-                        <h1 className='text-[26px] min-[480px]:text-[32px] font-[600] leading-[1.35em] min-[992px]:text-[25px] tracking-[.07em] uppercase my-0'>
-                          {slide.title_1}
-                        </h1>
+                        <Heading type='normal' text={slide.title_1} />
                         <RevealButtonWithIcon
                           text='Shop All'
                           iconBorderColor='transparent'
@@ -157,7 +156,7 @@ const SectionTwo = () => {
             />
 
             {/* Dots */}
-            <div className='flex absolute items-end h-[36px] bottom-0 justify-center min-h-[12px] m-auto p-0 text-[6px] top-auto left-0 right-0 transform-none min-[992px]:hidden text-white'>
+            <div className='flex absolute items-end h-[36px] bottom-0 justify-center min-h-[12px] m-auto p-0 text-[6px] top-auto left-0 right-0 transform-none  text-white'>
               {slidesTwo.map((_, index) => (
                 <div
                   key={`dot-${index}`}

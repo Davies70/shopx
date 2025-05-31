@@ -1,5 +1,6 @@
 import RevealButton from './RevealButton';
 import RevealButtonWithIcon from './RevealButtonWithIcon';
+import Heading from './Heading';
 
 type StoryContentProps = {
   title: string;
@@ -11,9 +12,7 @@ const StoryContent = ({ title, description }: StoryContentProps) => {
     <div className='grid max-[479px]:mt-[-18px] text-center justify-center items-center gap-y-12 gap-x-4 grid-rows-[auto] grid-cols-[1fr] auto-cols-[1fr]'>
       <div className='grid justify-items-start auto-cols-[1fr] grid-cols-[1fr] grid-rows-[auto] gap-x-4 gap-y-4.5'>
         <div className='flex justify-center items-center max-w-[700px] uppercase text-center w-full'>
-          <h1 className='text-[32px] min-[480px]:text-[36px] min-[780px]:text-[38px] min-[992px]:text-[42px] font-[600] leading-[1.35em] tracking-[.07em]'>
-            {title}
-          </h1>
+          <Heading text={title} type='large' />
         </div>
         <div className='justify-self-center max-w-[550px]'>
           <div className='text-[18px] leading-[1.65em] text-[#667479] font-[400] tracking-normal'>

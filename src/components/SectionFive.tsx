@@ -5,7 +5,7 @@ import { firstFeaturedCards, secondFeaturedCards } from '@/data';
 
 const SectionFive = () => {
   return (
-    <section className='py-[80px] min-[768px]:py-[100px] min-[992px]:py-[160px] flex z-10 justify-center relative'>
+    <section className='py-[72px] min-[480px]:py-[80px] min-[768px]:py-[100px] min-[992px]:py-[160px] flex z-10 justify-center relative'>
       <GridWrapper>
         <div className='row-[1/2] col-[2/3] gap-y-[48px] min-[768px]:gap-y-[60px] min-[992px]:gap-y-[80px] bg-scroll z-20 grid-rows-[auto] grid-cols-[1fr] content-between grid relative'>
           <div className='text-center grid-cols-[1fr] justify-items-center justify-start gap-x-[16px] gap-y-[16px] grid-rows-[auto] items-end grid'>

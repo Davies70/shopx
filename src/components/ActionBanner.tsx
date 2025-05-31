@@ -2,7 +2,7 @@ import GridWrapper from '@/components/GridWrapper';
 import RevealButton from '@/components/RevealButton';
 import { motion } from 'framer-motion';
 
-const SectionSix = () => {
+const ActionBanner = () => {
   return (
     <div className='flex relative pt-[48px] min-[768px]:pt-[80px] min-[992px]:pt-[200px] min-h-[500px] min-[992px]:min-h-[500px] pb-[80px] min-[992px]:pb-[100px] justify-center items-center'>
       <div className='grid z-20 gap-x-[16px] gap-y-[48px] grid-rows-[auto] grid-cols-[1fr] content-between'>
@@ -51,4 +51,4 @@ const SectionSix = () => {
   );
 };
 
-export default SectionSix;
+export default ActionBanner;

@@ -44,6 +44,7 @@ const RevealButtonWithIcon = ({
         isParentHovered={isHovered}
         paddingInline='0px'
         isPadding={isTextPadding}
+        
       />
 
       <IconButton

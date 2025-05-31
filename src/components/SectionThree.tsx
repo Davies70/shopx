@@ -5,6 +5,7 @@ import ProductCard from './ProductCard';
 import FadeInIconButton from './FadeInIconButton';
 import { useState } from 'react';
 import useSwipe from '@/hooks/useSwipe';
+import Heading from './Heading';
 
 const SectionThree = () => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -29,14 +30,14 @@ const SectionThree = () => {
 
   const handleAnimationComplete = () => {
     setIsAnimating(false);
-    if (currentIndex === productCards.length - 1) {
+    if (currentIndex === productCards.length) {
       // Jump to first real slide
       setInstantJump(true);
-      setCurrentIndex(1);
-    } else if (currentIndex === 0) {
+      setCurrentIndex(0);
+    } else if (currentIndex < 0) {
       // Jump to last real slide
       setInstantJump(true);
-      setCurrentIndex(productCards.length - 2);
+      setCurrentIndex(productCards.length - 1);
     } else {
       setInstantJump(false);
     }
@@ -51,9 +52,7 @@ const SectionThree = () => {
               <div className='justify-center text-[#667479] tracking-[4x] uppercase text-[14px] font-[300] leading-[1.3em]'>
                 Popular
               </div>
-              <h1 className='font-[600] leading-[1.35em] text-[42px] tracking-[0.07em] uppercase my-0 mx-[0.67em] text-[#080808]'>
-                Best Selling
-              </h1>
+              <Heading text='Best Selling' type='large' />
             </div>
           </div>
           <div

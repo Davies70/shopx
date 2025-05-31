@@ -3,8 +3,9 @@ import DragButton from './DragButton';
 import { testimonials } from '@/data';
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import Heading from './Heading';
 
-const SectionSeven = () => {
+const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [instantJump, setInstantJump] = useState(false);
 
@@ -33,7 +34,7 @@ const SectionSeven = () => {
   const sliderRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section className='overflow-hidden py-[80px] min-[768px]:py-[100px] min-[992px]:py-[160px] flex relative justify-center z-10'>
+    <section className='overflow-hidden py-[72px] min-[480px]:py-[80px] min-[768px]:py-[100px] min-[992px]:py-[160px] flex relative justify-center z-10'>
       <GridWrapper isClipped={true}>
         <div className='flex col-[1/4] row-[1/2] min-[768px]:col-[2/3] justify-center w-full px-[5vw] overflow-hidden py-[36px] min-[768px]:overflow-visible'>
           <div className='bg-transparent clear-both justify-center w-full h-full pb-[60px] flex text-center relative '>
@@ -71,9 +72,7 @@ const SectionSeven = () => {
                   >
                     <div className='grid relative gap-y-[26px] z-2 gap-x-[16px] grid-rows-[auto] grid-cols-[1fr] content-between'>
                       <div className='max-w-[975px]'>
-                        <h1 className='text-[36px] min-[768px]:text-[38px] min-[991px]:text-[42px] font-[600] leading-[1.35em] tracking-[0.07em] uppercase'>
-                          {slide.review}
-                        </h1>
+                        <Heading text={slide.review} type='large' />
                       </div>
                       <div className='self-center'>
                         <div className='text-[#667479] tracking-[4px] uppercase text-[14px] font-[300] leading-[1.3em]'>
@@ -113,4 +112,4 @@ const SectionSeven = () => {
   );
 };
 
-export default SectionSeven;
+export default Testimonials;

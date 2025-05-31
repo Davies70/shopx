@@ -23,6 +23,7 @@ const BASE_STYLES = {
   textTransform: 'uppercase',
   fontWeight: 'font-[400]',
   textAlign: 'text-center',
+  whiteSpace: 'whitespace-nowrap',
 } as const;
 
 const MOBILE_NAV_CLASSES = [
@@ -127,7 +128,7 @@ export default function RevealButton({
         style={{ overflow: isOverflowHidden ? 'hidden' : 'visible' }}
       >
         <motion.span
-          className={`block ${BASE_STYLES.textTransform} ${BASE_STYLES.fontWeight} ${BASE_STYLES.textAlign}`}
+          className={`block ${BASE_STYLES.textTransform} ${BASE_STYLES.fontWeight} ${BASE_STYLES.whiteSpace} ${BASE_STYLES.textAlign}`}
           initial={animationVariants.initial}
           animate={animationVariants.animate}
           transition={ANIMATION_CONFIG}

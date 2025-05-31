@@ -1,12 +1,12 @@
 import Hero from '../components/Hero';
 import NavBar from '../components/NavBar';
-import SectionOne from '@/components/SectionOne';
-import SectionTwo from '@/components/SectionTwo';
+import Mission from '@/components/Mission';
+import FeatureGrid from '@/components/FeatureGrid';
 import SectionThree from '@/components/SectionThree';
 import SectionFour from '@/components/SectionFour';
 import SectionFive from '@/components/SectionFive';
-import SectionSix from '@/components/SectionSix';
-import SectionSeven from '@/components/SectionSeven';
+import ActionBanner from '@/components/ActionBanner';
+import Testimonials from '@/components/Testimonials';
 import SectionEight from '@/components/SectionEight';
 import Footer from '@/components/Footer';
 
@@ -17,13 +17,13 @@ const Home = () => {
       <div className='overflow-hidden min-[480px]:overflow-visible'>
         <div className='z-10 bg-[#fff] relative'>
           <Hero />
-          <SectionOne />
-          <SectionTwo />
+          <Mission />
+          <FeatureGrid />
           <SectionThree />
           <SectionFour />
           <SectionFive />
-          <SectionSix />
-          <SectionSeven />
+          <ActionBanner />
+          <Testimonials />
           <SectionEight />
         </div>
 

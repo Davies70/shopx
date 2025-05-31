@@ -31,12 +31,7 @@ const SectionFour = () => {
                     </div>
                     <div className='  grid gap-y-[24px] max-w-[400px] z-[100] gap-x-[24px] text-white text-center justify-items-center grid-rows-[auto_auto] grid-cols-[1fr] items-center relative whitespace-normal '>
                       <h2 className='tracking-[0.07em] text-[36px] leading-[1.35em] uppercase font-[600] text-center break-words '>
-                        {slide.title_1 +
-                          ' ' +
-                          slide.title_2 +
-                          ' ' +
-                          slide.title_3}
-                        <br />
+                        {slide.title_1} <br />
                       </h2>
                       <RevealButtonWithIcon
                         text='Shop All'
