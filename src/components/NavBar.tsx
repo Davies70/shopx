@@ -1,10 +1,10 @@
 import { useState, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, MotionValue, useScroll, useTransform } from 'framer-motion';
 import { Search, AlignLeft, X } from 'lucide-react';
 import MobileMenu from '@/components/MobileMenu';
 import RevealButton from './RevealButton';
 import GridWrapper from './GridWrapper';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { navLinks } from '@/data';
 
 const Navbar = () => {
@@ -12,29 +12,44 @@ const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const toggleRef = useRef(null);
 
+  const { pathname } = useLocation();
+  const excludedLinks = ['/about'];
+
   // Use Framer Motion's scroll hooks for better performance
   const { scrollY } = useScroll();
 
   // Transform scrollY to various values
-  const backgroundColor = useTransform(
+  const MotionValueBackgroundColor = useTransform(
     scrollY,
     [0, 300],
     ['rgba(0, 0, 0, 0)', 'rgba(255, 255, 255, 1)']
   );
 
+  const backgroundColor: string | MotionValue = excludedLinks.includes(pathname)
+    ? 'rgba(255, 255, 255, 1)'
+    : MotionValueBackgroundColor;
+
   // More efficient color transformations using direct color values
-  const textColor = useTransform(
+  const MotionValueTextColor = useTransform(
     scrollY,
     [0, 300],
     ['rgba(255, 255, 255, 1)', 'rgba(8, 8, 8, 1)'] // White to light black (#080808)
   );
 
+  const textColor = excludedLinks.includes(pathname)
+    ? 'rgba(8, 8, 8, 1)'
+    : MotionValueTextColor;
   // Separate transformation for search text (white to gray)
-  const searchTextColor = useTransform(
+
+  const MotionValueSearchTextColor = useTransform(
     scrollY,
     [0, 300],
     ['rgba(255, 255, 255, 1)', 'rgba(100, 100, 100, 1)']
   );
+
+  const searchTextColor = excludedLinks.includes(pathname)
+    ? 'rgba(100, 100, 100, 1)'
+    : MotionValueSearchTextColor;
 
   const navbarHeight = useTransform(scrollY, [0, 300], [100, 60]);
 
@@ -42,7 +57,6 @@ const Navbar = () => {
     event.stopPropagation();
     event.preventDefault();
     setIsOpen((prevState) => !prevState);
-    console.log('Mobile menu toggled:', !isOpen);
   };
 
   return (
@@ -94,17 +108,25 @@ const Navbar = () => {
                         className='row-[span_1] col-[span_1] flex static justify-center items-center h-full'
                         style={{ color: textColor }}
                       >
-                        <RevealButton text={link} key={link} type='normal' />
+                        <RevealButton
+                          text={link}
+                          key={link}
+                          type='normal'
+                          isPadding={false}
+                        />
                       </motion.div>
                     </Link>
                   ))}
                 </div>
-                <div className='flex order-[-9999] justify-self-stretch row-[span_1] col-[span_1] min-[992px]:row-[1/2] min-[992px]:col-[3/4] flex-col justify-center items-end p-[12px] min-[992px]:pr-[6px]'>
+                <div className='flex order-[-9999] justify-self-stretch row-[span_1] col-[span_1] min-[992px]:row-[1/2] min-[992px]:col-[3/4] flex-col justify-center items-end  min-[992px]:pr-[6px]'>
                   {/* Search */}
                   <motion.div
                     className='hidden lg:flex w-8 h-8 rounded-full border border-opacity-25 justify-center items-center overflow-hidden tracking-normal'
-                    animate={{ width: isSearchOpen ? '80%' : 34 }}
+                    animate={{ width: isSearchOpen ? '100%' : 34 }}
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    style={{
+                      borderColor: searchTextColor,
+                    }}
                   >
                     {!isSearchOpen ? (
                       <motion.button
