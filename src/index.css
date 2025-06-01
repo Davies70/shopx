@@ -1,10 +1,10 @@
 @import 'tailwindcss';
 
-@plugin "tailwindcss-animate";
+/* @plugin "tailwindcss-animate";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.dark *)); */
 
-@plugin "daisyui";
+/* @plugin "daisyui";
 
 :root {
   --radius: 0.625rem;
@@ -111,15 +111,15 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-}
+} */
 
 @layer base {
-  * {
+  /* * {
     @apply border-border outline-ring/50;
-  }
+  } */
   body {
-    @apply bg-background text-foreground;
-    @apply overflow-x-hidden;
+    /* @apply bg-background text-foreground;
+    @apply overflow-x-hidden; */
     font-family: 'General Sans';
     letter-spacing: 5px;
     line-height: 20px;

@@ -1,4 +1,11 @@
-import { Slide, Product, ProductCardType, FeaturedType, Review } from './types';
+import {
+  Slide,
+  Product,
+  ProductCardType,
+  FeaturedType,
+  Review,
+  NavLink,
+} from './types';
 export const slidesOne: Slide[] = [
   {
     title_1: 'Your Survival starts here',
@@ -273,5 +280,24 @@ export const testimonials: Review[] = [
     review:
       '"Solar charger works great, even powers my conspiracy theory podcasts!"',
     author: 'Radio Rick',
+  },
+];
+
+export const navLinks: NavLink[] = [
+  {
+    link: 'Home',
+    url: '/',
+  },
+  {
+    link: 'Shop',
+    url: '/shop',
+  },
+  {
+    link: 'About',
+    url: '/about',
+  },
+  {
+    link: 'Contact',
+    url: '/contact',
   },
 ];

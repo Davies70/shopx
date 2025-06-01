@@ -1,13 +1,10 @@
 import { slidesTwo } from '@/data';
 
-console.log(slidesTwo.slice(0, 2));
-console.log(slidesTwo.slice(2));
-
 const SectionEight = () => {
   return (
     <section className='p-0  min-[992px]-[160px] flex z-10 justify-center relative'>
       <div className='grid grid-cols-[1fr_1fr] min-[480px]:grid-cols-[1fr_1fr_1fr_1fr] gap-y-[6px] gap-x-[6px] min-[992px]:gap-y-[16px] grid-rows-[auto] min-[767px]:grid-cols-[1fr_1fr_auto_1fr_1fr] w-full p-[6px]'>
-        {slidesTwo.slice(0,2).map((slide, index) => (
+        {slidesTwo.slice(0, 2).map((slide, index) => (
           <a
             key={index}
             className='min-h-[48vw] min-[480px]:min-h-[23vw] min-[768px]:min-h-[18vw] min-[992px]:min-h-[16vw] text-center spacing-[0.05em] uppercase justify-center items-center text-[22px] leading-[1.2em] flex relative overflow-hidden max-w-full '

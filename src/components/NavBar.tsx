@@ -4,6 +4,8 @@ import { Search, AlignLeft, X } from 'lucide-react';
 import MobileMenu from '@/components/MobileMenu';
 import RevealButton from './RevealButton';
 import GridWrapper from './GridWrapper';
+import { Link } from 'react-router-dom';
+import { navLinks } from '@/data';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -71,26 +73,30 @@ const Navbar = () => {
                 color: textColor,
               }}
             >
-              <div className='hidden min-[480px]:block text-[16px] text-center tracking-[4px]'>
-                <span>Shop</span> <br /> <span>Apocalypse</span>
-              </div>
-              <div className='flex flex-col leading-3 gap-0 min-[480px]:hidden text-[16px] items-center text-center tracking-[3px]'>
-                <div>Shop</div>
-                <div>Apoca</div>
-                <div>lypse</div>
-              </div>
+              <Link to='/'>
+                <div className='hidden min-[480px]:block text-[16px] text-center tracking-[4px]'>
+                  <span>Shop</span> <br /> <span>Apocalypse</span>
+                </div>
+
+                <div className='flex flex-col leading-3 gap-0 min-[480px]:hidden text-[16px] items-center text-center tracking-[3px]'>
+                  <div>Shop</div>
+                  <div>Apoca</div>
+                  <div>lypse</div>
+                </div>
+              </Link>
             </motion.a>
             <nav className='hidden min-[992px]:flex justify-self-stretch relative float-right'>
               <div className='grid gap-[16px] grid-cols-[1fr_1fr_1fr] grid-rows-[auto] justify-between items-stretch w-full'>
                 <div className='grid grid-flow-col grid-cols-[auto] grid-rows-[auto] gap-y-[16px] gap-x-[54px] justify-self-center row-[1/2] col-[2/3]'>
-                  {['Home', 'Shop', 'About', 'Contact'].map((item) => (
-                    <motion.div
-                      className='row-[span_1] col-[span_1] flex static justify-center items-center h-full'
-                      key={item}
-                      style={{ color: textColor }}
-                    >
-                      <RevealButton text={item} key={item} type='normal' />
-                    </motion.div>
+                  {navLinks.map(({ link, url }) => (
+                    <Link to={url} key={link}>
+                      <motion.div
+                        className='row-[span_1] col-[span_1] flex static justify-center items-center h-full'
+                        style={{ color: textColor }}
+                      >
+                        <RevealButton text={link} key={link} type='normal' />
+                      </motion.div>
+                    </Link>
                   ))}
                 </div>
                 <div className='flex order-[-9999] justify-self-stretch row-[span_1] col-[span_1] min-[992px]:row-[1/2] min-[992px]:col-[3/4] flex-col justify-center items-end p-[12px] min-[992px]:pr-[6px]'>

@@ -1,5 +1,5 @@
 type HeadingProps = {
-  type: 'normal' | 'large';
+  type: 'normal' | 'large' | 'extra-large';
   text: string;
 };
 
@@ -10,9 +10,16 @@ const Heading = ({ type, text }: HeadingProps) => {
         {text}
       </h1>
     );
+  } else if (type === 'large') {
+    return (
+      <h1 className='text-inherit uppercase text-[32px] min-[480px]:text-[36px] min-[780px]:text-[38px] min-[992px]:text-[42px] font-[600] leading-[1.35em] tracking-[.07em]'>
+        {text}
+      </h1>
+    );
   }
+
   return (
-    <h1 className='text-inherit uppercase text-[32px] min-[480px]:text-[36px] min-[780px]:text-[38px] min-[992px]:text-[42px] font-[600] leading-[1.35em] tracking-[.07em]'>
+    <h1 className='text-inherit uppercase text-[38px] min-[480px]:text-[44px] min-[780px]:text-[40px] min-[992px]:text-[52px] font-[600] leading-[1.35em] tracking-[.07em]'>
       {text}
     </h1>
   );

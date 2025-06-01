@@ -36,3 +36,8 @@ export interface Review {
   author: string;
   review: string;
 }
+
+export interface NavLink {
+  link: string;
+  url: string;
+}

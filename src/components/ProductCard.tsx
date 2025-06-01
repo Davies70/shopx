@@ -175,7 +175,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 className='grid no-underline decoration-0 gap-x-[3px] gap-y-[3px] text-[#080808] bg-[rgb(255,255,255)] grid-rows-[auto_auto] grid-cols-[1fr] max-w-[100%]'
               >
                 <div className='card-image-wrapper h-full bg-[rgb(244,248,250)] overflow-hidden rounded-sm'>
-                  <div className='card-image h-[100vw] min-[768px]:h-[65vw] min-[992px]:h-[44vw] max-h-[700px] flex flex-col justify-end min-h-full overflow-hidden relative'>
+                  <div className='h-[75vw] min-[480px]:h-[65vw]  min-[992px]:h-[44vw] max-h-[725px] flex flex-col justify-end min-h-full overflow-hidden relative'>
                     {/* Main image container with scaling effect */}
                     <motion.div
                       className='absolute inset-0 h-full w-full'
