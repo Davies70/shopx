@@ -1,6 +1,13 @@
 import GridWrapper from '@/components/GridWrapper';
 import Heading from '@/components/Heading';
 import { ChevronDown } from 'lucide-react';
+import { slidesOne } from '@/data';
+import { motion } from 'framer-motion';
+import StackedIntro from '@/components/StackedIntro';
+import RevealButton from '@/components/RevealButton';
+import { firstFeaturedCards, slidesTwo } from '@/data';
+import RevealButtonWithIcon from '@/components/RevealButtonWithIcon';
+import ActionBanner from '@/components/ActionBanner';
 
 const About = () => {
   return (
@@ -25,14 +32,160 @@ const About = () => {
                   </p>
                 </div>
               </div>
-              <a className='w-[24px] max-w-fit inline-block'>
+              <a className='w-[24px] max-w-fit inline-block text-[#667479]'>
                 <ChevronDown className='' />
               </a>
             </div>
           </GridWrapper>
         </div>
+        <div className='grid auto-cols-[1fr] grid-flow-col grid-cols-[1fr_1fr_1fr] grid-rows-[auto] gap-[6px] flex-[1_1_0%]'>
+          {slidesOne.map(({ image }, index) => (
+            <motion.div
+              key={index}
+              className='will-change-transform min-h-[65vw] min-w-[50vw] min-[480px]:min-h-[35vw] min-[992px]:min-h-[45vw] min-[480px]:min-w-[33.33vw] relative overflow-hidden h-full'
+            >
+              <motion.div className='will-change-transform absolute inset-0 overflow-hidden'>
+                <div
+                  className='bg-no-repeat bg-cover absolute inset-0 bg-[50%_center]'
+                  style={{
+                    backgroundImage: `url(${image})`,
+                  }}
+                ></div>
+              </motion.div>
+            </motion.div>
+          ))}
+        </div>
       </section>
-      <section className='grid aut-cols-[1fr] grid-flow-col grid-cols-[1fr_1fr_1fr] grid-rows-[auto] gap-[6px]'></section>
+
+      <section className='overflow-hidden p-0 z-10 justify-center flex relative'>
+        <GridWrapper>
+          <div className='row-[1/2] col-[2/3] gap-y-[60px] grid grid-cols-[auto] pt-[72px]  min-[480px]:pt-[80px] pb-0 gap-x-[16px] min-[768px]:gap-y-[16px] grid-rows-[auto] min-[768px]:grid-cols-[auto_auto] justify-between items-center w-full min-[768px]:pt-[160px] min-[768px]:pb-[180px]'>
+            <div className='max-w-[550px]'>
+              <StackedIntro type='large'>
+                <StackedIntro type='small'>
+                  <div className='max-w-[700px]'>
+                    <Heading
+                      text='Get in line and stay prepared'
+                      type='large'
+                    />
+                  </div>
+                  <div className='max-w-[425px]'>
+                    <div className='text-[#667479] text-[18px] leading-[1.65em] tracking-normal'>
+                      As the end draws closer with threats of nuclear fallout,
+                      AI overlords and airborne pandemics, the will to live
+                      stays within us, the forward-thinking ones. For we have
+                      taken the neccessry precautions to get ready, stay stafe
+                      and stay head of the sheep. As we shop for the apocalypse
+                      and Doomsday, we will survive because of dogged
+                      preparedness.
+                    </div>
+                  </div>
+                </StackedIntro>
+                <div className='justify-self-start'>
+                  <RevealButton
+                    text='shop now'
+                    backgroundColor='#080808'
+                    textColor='white'
+                    borderRadius='100px'
+                  />
+                </div>
+              </StackedIntro>
+            </div>
+            <div className='w-[90vw] h-[80vw] min-[480px]:w-[70vw] min-[480px]:h-[60vw] min-h-[40vw] p-[20px] overflow-hidden flex relative justify-items-end'>
+              {firstFeaturedCards.images.map((image, index) => (
+                <motion.div
+                  key={index}
+                  className='will-change-transform w-[55vw] h-[55vw] min-[480px]:w-[40vw] min-[480px]:h-[40vw] min-[768px]:w-[22vw] min-[768px]:h-[22vw] absolute overflow-hidden'
+                >
+                  <div className='absolute inset-0 overflow-hidden'>
+                    <div
+                      style={{
+                        backgroundImage: `url(${image})`,
+                      }}
+                      className='bg-[50%] bg-no-repeat bg-cover absolute inset-0'
+                    ></div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </GridWrapper>
+      </section>
+      <section className='pt-0 flex relative pb-[72px] min-[480px]:pb-[80px] min-[768px]:pb-[100px] min-[992px]:pb-[160px] z-10 justify-center'>
+        <GridWrapper>
+          <div className='grid row-[1/2] col-[1/3] gap-y-[0px] grid-cols-[1fr] gap-x-[100px] min-[992px]:gap-y-[16px] min-[992px]:grid-cols-[50vw_1fr] w-full grid-rows-[auto]'>
+            <div className='h-[80vw] min-h-[275px] min-[768px]:h-[70vw] min-[768px]:min-h-[500px] min-[992px]:min-h-[700px] relative overflow-hidden'>
+              <div
+                className='absolute inset-0 bg-no-repeat bg-[50%] bg-cover'
+                style={{
+                  backgroundImage: `url(${slidesTwo[2].image})`,
+                }}
+              ></div>
+            </div>
+            <div className='pt-[48px] min-[480px]:pt-[60px] min-[768px]:pt-[80px]  min-[768px]:pb-[0] grid gap-y-[36px] max-w-none p-[0_10vw_80px_5vw] gap-x-[48px] min-[992px]:gap-y-[48px] grid-rows-[auto_auto] grid-cols-[1fr] auto-cols-[1fr] content-center min-[992px]:max-w-[600px] min-[992px]:p-[150px]'>
+              <div className='text-[#667479] tracking-[4px] uppercase text-[14px] leading-[1.3em] font-[300]'>
+                Our Story
+              </div>
+              <StackedIntro type='small'>
+                <div className='justify-self-start max-w-[700px]'>
+                  <Heading type='large' text={`started from the bottom`} />
+                </div>
+                <div className='max-w-[425px]'>
+                  <div className='text-[#667479] text-[18px] leading-[1.65em] tracking-normal'>
+                    As the end draws closer with threats of nuclear fallout, AI
+                    overlords and airborne pandemics, the will to live stays
+                    within us, the forward-thinking ones. For we have taken the
+                    neccessry precautions to get ready, stay stafe and stay head
+                    of the sheep. As we shop for the apocalypse and Doomsday, we
+                    will survive because of dogged preparedness.
+                  </div>
+                </div>
+              </StackedIntro>
+              <div className='justify-self-start'>
+                <RevealButtonWithIcon text='Shop now' textColor='#667479' />
+              </div>
+            </div>
+          </div>
+        </GridWrapper>
+      </section>
+      <ActionBanner />
+      <section className='pt-0 pb-[72px] min-[480px]:pb-[80px] min-[768px]:pt-[100px] z-10 justify-center min-[992px]:pt-[160px] flex relative'>
+        <GridWrapper>
+          <div className='grid row-[1/2] col-[1/3] gap-y-[0px] grid-cols-[1fr] gap-x-[100px] min-[992px]:gap-y-[16px] min-[992px]:grid-cols-[50vw_1fr] w-full grid-rows-[auto]'>
+            <div className='pt-[48px] min-[480px]:pt-[60px] min-[768px]:pt-[80px]  min-[768px]:pb-[0] grid gap-y-[36px] max-w-none p-[0_10vw_80px_5vw] gap-x-[48px] min-[992px]:gap-y-[48px] grid-rows-[auto_auto] grid-cols-[1fr] auto-cols-[1fr] content-center min-[992px]:max-w-[600px] min-[992px]:p-[150px]'>
+              <div className='text-[#667479] tracking-[4px] uppercase text-[14px] leading-[1.3em] font-[300]'>
+                Our Story
+              </div>
+              <StackedIntro type='small'>
+                <div className='justify-self-start max-w-[700px]'>
+                  <Heading type='large' text={`started from the bottom`} />
+                </div>
+                <div className='max-w-[425px]'>
+                  <div className='text-[#667479] text-[18px] leading-[1.65em] tracking-normal'>
+                    As the end draws closer with threats of nuclear fallout, AI
+                    overlords and airborne pandemics, the will to live stays
+                    within us, the forward-thinking ones. For we have taken the
+                    neccessry precautions to get ready, stay stafe and stay head
+                    of the sheep. As we shop for the apocalypse and Doomsday, we
+                    will survive because of dogged preparedness.
+                  </div>
+                </div>
+              </StackedIntro>
+              <div className='justify-self-start'>
+                <RevealButtonWithIcon text='Shop now' textColor='#667479' />
+              </div>
+            </div>
+            <div className='h-[80vw] min-h-[275px] min-[768px]:h-[70vw] min-[768px]:min-h-[500px] min-[992px]:min-h-[700px] relative overflow-hidden'>
+              <div
+                className='absolute inset-0 bg-no-repeat bg-[50%] bg-cover'
+                style={{
+                  backgroundImage: `url(${slidesTwo[2].image})`,
+                }}
+              ></div>
+            </div>
+          </div>
+        </GridWrapper>
+      </section>
     </div>
   );
 };

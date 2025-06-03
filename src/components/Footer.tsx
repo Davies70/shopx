@@ -70,7 +70,7 @@ const Footer = () => {
   // );
 
   return (
-    <footer className=' top-auto bottom-[0%] left-[0%] right-[0%] bg-[#080808] sticky z-0'>
+    <footer className=' top-auto bottom-[0%] left-[0] right-[0] bg-[#080808] sticky z-0 w-full'>
       <div className='pb-0 pt-[72px] min-[480px]:pt-[80px] min-[768px]:py-[100px] min-[992px]:pb-[160px] z-10 justify-center flex relative'>
         <GridWrapper>
           <div className='row-[1/2] col-[2/3] min-h-[300px] '>
@@ -114,7 +114,7 @@ const Footer = () => {
               style={{
                 borderTop: '1px solid rgba(255, 255, 255, .2)',
               }}
-              className=' max-[767px]:text-center max-[767px]:justify-center max-[767px]:justify-items-center grid grid-cols-[1fr] justify-center  gap-[16px] grid-rows-[auto] min-[768px]:grid-cols-[1fr_1fr] py-[28px]'
+              className=' text-center justify-center justify-items-center grid grid-cols-[1fr]  gap-[16px] grid-rows-[auto] min-[768px]:grid-cols-[1fr_1fr] py-[28px] '
             >
               <div className='justify-self-center min-[768px]:justify-self-start  gap-[16px] opacity-[.8] text-white tracking-[4px] uppercase grid grid-rows-[auto] grid-cols-[auto] grid-flow-col justify-end text-[9px] '>
                 <div>© 2025 Shop Apocalypse</div>

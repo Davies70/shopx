@@ -80,7 +80,7 @@ const Navbar = () => {
       >
         <GridWrapper>
           <div className='rol-[1/2] col-[2/3] grid justify-items-center justify-between grid-rows-[auto] grid-cols-[1fr_1fr] min-[992px]:grid-cols-[auto_1fr_auto] text-[rgb(255,255,255)] gap-x-[24px] gap-y-[16px] '>
-            <motion.a
+            <motion.div
               className='cursor-pointer  flex uppercase  justify-self-start items-center w-[110px] pl-0  font-[500] will-change-[filter] justify-start '
               style={{
                 fontFamily: 'Clash Display, sans-serif',
@@ -98,7 +98,7 @@ const Navbar = () => {
                   <div>lypse</div>
                 </div>
               </Link>
-            </motion.a>
+            </motion.div>
             <nav className='hidden min-[992px]:flex justify-self-stretch relative float-right'>
               <div className='grid gap-[16px] grid-cols-[1fr_1fr_1fr] grid-rows-[auto] justify-between items-stretch w-full'>
                 <div className='grid grid-flow-col grid-cols-[auto] grid-rows-[auto] gap-y-[16px] gap-x-[54px] justify-self-center row-[1/2] col-[2/3]'>
