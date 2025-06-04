@@ -8,8 +8,40 @@ import RevealButton from '@/components/RevealButton';
 import { firstFeaturedCards, slidesTwo } from '@/data';
 import RevealButtonWithIcon from '@/components/RevealButtonWithIcon';
 import ActionBanner from '@/components/ActionBanner';
+import Testimonials from '@/components/Testimonials';
+import SectionEight from '@/components/SectionEight';
+import { useEffect, useState } from 'react';
+
+const transitionDuration = 1; // seconds
+const waitBetween = 0.3; // seconds
+const stickTime = 1; // seconds before next image appears
 
 const About = () => {
+  const [stage, setStage] = useState(0);
+
+  useEffect(() => {
+    let timeout;
+
+    if (stage < firstFeaturedCards.images.length) {
+      // animate in next image
+      timeout = setTimeout(
+        () => setStage(stage + 1),
+        (transitionDuration + stickTime) * 1000
+      );
+    } else if (stage < firstFeaturedCards.images.length * 2) {
+      // animate out previous images
+      timeout = setTimeout(
+        () => setStage(stage + 1),
+        (transitionDuration + waitBetween) * 1000
+      );
+    } else {
+      // restart cycle
+      timeout = setTimeout(() => setStage(0), 1000);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [stage]);
+
   return (
     <div className='z-10 bg-[#fff] relative'>
       <section className='min-h-auto min-[480px]:min-h-[110vh] z-[25] relative overflow-hidden flex flex-col'>
@@ -59,7 +91,7 @@ const About = () => {
 
       <section className='overflow-hidden p-0 z-10 justify-center flex relative'>
         <GridWrapper>
-          <div className='row-[1/2] col-[2/3] gap-y-[60px] grid grid-cols-[auto] pt-[72px]  min-[480px]:pt-[80px] pb-0 gap-x-[16px] min-[768px]:gap-y-[16px] grid-rows-[auto] min-[768px]:grid-cols-[auto_auto] justify-between items-center w-full min-[768px]:pt-[160px] min-[768px]:pb-[180px]'>
+          <div className='justify-between row-[1/2] col-[2/3] gap-y-[60px] grid grid-cols-[auto] pt-[72px]  min-[480px]:pt-[80px] pb-0 gap-x-[16px] min-[768px]:gap-y-[16px] grid-rows-[auto] min-[768px]:grid-cols-[auto_auto]  items-center w-full min-[768px]:pt-[160px] min-[768px]:pb-[180px]'>
             <div className='max-w-[550px]'>
               <StackedIntro type='large'>
                 <StackedIntro type='small'>
@@ -91,22 +123,51 @@ const About = () => {
                 </div>
               </StackedIntro>
             </div>
-            <div className='w-[90vw] h-[80vw] min-[480px]:w-[70vw] min-[480px]:h-[60vw] min-h-[40vw] p-[20px] overflow-hidden flex relative justify-items-end'>
-              {firstFeaturedCards.images.map((image, index) => (
-                <motion.div
-                  key={index}
-                  className='will-change-transform w-[55vw] h-[55vw] min-[480px]:w-[40vw] min-[480px]:h-[40vw] min-[768px]:w-[22vw] min-[768px]:h-[22vw] absolute overflow-hidden'
-                >
-                  <div className='absolute inset-0 overflow-hidden'>
-                    <div
-                      style={{
-                        backgroundImage: `url(${image})`,
-                      }}
-                      className='bg-[50%] bg-no-repeat bg-cover absolute inset-0'
-                    ></div>
-                  </div>
-                </motion.div>
-              ))}
+
+            <div className='w-[90vw] h-[80vw] min-[480px]:w-[70vw] min-[480px]:h-[60vw] min-h-[40vw] min-w-[40vw] p-[20px] overflow-hidden min-[768px]:w-[22vw] min-[768px]:h-[22vw] flex relative justify-items-end min-[768px]:min-w-0 min-[768px]:min-h-0 min-[768px]:p-0 min-[768px]:overflow-visible'>
+              {firstFeaturedCards.images.map((image, index) => {
+                const isEntering = stage > index;
+                const isExiting =
+                  stage >=
+                  firstFeaturedCards.images.length +
+                    (firstFeaturedCards.images.length - index);
+
+                return (
+                  <motion.div
+                    key={index}
+                    className='will-change-transform w-[55vw] h-[55vw] min-[480px]:w-[40vw] min-[480px]:h-[40vw] min-[768px]:w-[22vw] min-[768px]:h-[22vw] absolute overflow-hidden'
+                    initial={{
+                      opacity: 0,
+                      y: '100%',
+                    }}
+                    transition={{
+                      ease: 'linear',
+                      duration: transitionDuration,
+                    }}
+                    animate={
+                      isEntering && !isExiting
+                        ? {
+                            y: 0,
+                            opacity: 1,
+                            rotateZ: index === 1 ? '-5deg' : '5deg',
+                          }
+                        : isExiting
+                        ? { y: '100%', opacity: 0 }
+                        : { opacity: 0, y: '100%' }
+                    }
+                    style={{ zIndex: index + 1 }}
+                  >
+                    <div className='absolute inset-0 overflow-hidden'>
+                      <div
+                        style={{
+                          backgroundImage: `url(${image})`,
+                        }}
+                        className='bg-[50%] bg-no-repeat bg-cover absolute inset-0'
+                      ></div>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </GridWrapper>
@@ -114,15 +175,17 @@ const About = () => {
       <section className='pt-0 flex relative pb-[72px] min-[480px]:pb-[80px] min-[768px]:pb-[100px] min-[992px]:pb-[160px] z-10 justify-center'>
         <GridWrapper>
           <div className='grid row-[1/2] col-[1/3] gap-y-[0px] grid-cols-[1fr] gap-x-[100px] min-[992px]:gap-y-[16px] min-[992px]:grid-cols-[50vw_1fr] w-full grid-rows-[auto]'>
-            <div className='h-[80vw] min-h-[275px] min-[768px]:h-[70vw] min-[768px]:min-h-[500px] min-[992px]:min-h-[700px] relative overflow-hidden'>
-              <div
-                className='absolute inset-0 bg-no-repeat bg-[50%] bg-cover'
-                style={{
-                  backgroundImage: `url(${slidesTwo[2].image})`,
-                }}
-              ></div>
+            <div className='h-[80vw] min-h-[275px] min-[480px]:h-[75vw] min-[480px]:min-h-[400px] min-[768px]:min-h-[500px] min-[768px]:h-[70vw] min-[992px]:min-h-[700px] relative overflow-hidden'>
+              <div className='absolute inset-0 overflow-hidden'>
+                <div
+                  className='absolute inset-0 bg-no-repeat bg-[50%] bg-cover'
+                  style={{
+                    backgroundImage: `url(${slidesTwo[2].image})`,
+                  }}
+                ></div>
+              </div>
             </div>
-            <div className='pt-[48px] min-[480px]:pt-[60px] min-[768px]:pt-[80px]  min-[768px]:pb-[0] grid gap-y-[36px] max-w-none p-[0_10vw_80px_5vw] gap-x-[48px] min-[992px]:gap-y-[48px] grid-rows-[auto_auto] grid-cols-[1fr] auto-cols-[1fr] content-center min-[992px]:max-w-[600px] min-[992px]:p-[150px]'>
+            <div className='pt-[48px] min-[480px]:pt-[60px] min-[768px]:pt-[80px]  min-[768px]:pb-[0] grid gap-y-[36px] max-w-none p-[0_10vw_80px_5vw] gap-x-[48px] min-[992px]:gap-y-[48px] grid-rows-[auto_auto] grid-cols-[1fr] auto-cols-[1fr] content-center min-[992px]:max-w-[600px] min-[992px]:py-[150px] min-[992px]:px-0'>
               <div className='text-[#667479] tracking-[4px] uppercase text-[14px] leading-[1.3em] font-[300]'>
                 Our Story
               </div>
@@ -142,19 +205,23 @@ const About = () => {
                 </div>
               </StackedIntro>
               <div className='justify-self-start'>
-                <RevealButtonWithIcon text='Shop now' textColor='#667479' />
+                <RevealButtonWithIcon
+                  text='Shop now'
+                  textColor='#667479'
+                  isTextPadding={false}
+                />
               </div>
             </div>
           </div>
         </GridWrapper>
       </section>
       <ActionBanner />
-      <section className='pt-0 pb-[72px] min-[480px]:pb-[80px] min-[768px]:pt-[100px] z-10 justify-center min-[992px]:pt-[160px] flex relative'>
+      <section className='pb-0 flex relative pt-[80px]  min-[768px]:pt-[100px] min-[992px]:pt-[160px] z-10 justify-center'>
         <GridWrapper>
-          <div className='grid row-[1/2] col-[1/3] gap-y-[0px] grid-cols-[1fr] gap-x-[100px] min-[992px]:gap-y-[16px] min-[992px]:grid-cols-[50vw_1fr] w-full grid-rows-[auto]'>
-            <div className='pt-[48px] min-[480px]:pt-[60px] min-[768px]:pt-[80px]  min-[768px]:pb-[0] grid gap-y-[36px] max-w-none p-[0_10vw_80px_5vw] gap-x-[48px] min-[992px]:gap-y-[48px] grid-rows-[auto_auto] grid-cols-[1fr] auto-cols-[1fr] content-center min-[992px]:max-w-[600px] min-[992px]:p-[150px]'>
+          <div className='grid row-[1/2] col-[2/4] gap-y-[0px] grid-cols-[1fr] gap-x-[100px] min-[992px]:gap-y-[16px] min-[992px]:grid-cols-[1fr_50vw] w-full grid-rows-[auto]'>
+            <div className='pt-[48px] min-[480px]:pt-[60px] min-[768px]:pt-[80px]  min-[768px]:pb-[0] grid gap-y-[36px] max-w-none p-[0_10vw_80px_5vw] gap-x-[48px] min-[992px]:gap-y-[48px] grid-rows-[auto_auto] grid-cols-[1fr] auto-cols-[1fr] content-center min-[992px]:max-w-[600px] min-[992px]:py-[150px] min-[992px]:px-0'>
               <div className='text-[#667479] tracking-[4px] uppercase text-[14px] leading-[1.3em] font-[300]'>
-                Our Story
+                Our founding prepper
               </div>
               <StackedIntro type='small'>
                 <div className='justify-self-start max-w-[700px]'>
@@ -172,20 +239,28 @@ const About = () => {
                 </div>
               </StackedIntro>
               <div className='justify-self-start'>
-                <RevealButtonWithIcon text='Shop now' textColor='#667479' />
+                <RevealButtonWithIcon
+                  text='Shop now'
+                  textColor='#667479'
+                  isTextPadding={false}
+                />
               </div>
             </div>
-            <div className='h-[80vw] min-h-[275px] min-[768px]:h-[70vw] min-[768px]:min-h-[500px] min-[992px]:min-h-[700px] relative overflow-hidden'>
-              <div
-                className='absolute inset-0 bg-no-repeat bg-[50%] bg-cover'
-                style={{
-                  backgroundImage: `url(${slidesTwo[2].image})`,
-                }}
-              ></div>
+            <div className='h-[80vw] min-h-[275px] min-[480px]:h-[75vw] min-[480px]:min-h-[400px] min-[768px]:min-h-[500px] min-[768px]:h-[70vw] min-[992px]:min-h-[700px] relative overflow-hidden'>
+              <div className='absolute inset-0 overflow-hidden'>
+                <div
+                  className='absolute inset-0 bg-no-repeat bg-[50%] bg-cover'
+                  style={{
+                    backgroundImage: `url(${slidesTwo[2].image})`,
+                  }}
+                ></div>
+              </div>
             </div>
           </div>
         </GridWrapper>
       </section>
+      <Testimonials />
+      <SectionEight />
     </div>
   );
 };
