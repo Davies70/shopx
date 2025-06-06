@@ -1,6 +1,6 @@
 // import { PanInfo } from 'framer-motion';
 
-type SwipeHandler = () => void;
+type SwipeHandler = (e?: React.MouseEvent) => void;
 
 // type UseSwipeReturn = {
 //   onDragEnd: (event: MouseEvent | TouchEvent, info: PanInfo) => void;

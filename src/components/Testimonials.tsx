@@ -4,20 +4,21 @@ import { testimonials } from '@/data';
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Heading from './Heading';
+import useSwipe from '@/hooks/useSwipe';
 
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [instantJump, setInstantJump] = useState(false);
 
-  const handleNextButton = (event: React.MouseEvent) => {
-    event.preventDefault();
+  const handleNextButton = () => {
     setCurrentIndex((currentIndex) => currentIndex + 1);
   };
 
-  const handlePreviousButton = (event: React.MouseEvent) => {
-    event.preventDefault();
+  const handlePreviousButton = () => {
     setCurrentIndex((currentIndex) => currentIndex - 1);
   };
+
+  const swipeHandlers = useSwipe(handlePreviousButton, handleNextButton);
 
   const handleAnimationComplete = () => {
     if (currentIndex === testimonials.length) {
@@ -39,6 +40,7 @@ const Testimonials = () => {
         <div className='flex col-[1/4] row-[1/2] min-[768px]:col-[2/3] justify-center w-full px-[5vw] overflow-hidden py-[36px] min-[768px]:overflow-visible'>
           <div className='bg-transparent clear-both justify-center w-full h-full pb-[60px] flex text-center relative '>
             <div
+              {...swipeHandlers}
               ref={sliderRef}
               className='w-full overflow-visible min-[768px]:w-[60%] z-1 h-full relative left-0 right-0 whitespace-nowrap'
             >
