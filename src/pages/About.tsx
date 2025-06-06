@@ -2,7 +2,7 @@ import GridWrapper from '@/components/GridWrapper';
 import Heading from '@/components/Heading';
 import { ChevronDown } from 'lucide-react';
 import { slidesOne } from '@/data';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import StackedIntro from '@/components/StackedIntro';
 import RevealButton from '@/components/RevealButton';
 import { firstFeaturedCards, slidesTwo } from '@/data';
@@ -10,13 +10,45 @@ import RevealButtonWithIcon from '@/components/RevealButtonWithIcon';
 import ActionBanner from '@/components/ActionBanner';
 import Testimonials from '@/components/Testimonials';
 import SectionEight from '@/components/SectionEight';
-
 import FlyingImages from '@/components/FlyingImages';
+import { useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
 const About = () => {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const scrollRef = useRef<HTMLElement | null>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const translateX = useTransform(scrollYProgress, [0, 1], ['0%', '-100%']);
+
+  const springX = useSpring(translateX, { stiffness: 80, damping: 20 });
+
+  // const scrollToSection = () => {
+  //   scrollRef?.current?.scrollIntoView({ behavior: 'smooth' });
+  // };
+
+  gsap.registerPlugin(ScrollToPlugin);
+
+  const scrollToRef = () => {
+    if (scrollRef.current) {
+      gsap.to(window, {
+        duration: 2, // seconds
+        scrollTo: scrollRef.current,
+        ease: 'power2.inOut',
+      });
+    }
+  };
   return (
     <div className='z-10 bg-[#fff] relative'>
-      <section className='min-h-auto min-[480px]:min-h-[110vh] z-[25] relative overflow-hidden flex flex-col'>
+      <section
+        ref={sectionRef}
+        className='min-h-auto min-[480px]:min-h-[110vh] z-[25] relative overflow-hidden flex flex-col'
+      >
         <div className='flex pt-[120px] pb-[36px] min-[992px]:pt-[180px] min-[992px]:pb-[48px] justify-center'>
           <GridWrapper>
             <div className=' grid row-[1/2] col-[2/3] gap-y-[60px] text-center justify-center justify-items-center pt-0 z-20 min-[992px]:gap-y-[80px] gap-x-[16px] grid-rows-[auto] grid-cols-[1fr] content-between relative'>
@@ -36,7 +68,10 @@ const About = () => {
                   </p>
                 </div>
               </div>
-              <a className='w-[24px] max-w-fit inline-block text-[#667479]'>
+              <a
+                onClick={scrollToRef}
+                className='w-[24px] max-w-fit inline-block text-[#667479] cursor-pointer'
+              >
                 <ChevronDown className='' />
               </a>
             </div>
@@ -46,6 +81,9 @@ const About = () => {
           {slidesOne.map(({ image }, index) => (
             <motion.div
               key={index}
+              style={{
+                x: springX,
+              }}
               className='will-change-transform min-h-[65vw] min-w-[50vw] min-[480px]:min-h-[35vw] min-[992px]:min-h-[45vw] min-[480px]:min-w-[33.33vw] relative overflow-hidden h-full'
             >
               <motion.div className='will-change-transform absolute inset-0 overflow-hidden'>
@@ -61,7 +99,11 @@ const About = () => {
         </div>
       </section>
 
-      <section className='overflow-hidden p-0 z-10 justify-center flex relative'>
+      <section
+        id='scroll'
+        ref={scrollRef}
+        className='overflow-hidden p-0 z-10 justify-center flex relative'
+      >
         <GridWrapper>
           <div className='justify-between row-[1/2] col-[2/3] gap-y-[60px] grid grid-cols-[auto] pt-[72px]  min-[480px]:pt-[80px] pb-0 gap-x-[16px] min-[768px]:gap-y-[16px] grid-rows-[auto] min-[768px]:grid-cols-[auto_auto]  items-center w-full min-[768px]:pt-[160px] min-[768px]:pb-[180px]'>
             <div className='max-w-[550px]'>
