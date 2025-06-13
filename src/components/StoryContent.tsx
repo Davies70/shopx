@@ -20,7 +20,7 @@ const StoryContent = ({ title, description }: StoryContentProps) => {
           </div>
         </div>
       </div>
-      <div className=' grid justify-self-center gap-x-[9px] min-[480px]:gap-x-[18px] gap-y-[18px] min-[480px]:gap-x-12 min-[480px]:gap-y-4 grid-rows-[auto] grid-cols-[1fr]  grid-flow-col justify-center items-center'>
+      <div className=' grid justify-self-center gap-x-[9px] gap-y-[18px] min-[480px]:gap-x-12 min-[480px]:gap-y-4 grid-rows-[auto] grid-cols-[1fr]  grid-flow-col justify-center items-center'>
         <RevealButton
           text='Shop All'
           backgroundColor='#080808'
