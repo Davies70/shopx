@@ -27,7 +27,7 @@ const RevealButtonWithIcon = ({
   const [isHovered, setIsHovered] = useState(false);
   return (
     <div
-      className='flex relative w-fit'
+      className='flex relative sm:w-auto'
       style={{ touchAction: 'none', backgroundColor }}
       role='button'
     >
@@ -54,6 +54,7 @@ const RevealButtonWithIcon = ({
         isParentHovered={isHovered}
         borderColor={iconBorderColor}
         isCircle={isIconCircular}
+        
       />
     </div>
   );

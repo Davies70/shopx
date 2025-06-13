@@ -14,8 +14,8 @@ const StoryContent = ({ title, description }: StoryContentProps) => {
         <div className='flex justify-center items-center max-w-[700px] uppercase text-center w-full'>
           <Heading text={title} type='large' />
         </div>
-        <div className='justify-self-center max-w-[550px] overflow-hidden'>
-          <div className='text-[18px] text-center break-words leading-[1.65em] text-[#667479] font-[400] tracking-normal overflow-hidden'>
+        <div className='justify-self-center max-w-[550px] overflow-hidden sm:px-0'>
+          <div className='text-[18px] text-center break-words leading-[1.65em] text-[#667479] font-[400] tracking-normal overflow-visible justify-center items-center'>
             {description}
           </div>
         </div>
@@ -29,9 +29,10 @@ const StoryContent = ({ title, description }: StoryContentProps) => {
           onClick={() => console.log('Discover the collection clicked')}
           isOverflowHidden={false}
         />
+
         <RevealButtonWithIcon
           text='Our Story'
-          backgroundColor='green'
+          backgroundColor='white'
           textColor='#667479'
           textSize='text-[18px]'
           borderRadius='100px'

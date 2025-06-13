@@ -10,6 +10,7 @@ type IconButtonProps = {
   isParentActive?: boolean;
   borderColor?: string;
   isCircle?: boolean;
+  setArrow?: string;
 };
 const IconButton = ({
   onClick,
