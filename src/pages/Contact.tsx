@@ -49,7 +49,7 @@ const Contact = () => {
       </section>
       <section className='bg-[#f4f8fa] pt-0 z-10 flex relative justify-center'>
         <GridWrapper>
-          <div className='row-[1/2] col-[2/4] p-[36px] min-[480px]:p-[40px] min-[768px]:p-[60px] min-[992px]:p-[80px] grid grid-cols-[1fr] gap-y-[0px] min-[992px]:gap-y-[16px] grid-rows-[auto] min-[992px]:grid-cols-[minmax(200px,_auto)_1fr]'>
+          <div className='row-[1/2] col-[2/4] py-[36px] min-[480px]:py-[40px] min-[768px]:py-[60px] min-[992px]:py-[80px] grid grid-cols-[1fr] gap-y-[0px] min-[992px]:gap-y-[16px] grid-rows-[auto] min-[992px]:grid-cols-[minmax(200px,_auto)_1fr]'>
             <div className='p-[36px_24px] min-[480px]:p-[60px_40px] min-w-auto min-[992px]:min-w-[600px] min-[992px]:p-[80px_60px] grid gap-x-[16px] gap-y-[48px] bg-white rounded-[2px] grid-rows-[auto] grid-cols-[1fr]'>
               <StackedIntro type='small'>
                 <div className='max-w-[700px]'>
