@@ -53,15 +53,14 @@ const Shop = () => {
         <GridWrapper>
           <div className='grid col-[1/4] min-[480px]:col-[2/3] row-[1/2] gap-y-[26px] relative content-between auto-cols-[1fr] grid-cols-[1fr] grid-rows-[auto] z-[20]'>
             <div className='pt-[48px] px-[5vw] min-[768px]:pt-[60px] min-[992px]:pt-[80px] flex pb-[6px]'>
-              <div className='flex max-[767px]:w-full min-[768px]:flex-col gap-y-[24px] gap-x-[16px]'>
-                <div className='tracking-[3px] text-[11px] font-[300] leading-[1.3em] uppercase text-[#667479]'>
+              <div className='flex flex-col min-[768px]:flex-col gap-y-[16px] gap-x-[0] w-full'>
+                <div className='tracking-[3px] text-[11px] font-[300] leading-[1.3em] uppercase text-[#667479] mb-[8px] min-[768px]:mb-0'>
                   Category:
                 </div>
-
-                <div className='flex items-stretch flex-wrap'>
+                <div className='flex flex-wrap gap-x-[12px] gap-y-[12px] items-center'>
                   {['Clothing', 'Accessories', 'Gas Mask'].map((category) => (
                     <Link
-                      className='text-[#667479] tracking-[5px] uppercase items-center pr-[24px] text-[11px] leading-[1.3em] flex max-w-full'
+                      className='text-[#667479] tracking-[5px] uppercase items-center text-[11px] leading-[1.3em] flex max-w-full'
                       to={`/category/${category}`}
                       key={category}
                     >

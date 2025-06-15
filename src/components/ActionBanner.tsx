@@ -4,9 +4,9 @@ import { motion } from 'framer-motion';
 
 const ActionBanner = () => {
   return (
-    <div className='flex relative pt-[48px] min-[768px]:pt-[80px] min-[992px]:pt-[200px] min-h-[500px] min-[992px]:min-h-[500px] pb-[80px] min-[992px]:pb-[100px] justify-center items-center'>
-      <div className='grid z-20 gap-x-[16px] gap-y-[48px] grid-rows-[auto] grid-cols-[1fr] content-between'>
-        <div className='py-[100px] min-[992px]:py-[120px] flex text-white items-center min-h-auto whitespace-nowrap overflow-hidden'>
+    <div className='flex relative pt-[48px] min-[768px]:pt-[80px] min-[992px]:pt-[200px] min-h-[500px] min-[992px]:min-h-[750px] pb-[80px] min-[992px]:pb-[100px] justify-center items-stretch'>
+      <div className='grid gap-y-[36px] z-20 gap-x-[16px] min-[480px]:gap-y-[48px] grid-rows-[auto] grid-cols-[1fr] content-between'>
+        <div className='py-[48px] min-[480px]:py-[80px] min-[768px]:py-[100px] min-[992px]:py-[120px] flex text-white items-center min-h-auto whitespace-nowrap overflow-hidden'>
           {[1, 2, 3].map((_, index) => (
             <motion.div
               key={index}

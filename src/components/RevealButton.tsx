@@ -13,6 +13,7 @@ type RevealButtonProps = {
   paddingInline?: string;
   isPadding?: boolean;
   isOverflowHidden?: boolean;
+  fontSize?: string;
 };
 
 const BASE_STYLES = {
@@ -85,14 +86,13 @@ export default function RevealButton({
   isParentHovered = false,
   paddingInline,
   isOverflowHidden = true,
+  fontSize,
 }: RevealButtonProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   const shouldAnimate = isHovered || isParentHovered;
   const className =
-    (type === 'mobileNavButton'
-      ? MOBILE_NAV_CLASSES
-      : NORMAL_CLASSES) +
+    (type === 'mobileNavButton' ? MOBILE_NAV_CLASSES : NORMAL_CLASSES) +
     ' reveal-btn-responsive ' +
     (isPadding ? DEFAULT_PADDING[type] : 'p-0');
 
@@ -104,7 +104,7 @@ export default function RevealButton({
     color: textColor,
     borderRadius,
     marginTop,
-    fontSize: undefined, // use Tailwind for font size
+    fontSize: fontSize, // use Tailwind for font size
     paddingInline,
     width: type === 'mobileNavButton' ? '100%' : undefined,
   };
@@ -131,10 +131,10 @@ export default function RevealButton({
       onTouchStart={handleInteractionStart}
       onTouchEnd={handleInteractionEnd}
       onClick={onClick}
-      type="button"
+      type='button'
     >
       <div
-        className="items-center flex h-[1.2em]"
+        className='items-center flex h-[1.2em]'
         style={{ overflow: isOverflowHidden ? 'hidden' : 'visible' }}
       >
         <motion.span

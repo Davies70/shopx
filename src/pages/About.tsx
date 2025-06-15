@@ -28,9 +28,7 @@ const About = () => {
 
   const springX = useSpring(translateX, { stiffness: 80, damping: 20 });
 
-  // const scrollToSection = () => {
-  //   scrollRef?.current?.scrollIntoView({ behavior: 'smooth' });
-  // };
+
 
   gsap.registerPlugin(ScrollToPlugin);
 
@@ -155,7 +153,7 @@ const About = () => {
                 ></div>
               </div>
             </div>
-            <div className='pt-[48px] min-[480px]:pt-[60px] min-[768px]:pt-[80px]  min-[768px]:pb-[0] grid gap-y-[36px] max-w-none p-[0_10vw_80px_5vw] gap-x-[48px] min-[992px]:gap-y-[48px] grid-rows-[auto_auto] grid-cols-[1fr] auto-cols-[1fr] content-center min-[992px]:max-w-[600px] min-[992px]:py-[150px] min-[992px]:px-0'>
+            <div className='pt-[48px] min-[480px]:pt-[60px] min-[768px]:pt-[80px]  pb-[0] grid gap-y-[36px] max-w-none p-[0_10vw_80px_5vw] gap-x-[48px] min-[992px]:gap-y-[48px] grid-rows-[auto_auto] grid-cols-[1fr] auto-cols-[1fr] content-center min-[992px]:max-w-[600px] min-[992px]:py-[150px] min-[992px]:px-0'>
               <div className='text-[#667479] tracking-[4px] uppercase text-[14px] leading-[1.3em] font-[300]'>
                 Our Story
               </div>
