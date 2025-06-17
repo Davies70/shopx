@@ -8,38 +8,48 @@ type TabItemProp = {
 
 const TabItem = ({ question, answer }: TabItemProp) => {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div
-      className='tab-item flex flex-col'
+      className="tab-item flex flex-col w-full bg-white"
       style={{
         borderBottom: '1px solid #e4e9ec',
+        borderRadius: '8px',
+        boxShadow: '0 1px 4px rgba(0,0,0,0.03)',
+        marginBottom: '12px',
       }}
-      onClick={() => setIsOpen(!isOpen)}
     >
-      <div
+      <button
+        type="button"
+        aria-expanded={isOpen}
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="tab-top cursor-pointer w-full relative overflow-hidden flex items-center justify-between px-6 py-5 transition-all duration-300 focus:outline-none"
         style={{
-          transition: 'padding .5s cubic-bezier(.25,.46,.45,.94)',
+          background: 'transparent',
+          border: 'none',
+          outline: 'none',
         }}
-        className='tab-top cursor-pointer w-full p-[28px_0] relative overflow-hidden'
       >
-        <div className='tab-title z-25 gap-x-[16px] gap-y-[16px] text-[#080808] tracking-[.15em] uppercase grid-rows-[auto] grid-cols-[1fr_auto] items-center w-full mx-auto text-[14px] font-[500] grid relative'>
-          <div>{question}</div>
-          <div className='lottie-tab-icon z-10 opacity-[0.5]  w-[14px] relative'>
-            <Plus className='w-full h-full' />
-          </div>
-        </div>
-        <div className='hover-cover hidden'></div>
-      </div>
+        <span className="tab-title text-[#080808] tracking-[.12em] uppercase text-[15px] font-semibold text-left flex-1">
+          {question}
+        </span>
+        <span
+          className={`lottie-tab-icon transition-transform duration-300 ${
+            isOpen ? 'rotate-45' : ''
+          } opacity-70 w-5 h-5 flex items-center justify-center`}
+        >
+          <Plus className="w-full h-full" />
+        </span>
+      </button>
       <div
+        className={`tab-bottom overflow-hidden bg-[#f7f9fa] transition-all duration-500`}
         style={{
-          borderTop: '1px solid #e4e9ec',
-          height: isOpen ? '100%' : '0px',
-          transition: 'height .5s cubic-bezier(.25,.46,.45,.94) ',
+          maxHeight: isOpen ? 500 : 0,
+          borderTop: isOpen ? '1px solid #e4e9ec' : 'none',
         }}
-        className='tab-bottom overflow-hidden py-0 bg-[#e4e9ec]'
       >
-        <div className='tab-bottom-content mx-auto p-[28px_24px]'>
-          <div className='body-display extra-small text-[15px] text-[#667479] tracking-normal'>
+        <div className="tab-bottom-content mx-auto px-6 py-5 sm:px-4 sm:py-4">
+          <div className="body-display text-[15px] text-[#667479] tracking-normal leading-relaxed">
             {answer}
           </div>
         </div>
