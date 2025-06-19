@@ -6,6 +6,7 @@ import { slidesTwo } from '@/data';
 import { FAQ } from '@/data';
 import SectionEight from '@/components/SectionEight';
 import TabItem from '@/components/TabItem';
+import { Link } from 'react-router-dom';
 
 const Contact = () => {
   return (
@@ -203,14 +204,14 @@ const Contact = () => {
                   ))}
                 </div>
               </div>
-              <a href='/faq' className='justify-self-center'>
+              <Link to='/faq' className='justify-self-center'>
                 <RevealButton
                   text='view all FAQ'
                   borderRadius='100px'
                   backgroundColor='#080808'
                   textColor='white'
                 />
-              </a>
+              </Link>
             </div>
           </div>
         </GridWrapper>
