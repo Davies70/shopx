@@ -15,7 +15,7 @@ const Navbar = () => {
   const toggleRef = useRef(null);
 
   const { pathname } = useLocation();
-  const excludedLinks = ['/about', '/faq', '/contact'];
+  const excludedLinks = ['/about', '/contact', '/product'];
 
   // Use Framer Motion's scroll hooks for better performance
   const { scrollY } = useScroll();

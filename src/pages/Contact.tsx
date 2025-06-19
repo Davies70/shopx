@@ -6,7 +6,7 @@ import { slidesTwo } from '@/data';
 import { FAQ } from '@/data';
 import SectionEight from '@/components/SectionEight';
 import TabItem from '@/components/TabItem';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const Contact = () => {
   return (

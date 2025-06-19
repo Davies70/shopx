@@ -20,21 +20,20 @@ const FAQ = () => {
   const ref2 = useRef<HTMLDivElement | null>(null);
   const ref3 = useRef<HTMLDivElement | null>(null);
 
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
   const scrollToRef = (ref: RefObject<HTMLDivElement | null>) => {
-    if (ref.current) {
-      gsap.to(window, {
+    if (ref.current && containerRef.current) {
+      gsap.to(containerRef.current, {
         duration: 1,
-        scrollTo: {
-          y: ref.current,
-          offsetY: 60,
-        },
+        scrollTo: { y: ref.current, offsetY: 60},
         ease: 'power2.inOut',
       });
     }
   };
 
   return (
-    <div className='z-10 bg-white relative'>
+    <div className='z-10 bg-white relative top-[-65px]'>
       <div className='shop-hero min-h-[250px] pt-[120px] pb-[32px] sm:pb-[48px] sm:pt-[160px] sm:min-h-[250px] md:min-h-[400px] md:pb-[60px] md:pt-[200px] text-white flex justify-center relative transition-all duration-300'>
         <GridWrapper>
           <div className='row-[1/2] col-[2/3] self-end grid gap-y-4 gap-x-4'>
@@ -57,7 +56,7 @@ const FAQ = () => {
           </div>
         </div>
       </div>
-      <section className='bg-[#f4f8fa] p-0 z-10 flex justify-center relative'>
+      <section  className='bg-[#f4f8fa] p-0 z-10 flex justify-center relative'   ref={containerRef}>
         <GridWrapper>
           <div className='grid col-start-1 md:col-start-2 row-start-1 row-end-2 col-end-4 gap-y-8 md:gap-y-12 grid-cols-1 md:gap-x-20 md:grid-cols-[auto_1fr] grid-rows-[auto] w-full'>
             {/* Sidebar */}

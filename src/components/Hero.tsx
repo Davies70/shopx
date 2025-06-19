@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { slidesOne } from '@/data';
 import RevealButton from './RevealButton';
 import IconButton from './IconButton';
+import { Link } from 'react-router-dom';
 
 export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -30,7 +31,7 @@ export default function Hero() {
               opacity: 0,
               transition: { duration: 0.5 },
             }}
-            className='h-full clear-both text-center max-w-[1500px] items-stretch bg-[#080808] absolute inset-0 bg-cover  flex  justify-center bg-[34%] min-[480px]:bg-[39%] min-[768px]:bg-[50%] min-[992px]:bg-[73%] bg-no-repeat '
+            className='h-full clear-both text-center  items-stretch bg-[#080808] absolute inset-0 bg-cover  flex  justify-center bg-[34%] min-[480px]:bg-[39%] min-[768px]:bg-[50%] min-[992px]:bg-[73%] bg-no-repeat '
             transition={{ duration: 0.9, ease: 'easeInOut' }}
             style={{
               backgroundImage: `url(${slidesOne[currentIndex].image})`,
@@ -60,13 +61,15 @@ export default function Hero() {
                           exit={{ opacity: 0, y: -50 }}
                           transition={{ duration: 0.5, delay: 1 }}
                         >
-                          <RevealButton
-                            text='Shop All'
-                            backgroundColor='white'
-                            marginTop='36px'
-                            textColor='black'
-                            borderRadius='calc(infinity * 1px)'
-                          />
+                          <Link to={'/shop'}>
+                            <RevealButton
+                              text='Shop All'
+                              backgroundColor='white'
+                              marginTop='36px'
+                              textColor='black'
+                              borderRadius='calc(infinity * 1px)'
+                            />
+                          </Link>
                         </motion.div>
                       </div>
                     </div>
