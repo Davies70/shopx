@@ -239,17 +239,17 @@ export const productCards: ProductCardType[] = [
   },
 ];
 
-export const footerNavigationLinks: string[] = [
-  'Home',
-  'About',
-  'Contact',
-  'FAQ',
+export const footerNavigationLinks = [
+  { name: 'Home', link: '/' },
+  { name: 'About', link: '/about' },
+  { name: 'Contact', link: '/contact' },
+  { name: 'FAQ', link: '/faq' },
 ];
 
-export const footerProductLinks: string[] = [
-  'Gas masks',
-  'Tactical Gear',
-  'Shop All',
+export const footerProductLinks: { name: string; link: string }[] = [
+  { name: 'Gas masks', link: '/products/gas-masks' },
+  { name: 'Tactical Gear', link: '/products/tactical-gear' },
+  { name: 'Shop All', link: '/shop' },
 ];
 
 export const testimonials: Review[] = [
