@@ -53,7 +53,11 @@ const Navbar = () => {
     ? 'rgba(100, 100, 100, 1)'
     : MotionValueSearchTextColor;
 
-  const navbarHeight = useTransform(scrollY, [0, 300], [100, 60]);
+  const MotionValuenavbarHeight = useTransform(scrollY, [0, 300], [100, 60]);
+
+  const navbarHeight = excludedLinks.includes(pathname)
+    ? '60px'
+    : MotionValuenavbarHeight;
 
   const toggleMobileMenu = (event: React.MouseEvent) => {
     event.stopPropagation();

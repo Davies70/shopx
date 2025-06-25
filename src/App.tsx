@@ -8,11 +8,13 @@ import FAQ from './pages/FAQ';
 import Product from './pages/Product';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LightBox from './components/LightBox';
 
 function App() {
   return (
     <Router>
       <div className='relative m-0 min-h-full'>
+        <LightBox />
         <NavBar />
         <main className='overflow-hidden min-[480px]:overflow-visible'>
           <Routes>
