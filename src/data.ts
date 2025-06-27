@@ -247,10 +247,10 @@ export const footerNavigationLinks = [
   { name: 'FAQ', link: '/faq' },
 ];
 
-export const footerProductLinks: string[] = [
-  'Gas masks',
-  'Tactical Gear',
-  'Shop All',
+export const footerProductLinks = [
+  { name: 'Gas masks', link: '/products/gas-masks' },
+  { name: 'Tactical Gear', link: '/products/tactical-gear' },
+  { name: 'Shop All', link: '/shop' },
 ];
 
 export const testimonials: Review[] = [
