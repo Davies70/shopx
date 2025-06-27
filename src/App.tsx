@@ -8,7 +8,7 @@ import FAQ from './pages/FAQ';
 import Product from './pages/Product';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LightBox from './components/LightBox';
+// import LightBox from './components/LightBox';
 
 function App() {
   return (
