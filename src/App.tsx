@@ -14,7 +14,7 @@ function App() {
   return (
     <Router>
       <div className='relative m-0 min-h-full'>
-        <LightBox />
+        {/* <LightBox /> */}
         <NavBar />
         <main className='overflow-hidden min-[480px]:overflow-visible'>
           <Routes>

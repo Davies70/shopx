@@ -9,41 +9,41 @@ import {
 export const slidesOne: Slide[] = [
   {
     title_1: 'Your Survival starts here',
-    image: 'images/slide_3.webp',
-  },
-  {
-    title_1: 'Be Ready Cause the end is near ',
-
-    image: 'images/slide_2.webp',
+    image: 'images/sliders/slide_1.jpg',
   },
   {
     title_1: 'Gear up in style for doomsday',
 
-    image: 'images/slide_1.webp',
+    image: 'images/sliders/slide_7.jpg',
+  },
+  {
+    title_1: 'Be Ready Cause the end is near ',
+
+    image: 'images/sliders/slide_4.jpg',
   },
   {
     title_1: 'Be the last one standing with our gear',
-    image: 'images/slide_4.webp',
+    image: 'images/sliders/slide_6.jpg',
   },
 ];
 
 export const slidesTwo: Slide[] = [
   {
     title_1: 'Join the ranks of elite preppers',
-    image: 'images/slide_3.webp',
+    image: 'images/sliders/slide_11.jpg',
   },
   {
-    title_1: 'Be the last one standing with snacks.',
+    title_1: 'Be the last one standing in style.',
 
-    image: 'images/slide_2.webp',
+    image: 'images/sliders/slide_9.jpg',
   },
   {
-    title_1: 'Outlast the end times in style',
-    image: 'images/slide_1.webp',
+    title_1: 'Outlast the end times',
+    image: 'images/sliders/slide_5.jpg',
   },
   {
     title_1: 'Because survival is the new luxury.',
-    image: 'images/slide_4.webp',
+    image: 'images/sliders/slide_7.jpg',
   },
 ];
 
