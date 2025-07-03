@@ -21,6 +21,8 @@ export default function Hero() {
   return (
     <section className='min-h-[93vh] min-[480px]:min-h-[100vh] flex flex-row  bg-[#080808] justify-center'>
       <div className='flex justify-center w-full relative overflow-hidden px-[5vw]'>
+        {/* <div className='absolute inset-0 bg-[rgba(8,8,8,.3)] z-50'></div> */}
+
         <AnimatePresence>
           <motion.div
             initial={{ y: '100%' }}
@@ -38,7 +40,7 @@ export default function Hero() {
             }}
             key={currentIndex}
           >
-            <div className='absolute inset-0 bg-[rgba(8,8,8,.3)]'></div>
+            <div className='absolute inset-0 bg-[rgba(8,8,8,.6)]'></div>
             <div className='relative z-1 overflow-visible whitespace-nowrap h-full block left-0 right-0'>
               {slidesOne.map((slide, index) =>
                 index === currentIndex ? (
@@ -77,34 +79,34 @@ export default function Hero() {
                 ) : null
               )}
             </div>
-            <motion.div className='absolute overflow-hidden m-auto z-[3] bottom-[36px] left-0 right-auto top-auto'>
-              <IconButton
-                onClick={handlePrev}
-                type='left'
-                color='rgba(255,255,255,0.75)'
-              />
-            </motion.div>
-
-            <motion.div className='absolute overflow-hidden m-auto z-[3] bottom-[36px] right-0 left-auto top-auto'>
-              <IconButton
-                onClick={handleNext}
-                type='right'
-                color='rgba(255,255,255,0.75)'
-              />
-            </motion.div>
-
-            <div className='z-[2] flex absolute items-center justify-center bottom-[36px] flex-row min-[992px]:bottom-[40px] h-[48px] min-h-[12px] m-auto p-0 text-[6px] top-auto left-0 right-0 transform-none'>
-              {slidesOne.map((_, index) => (
-                <div
-                  key={index}
-                  className={`w-[1em] h-[1em] rounded-full mx-[6px] transition-colors duration-100 z-[10] ${
-                    index === currentIndex ? 'bg-white' : 'bg-gray-500'
-                  }`}
-                ></div>
-              ))}
-            </div>
           </motion.div>
         </AnimatePresence>
+        <div className='absolute overflow-hidden m-auto z-[3] bottom-[36px] left-[5vw] right-auto top-auto'>
+          <IconButton
+            onClick={handlePrev}
+            type='left'
+            color='rgba(255,255,255,0.75)'
+          />
+        </div>
+
+        <div className='absolute overflow-hidden m-auto z-[3] bottom-[36px] right-[5vw] left-auto top-auto'>
+          <IconButton
+            onClick={handleNext}
+            type='right'
+            color='rgba(255,255,255,0.75)'
+          />
+        </div>
+
+        <div className='z-[2] flex absolute items-center justify-center bottom-[36px] flex-row min-[992px]:bottom-[40px] h-[48px] min-h-[12px] m-auto p-0 text-[6px] top-auto left-0 right-0 transform-none'>
+          {slidesOne.map((_, index) => (
+            <div
+              key={index}
+              className={`w-[1em] h-[1em] rounded-full mx-[6px] transition-colors duration-100 z-[10] ${
+                index === currentIndex ? 'bg-white' : 'bg-gray-500'
+              }`}
+            ></div>
+          ))}
+        </div>
       </div>
     </section>
   );

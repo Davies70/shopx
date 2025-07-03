@@ -1,47 +1,54 @@
-import GridWrapper from './GridWrapper';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { productCards } from '@/data';
 import ProductCard from './ProductCard';
 import FadeInIconButton from './FadeInIconButton';
-import { useState } from 'react';
-import useSwipe from '@/hooks/useSwipe';
+import GridWrapper from './GridWrapper';
+import { bestSellers } from '@/data';
 import Heading from './Heading';
+import useSwipe from '@/hooks/useSwipe';
 
-const SectionThree = () => {
-  const [isHovered, setIsHovered] = useState<boolean>(false);
+const BestSellers = () => {
+  // Clone slides for infinite loop
+  const slides = [
+    bestSellers[bestSellers.length - 1], // clone last
+    ...bestSellers,
+    bestSellers[0], // clone first
+  ];
 
-  const [currentIndex, setCurrentIndex] = useState<number>(1);
+  const [currentIndex, setCurrentIndex] = useState(1); // Start at first real slide
   const [isAnimating, setIsAnimating] = useState(false);
   const [instantJump, setInstantJump] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleNextButton = () => {
     if (isAnimating) return;
     setIsAnimating(true);
-    setCurrentIndex((prevIndex) => prevIndex + 1);
+    setCurrentIndex((prev) => prev + 1);
   };
 
   const handlePrevButton = () => {
     if (isAnimating) return;
     setIsAnimating(true);
-    setCurrentIndex((prevIndex) => prevIndex - 1);
+    setCurrentIndex((prev) => prev - 1);
   };
-
-  const swipeHandlers = useSwipe(handlePrevButton, handleNextButton);
 
   const handleAnimationComplete = () => {
     setIsAnimating(false);
-    if (currentIndex === productCards.length) {
-      // Jump to first real slide
+    // If at the clone of the first slide, jump instantly to the real first slide
+    if (currentIndex === slides.length - 1) {
       setInstantJump(true);
-      setCurrentIndex(0);
-    } else if (currentIndex < 0) {
-      // Jump to last real slide
+      setCurrentIndex(1);
+    }
+    // If at the clone of the last slide, jump instantly to the real last slide
+    else if (currentIndex === 0) {
       setInstantJump(true);
-      setCurrentIndex(productCards.length - 1);
+      setCurrentIndex(slides.length - 2);
     } else {
       setInstantJump(false);
     }
   };
+
+  const swipeHandlers = useSwipe(handlePrevButton, handleNextButton);
 
   return (
     <section className='overflow-hidden py-[72px] min-[480px]:py-[80px] min-[768px]:py-[100px] min-[992px]:py-[160px] flex relative justify-center z-10'>
@@ -69,15 +76,16 @@ const SectionThree = () => {
               <motion.div
                 {...swipeHandlers}
                 className='w-[75%] min-[768px]:w-[45%] min-[992px]:w-[33.33%] overflow-visible z-1 h-full relative left-0 right-0 whitespace-nowrap block will-change-transform'
+                animate={{ x: `-${currentIndex * 100}%` }}
+                transition={
+                  instantJump
+                    ? { duration: 0 }
+                    : { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }
+                }
+                onAnimationComplete={handleAnimationComplete}
               >
-                {productCards.map((product) => (
-                  <ProductCard
-                    product={product}
-                    key={product.id}
-                    translateX={currentIndex}
-                    handleAnimationComplete={handleAnimationComplete}
-                    instantJump={instantJump}
-                  />
+                {slides.map((product, idx) => (
+                  <ProductCard product={product} key={idx} />
                 ))}
               </motion.div>
               <FadeInIconButton
@@ -85,10 +93,12 @@ const SectionThree = () => {
                 isParentHovered={isHovered}
                 onClick={handlePrevButton}
               />
+
               <FadeInIconButton
                 type='right'
                 isParentHovered={isHovered}
                 onClick={handleNextButton}
+                className='right-[5vw]'
               />
             </div>
           </div>
@@ -98,4 +108,4 @@ const SectionThree = () => {
   );
 };
 
-export default SectionThree;
+export default BestSellers;

@@ -25,8 +25,9 @@ const ActionBanner = () => {
           <div className='grid row-[1/2] col-[2/3] gap-y-[36px] text-center justify-center justify-items-center gap-x-[16px] grid-rows-[auto] grid-cols-[1fr]  '>
             <div className='max-w-[550px]'>
               <div className='text-[20px] text-white leading-[1.65em] tracking-normal'>
-                Product is designed to carry you to the next level so you are
-                prepared for dooms day.
+                Engineered for survival. Every product is made to carry you
+                further, hit harder, and stay ready when the world stops playing
+                nice.
               </div>
             </div>
             <RevealButton
@@ -41,10 +42,10 @@ const ActionBanner = () => {
         <div
           className='bg-no-repeat bg-cover absolute inset-0 bg-[50%_center]'
           style={{
-            backgroundImage: `url(/images/slide_4.webp)`,
+            backgroundImage: `url(/images/sliders/slide_10.jpg)`,
           }}
         >
-          <div className='inset-0 absolute bg-[rgba(8,8,8,0)]'></div>
+          <div className='inset-0 absolute bg-[rgba(8,8,8,.6)]'></div>
         </div>
       </div>
     </div>

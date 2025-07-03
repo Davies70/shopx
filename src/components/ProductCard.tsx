@@ -1,10 +1,11 @@
-import { ProductCardType } from '../types';
+import { Product } from '../categories';
 import { TagIcon } from 'lucide-react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 
+
 type ProductCardProps = {
-  product: ProductCardType;
+  product: Product;
   translateX?: number;
   handleAnimationComplete?: () => void;
   instantJump?: boolean;
@@ -171,7 +172,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               </div>
 
               <a
-                href={product.url}
+                href={`products/${product.id}`}
                 className='grid no-underline decoration-0 gap-x-[3px] gap-y-[3px] text-[#080808] bg-[rgb(255,255,255)] grid-rows-[auto_auto] grid-cols-[1fr] max-w-[100%]'
               >
                 <div className='card-image-wrapper h-full bg-[rgb(244,248,250)] overflow-hidden rounded-sm'>
@@ -236,42 +237,58 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 <div className='card-info px-[14px] pt-[14px] pb-[18px] gap-x-[16px] gap-y-[9px] grid-rows-[auto] grid-cols-[1fr] justify-start justify-items-center min-[767px]:p-[14px_16px_18px]'>
                   <div className='grid bg-scroll justify-self-stretch gap-y-[7px] grid-cols-[1fr] justify-start items-start gap-x-[9px] min-[768px]:gap-y-[16px] grid-rows-[auto] min-[768px]:grid-cols-[1fr_auto] min-[768px]:justify-between min-[768px]:items-start w-full'>
                     <div className='product-card-info grid gap-x-[16px] gap-y-[4px] grid-rows-[auto_auto] grid-cols-[1fr]'>
-                      <div className='product-tags flex'>
-                        {product.productType !== 'normal' && (
-                          <div className='items-center h-[28px] flex'>
-                            {product.productType === 'new' && (
-                              <div className='leading-[1.2em] tracking-[3px] uppercase pl-[6px] text-[11px] font-[500] border-l-2 border-l-[#07090c]'>
-                                New
-                              </div>
-                            )}
-                            {product.productType === 'discount' && (
-                              <>
-                                <TagIcon className='w-[16px] mr-[2px] inline-block align-middle max-w-full' />
-                                <div className='text-[#a74030] mt-0 leading-[1em] tracking-[3px] uppercase pl-[6px] text-[11px] font-[500] border-[#07090c]'>
-                                  {product.percentOff} % off
-                                </div>
-                              </>
-                            )}
+                      {/* {productCards.length > 0 && (
+                        <div className='items-center h-[28px] flex'>
+                          <div className='leading-[1.2em] tracking-[3px] uppercase pl-[6px] text-[11px] font-[500] border-l-2 border-l-[#07090c]'>
+                            {product.tags?.join()}
                           </div>
-                        )}
-                      </div>
+                        </div>
+                      )} */}
+                      {product.discount?.isDiscounted && (
+                        <div className='items-center h-[28px] flex'>
+                          {product.discount && (
+                            <>
+                              <TagIcon className='w-[16px] mr-[2px] inline-block align-middle max-w-full' />
+                              <div className='text-[#a74030] mt-0 leading-[1em] tracking-[3px] uppercase pl-[6px] text-[11px] font-[500] border-[#07090c]'>
+                                {product.discount.percentOff}
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      )}
+
+                      {!product.discount?.isDiscounted && (
+                        <div className='items-center h-[28px] flex'>
+                          <div className='leading-[1.2em] tracking-[3px] uppercase pl-[6px] text-[11px] font-[500] border-l-2 border-l-[#07090c]'>
+                            {product.tags?.join()}
+                          </div>
+                        </div>
+                      )}
+
                       <div className='gap-x-[16px] gap-y-[8px] grid-rows-[auto_auto] grid-cols-[1fr] grid'>
                         <h3 className='product-title tracking-[0px] leading-[1.3em] text-[18px] font-[500] group-hover:text-[#a74030] transition-colors duration-300'>
-                          {product.productTitle}
+                          {product.name}
                         </h3>
                         <div className='subtitle-small tracking-[3px] text-[11px] text-[#667479] uppercase font-[300] leading-[1.3em]'>
-                          Black
+                          {product.color}
                         </div>
                       </div>
                     </div>
 
                     <div className='dynamic-price flex flex-col bg-scroll tracking-[3px] text-[14px] uppercase text-[#667479] font-[300] leading-[1em] items-start min-[767px]:items-start'>
-                      <div className='flex items-center h-[28px] mt-[1px] text-[15px]'>
-                        {product.price} USD
-                      </div>
-                      {product.oldPrice && (
+                      {product.discount?.isDiscounted ? (
+                        <div className='flex items-center h-[28px] mt-[1px] text-[15px]'>
+                          {product.discount.discountPrice} USD
+                        </div>
+                      ) : (
+                        <div className='flex items-center h-[28px] mt-[1px] text-[15px]'>
+                          {product.price} USD
+                        </div>
+                      )}
+
+                      {product.discount?.isDiscounted && (
                         <div className='mt-[-1px] min-[480px]:mt-0 min-[768px]:mt-3px text-[#99a7ac] text-[13px] decoration-dashed line-through ml-2'>
-                          {product.oldPrice} USD
+                          {product.price} USD
                         </div>
                       )}
                     </div>

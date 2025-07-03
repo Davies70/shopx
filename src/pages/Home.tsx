@@ -1,7 +1,7 @@
 import Hero from '../components/Hero';
 import Mission from '@/components/Mission';
 import FeatureGrid from '@/components/FeatureGrid';
-import SectionThree from '@/components/SectionThree';
+import BestSellers from '@/components/BestSellers';
 import SectionFour from '@/components/SectionFour';
 import SectionFive from '@/components/SectionFive';
 import ActionBanner from '@/components/ActionBanner';
@@ -14,7 +14,7 @@ const Home = () => {
       <Hero />
       <Mission />
       <FeatureGrid />
-      <SectionThree />
+      <BestSellers />
       <SectionFour />
       <SectionFive />
       <ActionBanner />
