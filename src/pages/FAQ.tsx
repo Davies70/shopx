@@ -20,13 +20,11 @@ const FAQ = () => {
   const ref2 = useRef<HTMLDivElement | null>(null);
   const ref3 = useRef<HTMLDivElement | null>(null);
 
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
   const scrollToRef = (ref: RefObject<HTMLDivElement | null>) => {
-    if (ref.current && containerRef.current) {
-      gsap.to(containerRef.current, {
+    if (ref.current) {
+      gsap.to(window, {
         duration: 1,
-        scrollTo: { y: ref.current, offsetY: 60},
+        scrollTo: { y: ref.current, offsetY: 60 },
         ease: 'power2.inOut',
       });
     }
@@ -56,7 +54,7 @@ const FAQ = () => {
           </div>
         </div>
       </div>
-      <section  className='bg-[#f4f8fa] p-0 z-10 flex justify-center relative'   ref={containerRef}>
+      <section className='bg-[#f4f8fa] p-0 z-10 flex justify-center relative'>
         <GridWrapper>
           <div className='grid col-start-1 md:col-start-2 row-start-1 row-end-2 col-end-4 gap-y-8 md:gap-y-12 grid-cols-1 md:gap-x-20 md:grid-cols-[auto_1fr] grid-rows-[auto] w-full'>
             {/* Sidebar */}
@@ -72,7 +70,7 @@ const FAQ = () => {
                 ].map(({ text, ref }, index) => (
                   <div
                     style={{
-                      width: '100%',
+                      width: 'fit-content',
                       minWidth: 0,
                       textAlign: 'left',
                       borderRadius: 6,

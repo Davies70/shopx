@@ -19,11 +19,13 @@ export interface Product {
 export interface Category {
   name: string;
   products: Product[];
+  id: string;
 }
 
 export const categories: Category[] = [
   {
     name: 'Armored Outerwear',
+    id: 'armored_outerwear',
     products: [
       {
         id: 'AOW001',
@@ -91,7 +93,7 @@ export const categories: Category[] = [
         id: 'AOW005',
         name: 'Thermal Lined Armor Hoodie',
         images: [
-          'images/vest_4.jpg',
+          'images/vest_black_4.jpg',
           'images/vest_1.jpg',
           'images/vest_black_5.jpg',
         ],
@@ -120,6 +122,7 @@ export const categories: Category[] = [
   },
   {
     name: 'Tactical Head Protection',
+    id: 'tactical_head_protection',
     products: [
       {
         id: 'THP001',
@@ -183,9 +186,9 @@ export const categories: Category[] = [
         id: 'THP005',
         name: 'Comm-Ready Tactical Helmet',
         images: [
-          'images/fullhem_3.jpg',
-          'images/fullhem_2.jpg',
-          'images/fullhem_4.jpg',
+          'images/fullhelm_3.jpg',
+          'images/fullhelm_2.jpg',
+          'images/fullhelm_4.jpg',
         ],
         shortDescription: 'Integrated mic, bone-conducting headset.',
         longDescription:
@@ -212,6 +215,7 @@ export const categories: Category[] = [
   },
   {
     name: 'Mission-Ready Eye Gear',
+    id: 'mission_ready_eye_gear',
     products: [
       {
         id: 'EG001',
@@ -244,7 +248,7 @@ export const categories: Category[] = [
         longDescription:
           'Perfect for stealth ops, these goggles use a reflective mesh to amplify ambient light without creating a visible signature. Ideal for moonlit terrain.',
         color: 'futuristic',
-        price: 0,
+        price: 123.87,
       },
       {
         id: 'EG003',
@@ -259,7 +263,7 @@ export const categories: Category[] = [
           'Ergonomically shaped to fit close to the face, these glasses resist fragmentation and protect against wind, sand, and UV rays. Great for both day and night patrols.',
         tags: ['new'],
         color: 'cool black',
-        price: 0,
+        price: 99.99,
       },
       {
         id: 'EG004',
@@ -304,10 +308,32 @@ export const categories: Category[] = [
         color: 'camo',
         price: 88.99,
       },
+
+      {
+        id: 'GM001',
+        name: 'Full-Seal Tactical Gas Mask',
+        images: [
+          'images/gasmask_2.jpg',
+          'images/gasmask_1.jpg',
+          'images/gasmask_3.jpg',
+        ],
+        shortDescription: 'Military-grade mask with replaceable filters.',
+        longDescription:
+          'Designed for chemical, biological, and airborne threats, the Full-Seal Tactical Gas Mask provides full-face protection with a triple-layer filtration system. It features a polycarbonate anti-fog lens, silicone sealant for air-tight comfort, and voice diaphragm for team communication. Replaceable dual filters allow extended use in high-risk areas, and the quick-release harness system ensures rapid donning in emergencies. Perfect for first responders, survivalists, and frontline operatives.',
+        price: 159.99,
+        discount: {
+          isDiscounted: true,
+          discountPrice: 159.99,
+          percentOff: '20% off',
+        },
+        tags: ['new'],
+        color: 'black',
+      },
     ],
   },
   {
     name: 'Survival Handwear',
+    id: 'survival_handwear',
     products: [
       {
         id: 'HW001',
@@ -356,31 +382,6 @@ export const categories: Category[] = [
           percentOff: '20% off',
         },
         color: 'futuristic',
-      },
-    ],
-  },
-  {
-    name: 'Advanced Respiratory Gear',
-    products: [
-      {
-        id: 'GM001',
-        name: 'Full-Seal Tactical Gas Mask',
-        images: [
-          'images/gaskmask_2.jpg',
-          'images/gaskmask_1.jpg',
-          'images/gaskmask_3.jpg',
-        ],
-        shortDescription: 'Military-grade mask with replaceable filters.',
-        longDescription:
-          'Designed for chemical, biological, and airborne threats, the Full-Seal Tactical Gas Mask provides full-face protection with a triple-layer filtration system. It features a polycarbonate anti-fog lens, silicone sealant for air-tight comfort, and voice diaphragm for team communication. Replaceable dual filters allow extended use in high-risk areas, and the quick-release harness system ensures rapid donning in emergencies. Perfect for first responders, survivalists, and frontline operatives.',
-        price: 159.99,
-        discount: {
-          isDiscounted: true,
-          discountPrice: 159.99,
-          percentOff: '20% off',
-        },
-        tags: ['new'],
-        color: 'black',
       },
     ],
   },

@@ -3,7 +3,6 @@ import { TagIcon } from 'lucide-react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 
-
 type ProductCardProps = {
   product: Product;
   translateX?: number;
@@ -20,6 +19,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   // States
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
+  // const [isLiked, setIsLiked] = useState(false);
   // const [isAnimating, setIsAnimating] = useState(false);
 
   // Refs
@@ -152,8 +152,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <div className='px-0 grid-rows-[auto] grid-cols-[1fr] gap-x-[6px] gap-y-[24px] grid'>
             <div className='relative'>
               {/* Wishlist button */}
-              <div className='absolute top-4 right-4 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
-                <button className='bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors'>
+              {/* <div className='  absolute top-4 right-4 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+                <button
+                  className='bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors cursor-pointer'
+                  onClick={() => setIsLiked(!isLiked)}
+                >
                   <svg
                     width='20'
                     height='18'
@@ -163,13 +166,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
                   >
                     <path
                       d='M10 18L8.55 16.7C6.86667 15.1833 5.475 13.875 4.375 12.775C3.275 11.675 2.4 10.6873 1.75 9.812C1.1 8.93733 0.666667 8.14567 0.45 7.437C0.233333 6.729 0.125 6.01667 0.125 5.3C0.125 3.76667 0.608333 2.5 1.575 1.5C2.54167 0.5 3.76667 0 5.25 0C6.15 0 6.97933 0.195667 7.738 0.587C8.49667 0.979 9.16667 1.55 9.75 2.3L10 2.65L10.25 2.3C10.8333 1.55 11.5033 0.979 12.262 0.587C13.0207 0.195667 13.85 0 14.75 0C16.2333 0 17.4583 0.5 18.425 1.5C19.3917 2.5 19.875 3.76667 19.875 5.3C19.875 6.01667 19.7667 6.729 19.55 7.437C19.3333 8.14567 19 8.93733 18.55 9.812C17.9 10.6873 17.025 11.675 15.925 12.775C14.825 13.875 13.4333 15.1833 11.75 16.7L10.3 18H10Z'
-                      fill='none'
+                      fill={isLiked ? '#a74030' : 'none'}
                       stroke='currentColor'
                       strokeWidth='1.5'
                     />
                   </svg>
                 </button>
-              </div>
+              </div> */}
 
               <a
                 href={`products/${product.id}`}
@@ -196,7 +199,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                             ease: 'easeInOut',
                           }}
                           style={{
-                            backgroundImage: `url(${product.images[currentImageIndex]})`,
+                            backgroundImage: `url(/${product.images[currentImageIndex]})`,
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
                             backgroundRepeat: 'no-repeat',
@@ -237,13 +240,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 <div className='card-info px-[14px] pt-[14px] pb-[18px] gap-x-[16px] gap-y-[9px] grid-rows-[auto] grid-cols-[1fr] justify-start justify-items-center min-[767px]:p-[14px_16px_18px]'>
                   <div className='grid bg-scroll justify-self-stretch gap-y-[7px] grid-cols-[1fr] justify-start items-start gap-x-[9px] min-[768px]:gap-y-[16px] grid-rows-[auto] min-[768px]:grid-cols-[1fr_auto] min-[768px]:justify-between min-[768px]:items-start w-full'>
                     <div className='product-card-info grid gap-x-[16px] gap-y-[4px] grid-rows-[auto_auto] grid-cols-[1fr]'>
-                      {/* {productCards.length > 0 && (
-                        <div className='items-center h-[28px] flex'>
-                          <div className='leading-[1.2em] tracking-[3px] uppercase pl-[6px] text-[11px] font-[500] border-l-2 border-l-[#07090c]'>
-                            {product.tags?.join()}
-                          </div>
-                        </div>
-                      )} */}
                       {product.discount?.isDiscounted && (
                         <div className='items-center h-[28px] flex'>
                           {product.discount && (
@@ -257,13 +253,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
                         </div>
                       )}
 
-                      {!product.discount?.isDiscounted && (
-                        <div className='items-center h-[28px] flex'>
-                          <div className='leading-[1.2em] tracking-[3px] uppercase pl-[6px] text-[11px] font-[500] border-l-2 border-l-[#07090c]'>
-                            {product.tags?.join()}
+                      {!product.discount?.isDiscounted &&
+                        (product.tags?.length ?? 0) > 0 && (
+                          <div className='items-center h-[28px] flex'>
+                            <div className='leading-[1.2em] tracking-[3px] uppercase pl-[6px] text-[11px] font-[500] border-l-2 border-l-[#07090c]'>
+                              {product.tags?.join()}
+                            </div>
                           </div>
-                        </div>
-                      )}
+                        )}
 
                       <div className='gap-x-[16px] gap-y-[8px] grid-rows-[auto_auto] grid-cols-[1fr] grid'>
                         <h3 className='product-title tracking-[0px] leading-[1.3em] text-[18px] font-[500] group-hover:text-[#a74030] transition-colors duration-300'>

@@ -1,9 +1,15 @@
 import GridWrapper from './GridWrapper';
 import { footerNavigationLinks, footerProductLinks } from '@/data';
 import RevealButtonWithIcon from './RevealButtonWithIcon';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Footer = () => {
+  const location = useLocation();
+
+  const productLinks = footerProductLinks.filter(
+    (product) => product.link !== location.pathname
+  );
+
   return (
     <footer className=' top-auto bottom-[0%] left-[0] right-[0] bg-[#080808] sticky z-0 w-full'>
       <div className='pb-0 pt-[72px] min-[480px]:pt-[80px] min-[768px]:py-[100px] min-[992px]:pb-[160px] z-10 justify-center flex relative'>
@@ -34,7 +40,7 @@ const Footer = () => {
                     Products
                   </div>
                   <div className='flex flex-col gap-y-[18px]'>
-                    {footerProductLinks.map(({ link, name }, index) => (
+                    {productLinks.map(({ link, name }, index) => (
                       <Link to={link} key={index}>
                         <RevealButtonWithIcon
                           key={index}

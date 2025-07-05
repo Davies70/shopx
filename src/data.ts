@@ -86,6 +86,13 @@ export const bestSellers = [
   categories[3].products[1],
 ];
 
+export const shopAllProducts = [
+  ...categories[0].products,
+  ...categories[3].products,
+  ...categories[2].products,
+  ...categories[1].products,
+];
+
 export const footerNavigationLinks = [
   { name: 'Home', link: '/' },
   { name: 'About', link: '/about' },
@@ -94,8 +101,15 @@ export const footerNavigationLinks = [
 ];
 
 export const footerProductLinks = [
-  { name: 'Gas masks', link: '/products/gas-masks' },
-  { name: 'Tactical Gear', link: '/products/tactical-gear' },
+  { name: 'Armored Outerwear', link: '/category/armored_outerwear' },
+  {
+    name: 'Tacktical Head Protection',
+    link: '/category/tactical_head_protection',
+  },
+  {
+    name: 'Mission-Ready Eye Gear',
+    link: '/category/mission_ready_eye_gear',
+  },
   { name: 'Shop All', link: '/shop' },
 ];
 
