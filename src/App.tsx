@@ -26,7 +26,7 @@ function App() {
             <Route path='/about' element={<About />} />
             <Route path='/contact' element={<Contact />} />
             <Route path='/faq' element={<FAQ />} />
-            <Route path='product/:id' element={<Product />} />
+            <Route path='/products/:id' element={<Product />} />
             <Route path='/category/:id' element={<Category/>}/>
 
             {/* Add more routes as needed */}

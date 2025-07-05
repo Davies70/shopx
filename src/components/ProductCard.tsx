@@ -2,6 +2,7 @@ import { Product } from '../categories';
 import { TagIcon } from 'lucide-react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 type ProductCardProps = {
   product: Product;
@@ -174,8 +175,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 </button>
               </div> */}
 
-              <a
-                href={`products/${product.id}`}
+              <Link
+                to={`/products/${product.id}`}
                 className='grid no-underline decoration-0 gap-x-[3px] gap-y-[3px] text-[#080808] bg-[rgb(255,255,255)] grid-rows-[auto_auto] grid-cols-[1fr] max-w-[100%]'
               >
                 <div className='card-image-wrapper h-full bg-[rgb(244,248,250)] overflow-hidden rounded-sm'>
@@ -199,7 +200,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                             ease: 'easeInOut',
                           }}
                           style={{
-                            backgroundImage: `url(/${product.images[currentImageIndex]})`,
+                            backgroundImage: `url(${product.images[currentImageIndex]})`,
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
                             backgroundRepeat: 'no-repeat',
@@ -275,17 +276,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     <div className='dynamic-price flex flex-col bg-scroll tracking-[3px] text-[14px] uppercase text-[#667479] font-[300] leading-[1em] items-start min-[767px]:items-start'>
                       {product.discount?.isDiscounted ? (
                         <div className='flex items-center h-[28px] mt-[1px] text-[15px]'>
-                          {product.discount.discountPrice} USD
+                          $ {product.discount.discountPrice} USD
                         </div>
                       ) : (
                         <div className='flex items-center h-[28px] mt-[1px] text-[15px]'>
-                          {product.price} USD
+                          $ {product.price} USD
                         </div>
                       )}
 
                       {product.discount?.isDiscounted && (
-                        <div className='mt-[-1px] min-[480px]:mt-0 min-[768px]:mt-3px text-[#99a7ac] text-[13px] decoration-dashed line-through ml-2'>
-                          {product.price} USD
+                        <div className='mt-[-1px] min-[480px]:mt-0 min-[768px]:mt-3px text-[#99a7ac] text-[13px] decoration-solid line-through ml-2'>
+                         $ {product.price} USD
                         </div>
                       )}
                     </div>
@@ -298,7 +299,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     </button>
                   </div>
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

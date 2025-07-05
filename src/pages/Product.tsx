@@ -1,9 +1,24 @@
 import GridWrapper from '@/components/GridWrapper';
-import { productCards } from '@/data';
+// import { productCards } from '@/data';
 import { TagIcon } from 'lucide-react';
 import TabItem from '@/components/TabItem';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getProduct } from '@/services';
+import { Product as ProductType } from '@/categories';
 
 const Product = () => {
+  const [product, setProduct] = useState<ProductType | null>(null);
+
+  const params = useParams();
+
+  useEffect(() => {
+    if (params.id) {
+      const data = getProduct(params.id);
+      console.log(data);
+      setProduct(data);
+    }
+  }, [params.id]);
   return (
     <div className='z-10 bg-white relative '>
       <div className='flex justify-center'>
@@ -24,7 +39,7 @@ const Product = () => {
                       className='w-full min-w-full max-w-fit inline-block bg-transparent'
                     >
                       <img
-                        src='/images/card_5_1.png'
+                        src={product?.images[0]}
                         loading='lazy'
                         alt=''
                         className='object-cover h-full max-h-full inline-block  align-middle  border-0'
@@ -32,7 +47,7 @@ const Product = () => {
                     </a>
                   </div>
 
-                  {productCards[0].images.map((image, index) => (
+                  {product?.images.map((image, index) => (
                     <div
                       role='listitem'
                       key={index}
@@ -113,15 +128,14 @@ const Product = () => {
                   </div>
                 </div>
                 <h1 className='font-[600] text-[30px] tracking-[0.07em] uppercase my-0 leading-[1.35em]'>
-                  Cat-Eye Goggles
+                  {product?.name}
                 </h1>
               </div>
               <div className='grid font-[300] text-[18px] grid-cols-[auto_1fr] grid-rows-[auto] uppercase tracking-[0.04em] text-[#667479] gap-y-[6px] gap-x-[16px]'>
-                <div>99.00USD</div>
-                {/* <div
-                  data-wf-sku-bindings='[{"from":"f_compare_at_price_7dr10dr","to":"innerHTML"}]'
-                  className='compare-price w-dyn-bind-empty'
-                ></div> */}
+                <div> $ {product?.price} USD</div>
+                <div className='decoration-solid line-through'>
+                  $ {product?.price} USD
+                </div>
               </div>
               <div className='grid gap-x-[28px] gap-y-[36px] grid-rows-[auto_auto] grid-cols-[1fr] pb-[24px]'>
                 <div className='max-w-[425px]'>

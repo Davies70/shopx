@@ -15,7 +15,7 @@ const Navbar = () => {
   const toggleRef = useRef(null);
 
   const { pathname } = useLocation();
-  const excludedLinks = ['/about', '/contact', '/product'];
+  const includedLinks = ['/home', '/shop'];
 
   // Use Framer Motion's scroll hooks for better performance
   const { scrollY } = useScroll();
@@ -27,7 +27,7 @@ const Navbar = () => {
     ['rgba(0, 0, 0, 0)', 'rgba(255, 255, 255, 1)']
   );
 
-  const backgroundColor: string | MotionValue = excludedLinks.includes(pathname)
+  const backgroundColor: string | MotionValue = !includedLinks.includes(pathname)
     ? 'rgba(255, 255, 255, 1)'
     : MotionValueBackgroundColor;
 
@@ -38,7 +38,7 @@ const Navbar = () => {
     ['rgba(255, 255, 255, 1)', 'rgba(8, 8, 8, 1)'] // White to light black (#080808)
   );
 
-  const textColor = excludedLinks.includes(pathname)
+  const textColor = !includedLinks.includes(pathname)
     ? 'rgba(8, 8, 8, 1)'
     : MotionValueTextColor;
   // Separate transformation for search text (white to gray)
@@ -49,13 +49,13 @@ const Navbar = () => {
     ['rgba(255, 255, 255, 1)', 'rgba(100, 100, 100, 1)']
   );
 
-  const searchTextColor = excludedLinks.includes(pathname)
+  const searchTextColor = !includedLinks.includes(pathname)
     ? 'rgba(100, 100, 100, 1)'
     : MotionValueSearchTextColor;
 
   const MotionValuenavbarHeight = useTransform(scrollY, [0, 300], [100, 60]);
 
-  const navbarHeight = excludedLinks.includes(pathname)
+  const navbarHeight = !includedLinks.includes(pathname)
     ? '60px'
     : MotionValuenavbarHeight;
 

@@ -31,9 +31,9 @@ export const categories: Category[] = [
         id: 'AOW001',
         name: 'Lightweight Kevlar Vest',
         images: [
-          'images/vest_1.jpg',
-          'images/vest_black_2.jpg',
-          'images/vest_9.jpg',
+          '/images/vest_1.jpg',
+          '/images/vest_black_2.jpg',
+          '/images/vest_9.jpg',
         ],
         shortDescription: 'Breathable, minimal plating for urban scouting.',
         longDescription:
@@ -63,9 +63,9 @@ export const categories: Category[] = [
         id: 'AOW003',
         name: 'Urban Camo Covert Armor',
         images: [
-          'images/vest_3.jpg',
-          'images/vest_black_6.jpg',
-          'images/vest_black_3.jpg',
+          '/images/vest_3.jpg',
+          '/images/vest_black_6.jpg',
+          '/images/vest_black_3.jpg',
         ],
         shortDescription: 'Slim profile, street-ready camo print.',
         longDescription: `Blending into the concrete jungle has never been easier. This covert armor offers discreet protection with a low-visibility camo design and hidden plate pockets. It's built for those who need to avoid detection but stay safe from small arms fire. Durable zippers, urban aesthetic, and lightweight inserts make this ideal for urban survivalists.`,
@@ -93,9 +93,9 @@ export const categories: Category[] = [
         id: 'AOW005',
         name: 'Thermal Lined Armor Hoodie',
         images: [
-          'images/vest_black_4.jpg',
-          'images/vest_1.jpg',
-          'images/vest_black_5.jpg',
+          '/images/vest_black_4.jpg',
+          '/images/vest_1.jpg',
+          '/images/vest_black_5.jpg',
         ],
         shortDescription: 'Blends casual style with covert defense.',
         longDescription:
@@ -108,9 +108,9 @@ export const categories: Category[] = [
         id: 'AOW006',
         name: 'Emergency Rain-Armor Shell',
         images: [
-          'images/altvest_2.jpg',
-          'images/altvest_3.jpg',
-          'images/altvest_1.jpg',
+          '/images/altvest_2.jpg',
+          '/images/altvest_3.jpg',
+          '/images/altvest_1.jpg',
         ],
         shortDescription: 'Waterproof outer shell with reactive armor inserts.',
         longDescription:
@@ -128,9 +128,9 @@ export const categories: Category[] = [
         id: 'THP001',
         name: 'Ballistic Composite Helmet',
         images: [
-          'images/camohelm_1.jpg',
-          'images/camohelm_2',
-          'images/camohelm_3',
+          '/images/camohelm_1.jpg',
+          '/images/camohelm_2',
+          '/images/camohelm_3',
         ],
         shortDescription: 'Advanced composite shell, internal padding.',
         longDescription:
@@ -142,9 +142,9 @@ export const categories: Category[] = [
         id: 'THP002',
         name: 'Modular Riot Helmet',
         images: [
-          'images/helmet_1.jpg',
-          'images/helmet_2.jpg',
-          'images/helmet_3.jpg',
+          '/images/helmet_1.jpg',
+          '/images/helmet_2.jpg',
+          '/images/helmet_3.jpg',
         ],
         shortDescription: 'Built-in visor, attachable face shield.',
         longDescription:
@@ -172,9 +172,9 @@ export const categories: Category[] = [
         id: 'THP004',
         name: 'Tactical Hood with Sensor Mesh',
         images: [
-          'images/fullhelm_5.jpg',
-          'images/fullhelm_1.jpg',
-          'images/fullhelm_2.jpg',
+          '/images/fullhelm_5.jpg',
+          '/images/fullhelm_1.jpg',
+          '/images/fullhelm_2.jpg',
         ],
         shortDescription: 'Concealable hood with integrated sensors.',
         longDescription:
@@ -186,9 +186,9 @@ export const categories: Category[] = [
         id: 'THP005',
         name: 'Comm-Ready Tactical Helmet',
         images: [
-          'images/fullhelm_3.jpg',
-          'images/fullhelm_2.jpg',
-          'images/fullhelm_4.jpg',
+          '/images/fullhelm_3.jpg',
+          '/images/fullhelm_2.jpg',
+          '/images/fullhelm_4.jpg',
         ],
         shortDescription: 'Integrated mic, bone-conducting headset.',
         longDescription:
@@ -201,9 +201,9 @@ export const categories: Category[] = [
         id: 'THP006',
         name: 'Impact Sensor Smart Helmet',
         images: [
-          'images/helmet_1.jpg',
-          'images/helmet_2.jpg',
-          'images/helmet_3.jpg',
+          '/images/helmet_1.jpg',
+          '/images/helmet_2.jpg',
+          '/images/helmet_3.jpg',
         ],
         shortDescription: 'Tracks shock impact and relays data.',
         longDescription:
@@ -221,9 +221,9 @@ export const categories: Category[] = [
         id: 'EG001',
         name: 'Sealed Impact-Resistant Goggles',
         images: [
-          'images/googles_4.jpg',
-          'images/googles_5.jpg',
-          'images/googles_6.jpg',
+          '/images/googles_4.jpg',
+          '/images/googles_5.jpg',
+          '/images/googles_6.jpg',
         ],
         shortDescription: 'Full-seal foam gasket, anti-fog coating.',
         longDescription:
@@ -240,9 +240,9 @@ export const categories: Category[] = [
         id: 'EG002',
         name: 'Night-Ops Low-Light Goggles',
         images: [
-          'images/googles_1.jpg',
-          'images/googles_2.jpg',
-          'images/googles_3.jpg',
+          '/images/googles_1.jpg',
+          '/images/googles_2.jpg',
+          '/images/googles_3.jpg',
         ],
         shortDescription: 'Passive light amplification without green glow.',
         longDescription:
@@ -254,9 +254,9 @@ export const categories: Category[] = [
         id: 'EG003',
         name: 'Panoramic Ballistic Glasses',
         images: [
-          'images/googles_6.jpg',
-          'images/googles_5.jpg',
-          'images/googles_4.jpg',
+          '/images/googles_6.jpg',
+          '/images/googles_5.jpg',
+          '/images/googles_4.jpg',
         ],
         shortDescription: 'Wraparound design, scratch-resistant lenses.',
         longDescription:
@@ -269,9 +269,9 @@ export const categories: Category[] = [
         id: 'EG004',
         name: 'Adaptive Tint Combat Visor',
         images: [
-          'images/googles_4.jpg',
-          'images/googles_2.jpg',
-          'images/googles_3.jpg',
+          '/images/googles_4.jpg',
+          '/images/googles_2.jpg',
+          '/images/googles_3.jpg',
         ],
         shortDescription: 'Auto-darkens in bright light.',
         longDescription:
@@ -283,9 +283,9 @@ export const categories: Category[] = [
         id: 'EG005',
         name: 'IR-Reflective Stealth Shades',
         images: [
-          'images/googles_3.jpg',
-          'images/googles_5.jpg',
-          'images/googles_3.jpg',
+          '/images/googles_3.jpg',
+          '/images/googles_5.jpg',
+          '/images/googles_3.jpg',
         ],
         shortDescription: 'Deflects infrared tracking and heat detection.',
         longDescription:
@@ -297,9 +297,9 @@ export const categories: Category[] = [
         id: 'EG006',
         name: 'Windproof Tactical Eyewear',
         images: [
-          'images/camo_googles_1.jpg',
-          'images/camo_googles_2.jpg',
-          'images/camo_googles_3.jpg',
+          '/images/camo_googles_1.jpg',
+          '/images/camo_googles_2.jpg',
+          '/images/camo_googles_3.jpg',
         ],
         shortDescription: 'Ideal for desert, high-speed conditions.',
         longDescription:
@@ -313,9 +313,9 @@ export const categories: Category[] = [
         id: 'GM001',
         name: 'Full-Seal Tactical Gas Mask',
         images: [
-          'images/gasmask_2.jpg',
-          'images/gasmask_1.jpg',
-          'images/gasmask_3.jpg',
+          '/images/gasmask_2.jpg',
+          '/images/gasmask_1.jpg',
+          '/images/gasmask_3.jpg',
         ],
         shortDescription: 'Military-grade mask with replaceable filters.',
         longDescription:
@@ -339,9 +339,9 @@ export const categories: Category[] = [
         id: 'HW001',
         name: 'Armored Tactical Gloves',
         images: [
-          'images/glove_1.jpg',
-          'images/glove_2.jpg',
-          'images/glove_3.jpg',
+          '/images/glove_1.jpg',
+          '/images/glove_2.jpg',
+          '/images/glove_3.jpg',
         ],
         shortDescription: 'Reinforced knuckles, grip-enhancing palms.',
         longDescription:
@@ -353,9 +353,9 @@ export const categories: Category[] = [
         id: 'HW002',
         name: 'All-Climate Utility Gloves',
         images: [
-          'images/glove_2.jpg',
-          'images/glove_1.jpg',
-          'images/glove_3.jpg',
+          '/images/glove_2.jpg',
+          '/images/glove_1.jpg',
+          '/images/glove_3.jpg',
         ],
         shortDescription: 'Insulated, touchscreen-compatible fingertips.',
         longDescription:
@@ -368,9 +368,9 @@ export const categories: Category[] = [
         id: 'HW003',
         name: 'Multi-Tool Mechanic Gloves',
         images: [
-          'images/glove_3.jpg',
-          'images/glove_2.jpg',
-          'images/glove_1.jpg',
+          '/images/glove_3.jpg',
+          '/images/glove_2.jpg',
+          '/images/glove_1.jpg',
         ],
         shortDescription: 'Built-in bit holders and mini-blade pocket.',
         longDescription:
