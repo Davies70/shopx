@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import ProductCard from './ProductCard';
+
 import FadeInIconButton from './FadeInIconButton';
 import GridWrapper from './GridWrapper';
 import { bestSellers } from '@/data';
 import Heading from './Heading';
 import useSwipe from '@/hooks/useSwipe';
+import OldProductCard from './OldProductCard';
 
 const BestSellers = () => {
   // Clone slides for infinite loop
@@ -85,7 +86,7 @@ const BestSellers = () => {
                 onAnimationComplete={handleAnimationComplete}
               >
                 {slides.map((product, idx) => (
-                  <ProductCard product={product} key={idx} />
+                  <OldProductCard product={product} key={idx} />
                 ))}
               </motion.div>
               <FadeInIconButton

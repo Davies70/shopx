@@ -47,7 +47,7 @@ const Product = () => {
                     </a>
                   </div>
 
-                  {product?.images.map((image, index) => (
+                  {product?.images.slice(1).map((image, index) => (
                     <div
                       role='listitem'
                       key={index}
@@ -68,63 +68,28 @@ const Product = () => {
                       </a>
                     </div>
                   ))}
-                  {/* <div
-                    role='listitem'
-                    className='collection-item w-dyn-item w-dyn-repeater-item'
-                  >
-                    <a
-                      href='#'
-                      className='lightbox-link w-inline-block w-lightbox'
-                      aria-label='open lightbox'
-                      aria-haspopup='dialog'
-                    >
-                      <img
-                        src='https://cdn.prod.website-files.com/642fc428f0c0b942b1ba7a71/643050d91170b4a62a3e33e2_gog-5.png'
-                        loading='lazy'
-                        alt=''
-                        className='product-gallery-image'
-                      />
-                    </a>
-                  </div>
-                  <div
-                    role='listitem'
-                    className='collection-item w-dyn-item w-dyn-repeater-item'
-                  >
-                    <a
-                      href='#'
-                      className='lightbox-link w-inline-block w-lightbox'
-                      aria-label='open lightbox'
-                      aria-haspopup='dialog'
-                    >
-                      <img
-                        src='https://cdn.prod.website-files.com/642fc428f0c0b942b1ba7a71/643050da59806f665f4cf71f_gog-6.png'
-                        loading='lazy'
-                        alt=''
-                        sizes='(max-width: 479px) 100vw, (max-width: 767px) 55vw, (max-width: 991px) 20vw, (max-width: 1439px) 100vw, 3088px'
-                        className='product-gallery-image'
-                      />
-                    </a>
-                  </div> */}
                 </div>
-                {/* <div className='w-dyn-hide w-dyn-empty'>
-                  <div>No items found.</div>
-                </div> */}
               </div>
-              {/* <div className='back-button-wrapper'></div> */}
             </div>
             <div className='col-[span_1] row-[span_1] self-start justify-self-start max-[767px]:pt-[36px] max-[991px]:max-w-[675px] max-[991px]:pt-[40px] max-[991px]:pl-[5vw] gap-x-[16px] gap-y-[24px] grid-rows-[auto_auto] grid-cols-[1fr] content-start justify-stretch items-start w-full min-[992px]:pt-[60px] pb-0 grid sticky top-[65px]'>
               <div className='grid grid-cols-[1fr] grid-rows-[auto_auto] gap-[12px] '>
                 <div className='flex flex-col'>
                   <div className='flex'>
-                    <div className='mb-[12px] items-center h-[28px] mr-[9px] flex'>
-                      <div className='border-l-[2px] border-[#07090c] tracking-[3px] uppercase pl-[6px] text-[11px] font-[500] leading-[1.2em]'>
-                        New
+                    {!product?.discount?.isDiscounted && (
+                      <div className='mb-[12px] items-center h-[28px] mr-[9px] flex'>
+                        <div className='border-l-[2px] border-[#07090c] tracking-[3px] uppercase pl-[6px] text-[11px] font-[500] leading-[1.2em]'>
+                          New
+                        </div>
                       </div>
-                    </div>
-                    <div className='mb-[12px] items-center h-[28px] flex'>
-                      <TagIcon className='w-[16px] mr-[2px] inline-block max-w-full align-middle text-[#a74030] leading-[1em] border-l-[2px] border-[#07090c] tracking-[3px] uppercase pl-[6px] text-[11px] font-[500]' />
-                      <div className='label-text discount w-dyn-bind-empty'></div>
-                    </div>
+                    )}
+                    {product?.discount?.isDiscounted && (
+                      <div className='mb-[12px] items-center h-[28px] flex gap-2.5'>
+                        <TagIcon className='w-4 h-4 text-[#a74030]' />
+                        <span className='text-[#a74030] text-xs font-semibold tracking-widest uppercase'>
+                          {product.discount.percentOff}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <h1 className='font-[600] text-[30px] tracking-[0.07em] uppercase my-0 leading-[1.35em]'>
@@ -132,16 +97,23 @@ const Product = () => {
                 </h1>
               </div>
               <div className='grid font-[300] text-[18px] grid-cols-[auto_1fr] grid-rows-[auto] uppercase tracking-[0.04em] text-[#667479] gap-y-[6px] gap-x-[16px]'>
-                <div> $ {product?.price} USD</div>
-                <div className='decoration-solid line-through'>
-                  $ {product?.price} USD
+                <div>
+                  ${' '}
+                  {product?.discount?.isDiscounted
+                    ? product.discount.discountPrice
+                    : product?.price}{' '}
+                  USD
                 </div>
+                {product?.discount?.isDiscounted && (
+                  <div className='decoration-solid line-through'>
+                    $ {product?.price} USD
+                  </div>
+                )}
               </div>
               <div className='grid gap-x-[28px] gap-y-[36px] grid-rows-[auto_auto] grid-cols-[1fr] pb-[24px]'>
                 <div className='max-w-[425px]'>
                   <div className='text-[15px] text-[#667479] tracking-normal'>
-                    Cat Eye Shields are the ultimate in military-grade
-                    protective eyewear for cats.
+                    {product?.shortDescription}
                   </div>
                 </div>
                 <div className='pt-0 pb-[12px] border-t border-[rgba(228,233,236,.6)]'>
@@ -153,7 +125,7 @@ const Product = () => {
                             Size
                           </div>
                           <div className='flex overflow-hidden justify-center flex-col cursor-pointer'>
-                            <div className='button-text'>Size guide</div>
+                            <div className='tracking-normal'>Size guide</div>
                           </div>
                         </div>
                         <div
@@ -178,43 +150,7 @@ const Product = () => {
                     >
                       <div className='text-white text-center'>Add to bag</div>
                     </button>
-                    {/* <a
-                      data-node-type='commerce-buy-now-button'
-                      data-default-text='Buy now'
-                      data-subscription-text='Subscribe now'
-                      aria-busy='false'
-                      aria-haspopup='false'
-                      style={{ display: 'none' }}
-                      className='w-commerce-commercebuynowbutton add-to-cart-button grey w-dyn-hide'
-                      href='/checkout'
-                    >
-                      Buy now
-                    </a> */}
                   </form>
-                  {/* <div
-                    style={{ display: 'none' }}
-                    className='w-commerce-commerceaddtocartoutofstock'
-                    tabIndex={0}
-                  >
-                    <div>This product is out of stock.</div>
-                  </div> */}
-                  {/* <div
-                    data-node-type='commerce-add-to-cart-error'
-                    style={{ display: 'none' }}
-                    className='w-commerce-commerceaddtocarterror'
-                  >
-                    <div
-                      data-node-type='commerce-add-to-cart-error'
-                      data-w-add-to-cart-quantity-error='Product is not available in this quantity.'
-                      data-w-add-to-cart-general-error='Something went wrong when adding this item to the cart.'
-                      data-w-add-to-cart-mixed-cart-error='You can’t purchase another product with a subscription.'
-                      data-w-add-to-cart-buy-now-error='Something went wrong when trying to purchase this item.'
-                      data-w-add-to-cart-checkout-disabled-error='Checkout is disabled on this site.'
-                      data-w-add-to-cart-select-all-options-error='Please select an option in each set.'
-                    >
-                      Product is not available in this quantity.
-                    </div>
-                  </div> */}
                 </div>
                 <div className='grid grid-cols-[1fr] grid-rows-[auto] gap-[12px]'>
                   <div className='grid grid-cols-[1fr] grid-rows-[auto_auto_auto] gap-[14px]'>
@@ -255,13 +191,32 @@ const Product = () => {
                 </div>
               </div>
               <div className='grid w-full grid-cols-[1fr] grid-rows-[auto_auto] border-t border-[#e4e9ec]'>
-                <TabItem question='Description' answer='raw text' />
-                <TabItem question='Deliveryy & Returns' answer='raw text' />
+                <TabItem
+                  question='Description'
+                  answer={product?.longDescription ?? ''}
+                />
+                <TabItem
+                  question='Delivery & Returns'
+                  answer={`Delivery: We offer free expedited shipping on all orders. Orders are processed within 1-2 business days and typically arrive within 3-7 business days.
+
+        Returns: If you are not completely satisfied with your purchase, you may return your item(s) within 60 days of delivery for a full refund. Items must be unused and in their original packaging. For more details, please refer to our Returns Policy page.`}
+                />
               </div>
             </div>
           </div>
         </GridWrapper>
       </div>
+      <section>
+        <GridWrapper>
+          <div>
+            <GridWrapper>
+              <div>
+                <div></div>
+              </div>
+            </GridWrapper>
+          </div>
+        </GridWrapper>
+      </section>
     </div>
   );
 };

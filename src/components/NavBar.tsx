@@ -96,11 +96,11 @@ const Navbar = () => {
                 }}
               >
                 <Link to='/'>
-                  <div className='hidden min-[480px]:block text-[16px] text-center tracking-[4px]'>
+                  <div className='hidden min-[480px]:block text-[16px] text-center tracking-[4px] font-semibold'>
                     <span>Shop</span> <br /> <span>Apocalypse</span>
                   </div>
 
-                  <div className='flex flex-col leading-3 gap-0 min-[480px]:hidden text-[16px] items-center text-center tracking-[3px]'>
+                  <div className='font-semibold flex flex-col leading-3 gap-0 min-[480px]:hidden text-[16px] items-center text-center tracking-[3px]'>
                     <div>Shop</div>
                     <div>Apoca</div>
                     <div>lypse</div>

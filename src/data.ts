@@ -71,8 +71,8 @@ type Story = {
 export const storyOne: Story = {
   title: 'Get Ready for the End Times with Shop Apocalypse',
   description: `At ShopApocalypse, we’re more than just a store for survival gear — we’re a movement of forward-thinkers, tacticians, and everyday preppers united by one goal: readiness. We believe that when the unexpected hits, you shouldn’t just survive — you should thrive. That’s why we’ve curated elite, battle-tested gear that empowers civilians, enthusiasts, and off-grid wanderers to stay protected, prepared, and one step ahead. Learn more about how ShopApocalypse was forged from the belief that survival isn’t paranoia — it’s power.`,
-  image_1: 'images/plain/vest_2.jpg',
-  image_2: 'images/plain/googles_1.jpg',
+  image_1: 'images/visor_1.jpg',
+  image_2: 'images/vest_black_4.jpg',
 };
 
 export const productCards = [...categories[1].products];
@@ -121,7 +121,7 @@ export const testimonials: Review[] = [
   },
   {
     review:
-      '"The Kevlar Hoodie kept me warm, safe, and stylish while scavenging the frozen food aisle."',
+      '"The Kevlar Vest kept me warm, safe, and stylish while scavenging the frozen food aisle."',
     author: 'Icy Ivy',
   },
   {

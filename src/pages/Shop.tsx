@@ -6,17 +6,23 @@ import ProductCard from '@/components/ProductCard';
 import RevealButton from '@/components/RevealButton';
 import Testimonials from '@/components/Testimonials';
 import { shopAllProducts } from '@/data';
+
+const categories = [
+  { text: 'Armored Outerwear', link: 'armored_outerwear' },
+  { text: 'Tactical Head Protection', link: 'tactical_head_protection' },
+  { text: 'Mission-Ready Eye Gear', link: 'mission_ready_eye_gear' },
+  { text: 'Survival Handwear', link: 'survival_handwear' },
+];
+
 const Shop = () => {
   return (
-    <div className='z-10 bg-[#fff] relative'>
-      <section className='min-h-[325px] pt-[200px] pb-[60px] text-white flex relative justify-center min-[768px]:min-h-[500px] min-[768px]:pt-[250px] min-[768px]:pb-[80px]'>
+    <div className='z-10 bg-white relative'>
+      {/* Hero Section */}
+      <section className='min-h-[300px] pt-[140px] pb-[40px] flex justify-center items-center relative min-[768px]:min-h-[450px] min-[768px]:pt-[200px] min-[768px]:pb-[60px]'>
         <GridWrapper>
-          <div className='grid row-[1/2] col-[2/3] gap-y-[18x] grid-cols-[1fr] min-[992px]:gap-y-[16px] min-[992px]:grid-cols-[1fr_auto] grid-rows-[auto] items-end'>
-            <div className='max-w-[425px] self-end'>
-              <div className='grid justify-start auto-cols-[1fr] grid-cols-[1fr] grid-rows-[auto] gap-y-[24px] gap-x-[16px]'>
-                {/* <div className='uppercase font-[300] text-[14px] tracking-[4px]'>
-                  Shop all
-                </div> */}
+          <div className='grid row-[1/2] col-[2/3] grid-cols-1 items-end'>
+            <div className='max-w-[500px] self-end'>
+              <div className='grid gap-y-6 text-white drop-shadow-lg'>
                 <Heading
                   text='Browse our complete collection'
                   type='extra-large'
@@ -28,79 +34,61 @@ const Shop = () => {
         <div className='absolute inset-0 overflow-hidden'>
           <motion.div
             animate={{
-              scaleX: 1.07689,
-              scaleY: 1.07689,
-              translateY: '-0.6056%',
+              scaleX: 1.08,
+              scaleY: 1.08,
+              translateY: '-0.6%',
             }}
             transition={{
               duration: 0.5,
               ease: 'easeInOut',
             }}
-            className='absolute inset-0 bg-[50%] bg-no-repeat bg-cover'
+            className='absolute inset-0 bg-center bg-no-repeat bg-cover'
             style={{
               backgroundImage: `url(/images/sliders/slide_5.jpg)`,
             }}
           >
-            <div className='absolute inset-0 bg-[rgba(8,8,8,.6)]'></div>
+            <div className='absolute inset-0 bg-black/60' />
           </motion.div>
         </div>
       </section>
-      <section className='border border-b-[#e4e9ec] pt-0 pb-[72px] min-[480px]:pb-[80px] min-[768px]:pb-[100px] z-10 justify-center flex relative min-[992px]:pb-[160px]'>
+
+      {/* Category & Products Section */}
+      <section className='border-b border-[#e4e9ec] pt-0 pb-16 min-[480px]:pb-20 min-[768px]:pb-24 min-[992px]:pb-36 z-10 flex justify-center relative bg-[#f9fafb]'>
         <GridWrapper>
-          <div className='grid col-[1/4] min-[480px]:col-[2/3] row-[1/2] gap-y-[26px] relative content-between auto-cols-[1fr] grid-cols-[1fr] grid-rows-[auto] z-[20]'>
-            <div className='pt-[48px] px-[5vw] min-[768px]:pt-[60px] min-[992px]:pt-[80px] flex pb-[6px]'>
-              <div className='flex flex-col min-[768px]:flex-col gap-y-[16px] gap-x-[0] w-full'>
-                <div className='tracking-[3px] text-[11px] font-[300] leading-[1.3em] uppercase text-[#667479] mb-[8px] min-[768px]:mb-0'>
+          <div className='grid col-[1/4] min-[480px]:col-[2/3] row-[1/2] gap-y-10 relative content-between grid-cols-1 z-20'>
+            {/* Categories */}
+            <div className='pt-12 px-4 min-[768px]:pt-16 min-[992px]:pt-20 flex pb-2'>
+              <div className='flex flex-col gap-y-4 w-full'>
+                <div className='tracking-widest text-xs font-light uppercase text-[#667479] mb-2'>
                   Category:
                 </div>
-                <div className='flex flex-wrap gap-x-[20px] gap-y-[14px] items-center'>
-                  {[
-                    { text: 'Armored Outerwear', link: 'armored_outerwear' },
-                    {
-                      text: 'Tactical Head Protection',
-                      link: 'tactical_head_protection',
-                    },
-                    {
-                      text: 'Mission-Ready Eye Gear',
-                      link: 'mission_ready_eye_gear',
-                    },
-                  ].map(({ text, link }) => (
+                <div className='flex flex-wrap gap-x-4 gap-y-3 items-center'>
+                  {categories.map(({ text, link }) => (
                     <Link
-                      className='text-[#667479] tracking-[5px] uppercase items-center text-[11px] leading-[1.3em] flex max-w-full'
+                      className='no-underline'
                       to={`/category/${link}`}
                       key={text}
-                      style={{ textDecoration: 'none' }}
                     >
                       <div
+                        className='rounded-lg w-fit border border-[#e4e9ec] bg-white hover:bg-[#f1f5f9] transition-colors flex items-center shadow-sm'
                         style={{
-                          width: 'fit-content',
                           minWidth: 0,
                           textAlign: 'left',
-                          borderRadius: 6,
-                          border: '1px solid #e4e9ec',
-                          background: '#fff',
-                          transition: 'background 0.2s',
-                          padding: '6px 18px',
-                          marginRight: 0,
-                          display: 'flex',
-                          alignItems: 'center',
                         }}
                       >
-                        <RevealButton text={text} isPadding={false} />
+                        <RevealButton text={text} isPadding={true} />
                       </div>
                     </Link>
                   ))}
                 </div>
               </div>
             </div>
+            {/* Products */}
             <div className='px-0 flex flex-col'>
-              <div className='grid grid-cols-[1fr_1fr] min-[992px]:grid-cols-[1fr_1fr_1fr] gap-x-[6px] gap-y-[24px] grid-rows-[auto] auto-col-[1fr] content-start items-start pt-0'>
+              <div className='grid grid-cols-1 min-[600px]:grid-cols-2 min-[992px]:grid-cols-3 gap-x-6 gap-y-8 items-start pt-0'>
                 {shopAllProducts.map((product, index) => (
-                  <div
-                    className='grid auto-col-[1fr] grid-cols-[1fr]'
-                    key={index}
-                  >
-                    <ProductCard product={product} key={index} />
+                  <div className='flex justify-center' key={index}>
+                    <ProductCard product={product} />
                   </div>
                 ))}
               </div>
