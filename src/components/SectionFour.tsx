@@ -21,7 +21,7 @@ const SectionFour = () => {
                   <div className='flex max-[767px]:min-h-[525px]  pt-[65vw] min-[767px]:pt-[100px] max-[991px]:min-h-[700px] items-end pb-[120px] w-full h-full justify-center'>
                     <div className='w-full h-full  justify-center flex absolute top-0 bottom-0 left-auto right-auto overflow-hidden'>
                       <div
-                        className='bg-[37%_42%] bg-no-repeat bg-cover absolute inset-0  flex items-center justify-center'
+                        className='bg-[37%_42%] bg-no-repeat bg-cover absolute inset-0  flex items-center justify-center w-full h-full'
                         style={{
                           backgroundImage: `url(${slide.image})`,
                         }}

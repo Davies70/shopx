@@ -6,7 +6,7 @@ import { slidesTwo } from '@/data';
 import { FAQ } from '@/data';
 import SectionEight from '@/components/SectionEight';
 import TabItem from '@/components/TabItem';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Contact = () => {
   return (
@@ -41,7 +41,7 @@ const Contact = () => {
         <div className='absolute inset-0 overflow-hidden'>
           <div
             style={{
-              backgroundImage: `url(${slidesTwo[1].image})`,
+              backgroundImage: `url(/images/sliders/slide_14.jpg)`,
             }}
             className='inset-0 bg-cover absolute bg-no-repeat bg-[50%]'
           ></div>

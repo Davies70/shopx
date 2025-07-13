@@ -6,6 +6,9 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getProduct } from '@/services';
 import { Product as ProductType } from '@/categories';
+import StackedIntro from '@/components/StackedIntro';
+import Heading from '@/components/Heading';
+import RevealButton from '@/components/RevealButton';
 
 const Product = () => {
   const [product, setProduct] = useState<ProductType | null>(null);
@@ -15,7 +18,6 @@ const Product = () => {
   useEffect(() => {
     if (params.id) {
       const data = getProduct(params.id);
-      console.log(data);
       setProduct(data);
     }
   }, [params.id]);
@@ -25,10 +27,10 @@ const Product = () => {
         <GridWrapper>
           <div className='grid col-end-4 row-[1/2] col-start-1 min-[992px]:col-end-3 gap-x-[6.5vw] gap-y-0 min-[992px]:gap-y-[16px] grid-cols-[1fr] min-[992px]:grid-cols-[1fr_minmax(auto,500px)] justify-between'>
             <div className='min-[992px]:row-[1/2] min-[992px]:col-[1/2] relative overflow-auto'>
-              <div className='relative top-0 min-[992px]:sticky min-[992px]:top-[65px] px-[3px]'>
+              <div className='relative top-0 min-[992px]:sticky min-[992px]:top-[65px] px-[3px] overflow-visible'>
                 <div
                   role='list'
-                  className='flex mb-0 flex-nowrap min-[992px]:flex-wrap min-[992px]:mb-[-3px]'
+                  className='flex mb-0 flex-nowrap min-[992px]:flex-wrap min-[992px]:mb-[-3px] min-[768px]:overflow-hidden'
                 >
                   <div
                     role='listitem'
@@ -51,7 +53,7 @@ const Product = () => {
                     <div
                       role='listitem'
                       key={index}
-                      className='min-w-[95%] mb-0 pt-0 min-[768px]:min-w-[50%] min-[992px]:mb-[3px] relative p-[3px_3px_0] w-[100vw] min-[480px]:w-[55vw] min-[768px]:w-[20vw] min-[992px]:w-[50%]'
+                      className='min-w-[95%]  h-full mb-0 pt-0 min-[768px]:min-w-[50%] min-[992px]:mb-[3px]  relative p-[3px_3px_0] w-[100vw] min-[480px]:w-[55vw] min-[768px]:w-[20vw] min-[992px]:w-[50%]'
                     >
                       <a
                         href='#'
@@ -78,7 +80,7 @@ const Product = () => {
                     {!product?.discount?.isDiscounted && (
                       <div className='mb-[12px] items-center h-[28px] mr-[9px] flex'>
                         <div className='border-l-[2px] border-[#07090c] tracking-[3px] uppercase pl-[6px] text-[11px] font-[500] leading-[1.2em]'>
-                          New
+                          {product?.tags?.[0]}
                         </div>
                       </div>
                     )}
@@ -197,9 +199,7 @@ const Product = () => {
                 />
                 <TabItem
                   question='Delivery & Returns'
-                  answer={`Delivery: We offer free expedited shipping on all orders. Orders are processed within 1-2 business days and typically arrive within 3-7 business days.
-
-        Returns: If you are not completely satisfied with your purchase, you may return your item(s) within 60 days of delivery for a full refund. Items must be unused and in their original packaging. For more details, please refer to our Returns Policy page.`}
+                  answer={`We offer free expedited shipping on all orders. Orders are processed within 1-2 business days and typically arrive within 3-7 business days. If you are not completely satisfied with your purchase, you may return your item(s) within 60 days of delivery for a full refund. Items must be unused and in their original packaging.`}
                 />
               </div>
             </div>
@@ -214,6 +214,134 @@ const Product = () => {
                 <div></div>
               </div>
             </GridWrapper>
+          </div>
+        </GridWrapper>
+      </section>
+      <section className='py-[20px] min-[480px]:py-[80px] min-[768px]:py-[100px] min-[992px]:py-[160px] flex justify-center relative z-10'>
+        <GridWrapper isClipped={false}>
+          <div className='col-[2/3] w-full grid grid-cols-1 min-[992px]:grid-cols-[1fr_1fr] gap-[48px]'>
+            {/* Sticky Left Column */}
+            <div className='min-[992px]:sticky min-[992px]:top-[65px] self-start'>
+              <div className='max-w-none min-[992px]:max-w-[600px] py-[0px] min-[992px]:py-[150px] px-[5vw] grid gap-y-[30px] min-[768px]:gap-y-[48px]'>
+                <StackedIntro type='normal'>
+                  <div className='text-[#667479] tracking-[4px] uppercase text-[14px] leading-[1.3em] font-[300]'>
+                    Details
+                  </div>
+
+                  <StackedIntro type='small'>
+                    <div className='max-w-[425px]'>
+                      <Heading type='large' text='why we crafted this' />
+                    </div>
+                    <div className='max-w-[425px] text-[#667479] text-[18px] leading-[1.65em] tracking-normal'>
+                      {product?.whyWeMadeIt}
+                    </div>
+                  </StackedIntro>
+                </StackedIntro>
+
+                <div className='justify-self-start'>
+                  <RevealButton
+                    text='shop now'
+                    backgroundColor='#080808'
+                    textColor='white'
+                    borderRadius='100px'
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Scrollable Right Column */}
+            <div className='pt-0 min-[768px]:pt-[65px] flex flex-nowrap min-[992px]:flex-wrap gap-[6px] justify-items-center min-[768px]:justify-items-end'>
+              {product?.images.map((image, index) => (
+                <div
+                  key={index}
+                  className='relative p-[3px_3px_0] w-[100vw]  min-[992px]:w-full'
+                >
+                  <img
+                    src={image}
+                    alt=''
+                    loading='lazy'
+                    className='object-cover w-full h-full max-h-full border-0'
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </GridWrapper>
+      </section>
+      <section>
+        <GridWrapper>
+          <div
+            id='w-node-f5d86fe7-9b74-cde8-8a15-406635c4e79f-fcba7ab5'
+            className='half-grid'
+          >
+            <div
+              id='w-node-f5d86fe7-9b74-cde8-8a15-406635c4e7a0-fcba7ab5'
+              className='half-image'
+            >
+              <div className='background-wrapper'>
+                <div className='product-benefit-background'>
+                  <img
+                    src='https://cdn.prod.website-files.com/642fc428f0c0b942b1ba7a71/6430547f5c315878aebd267f_gren-3.png'
+                    loading='lazy'
+                    alt=''
+                    sizes='100vw'
+                    srcSet='https://cdn.prod.website-files.com/642fc428f0c0b942b1ba7a71/6430547f5c315878aebd267f_gren-3-p-500.png 500w, https://cdn.prod.website-files.com/642fc428f0c0b942b1ba7a71/6430547f5c315878aebd267f_gren-3-p-800.png 800w, https://cdn.prod.website-files.com/642fc428f0c0b942b1ba7a71/6430547f5c315878aebd267f_gren-3.png 1024w'
+                    className='product-feature-image'
+                  />
+                </div>
+              </div>
+            </div>
+            <div className='half-content'>
+              <div className='stacked-intro'>
+                <div className='subtitle'>Our Fabric</div>
+                <div className='stacked-intro small'>
+                  <div className='width-large'>
+                    <h1 className='heading large'>
+                      hand crafted camo in every item
+                    </h1>
+                  </div>
+                  <div className='width-small'>
+                    <div className='body-display'>
+                      Meowtary Grenade Harness is the ultimate accessory for any
+                      feline warrior. Designed to hold cat-nip grenades, this
+                      belt is made with high-quality and durable materials to
+                      ensure maximum protection and functionality.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a
+                href='#buy'
+                id='w-node-ba79e7be-6e92-d2a3-ea55-61d6dab8033c-fcba7ab5'
+                className='underline-link w-inline-block'
+              >
+                <div className='button-text-wrapper'>
+                  <div
+                    className='button-text'
+                    style={{
+                      transform:
+                        'translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)',
+                      transformStyle: 'preserve-3d',
+                    }}
+                  >
+                    Buy yours now
+                  </div>
+                </div>
+                <div className='link-arrow-wrapper'>
+                  <img
+                    src='https://cdn.prod.website-files.com/642fc428f0c0b966d5ba7a46/642fc428f0c0b915ebba7b34_arrow-right(24x24)%402x%20(8).svg'
+                    loading='lazy'
+                    alt=''
+                    className='arrow-icon'
+                    style={{
+                      transform:
+                        'translate3d(0%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)',
+                      transformStyle: 'preserve-3d',
+                    }}
+                  />
+                </div>
+              </a>
+            </div>
           </div>
         </GridWrapper>
       </section>

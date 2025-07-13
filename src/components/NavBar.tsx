@@ -15,7 +15,7 @@ const Navbar = () => {
   const toggleRef = useRef(null);
 
   const { pathname } = useLocation();
-  const includedLinks = ['/home', '/shop'];
+  const includedLinks = ['/', '/shop'];
 
   // Use Framer Motion's scroll hooks for better performance
   const { scrollY } = useScroll();
@@ -27,7 +27,9 @@ const Navbar = () => {
     ['rgba(0, 0, 0, 0)', 'rgba(255, 255, 255, 1)']
   );
 
-  const backgroundColor: string | MotionValue = !includedLinks.includes(pathname)
+  const backgroundColor: string | MotionValue = !includedLinks.includes(
+    pathname
+  )
     ? 'rgba(255, 255, 255, 1)'
     : MotionValueBackgroundColor;
 
@@ -66,11 +68,11 @@ const Navbar = () => {
   };
 
   return (
-    <div className='relative'>
+    <div className='relative w-screen'>
       <CartTray isCartOpen={isCartOpen} setIsCartOpen={setIsCartOpen} />
       <motion.div
         style={{
-          willChange: 'width, height',
+          willChange: 'height',
           height: navbarHeight,
         }}
         transition={{ duration: 0.4 }}

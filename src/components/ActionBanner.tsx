@@ -1,6 +1,7 @@
 import GridWrapper from '@/components/GridWrapper';
 import RevealButton from '@/components/RevealButton';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const ActionBanner = () => {
   return (
@@ -30,11 +31,13 @@ const ActionBanner = () => {
                 nice.
               </div>
             </div>
-            <RevealButton
-              text='shop all gear'
-              backgroundColor='white'
-              borderRadius='100px'
-            />
+            <Link to={'/shop'}>
+              <RevealButton
+                text='shop all gear'
+                backgroundColor='white'
+                borderRadius='100px'
+              />
+            </Link>
           </div>
         </GridWrapper>
       </div>

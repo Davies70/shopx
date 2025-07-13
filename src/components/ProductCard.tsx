@@ -210,12 +210,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
               )}
             </div>
 
-            {/* Button */}
-            <div className='mt-auto pt-4 opacity-0 group-hover:opacity-100 transition duration-300'>
+            {/* <div className='mt-auto pt-4 opacity-0 group-hover:opacity-100 transition duration-300'>
               <button className='w-full bg-[#080808] text-white py-2 rounded-md uppercase text-xs tracking-widest font-semibold hover:bg-[#a74030] transition'>
                 Quick Add
               </button>
-            </div>
+            </div> */}
           </div>
         </Link>
       </div>

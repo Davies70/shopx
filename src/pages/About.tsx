@@ -5,7 +5,7 @@ import { slidesOne } from '@/data';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import StackedIntro from '@/components/StackedIntro';
 import RevealButton from '@/components/RevealButton';
-import { firstFeaturedCards, slidesTwo } from '@/data';
+import { firstFeaturedCards } from '@/data';
 import RevealButtonWithIcon from '@/components/RevealButtonWithIcon';
 import ActionBanner from '@/components/ActionBanner';
 import Testimonials from '@/components/Testimonials';
@@ -14,6 +14,7 @@ import FlyingImages from '@/components/FlyingImages';
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import { Link } from 'react-router-dom';
 
 const About = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -27,8 +28,6 @@ const About = () => {
   const translateX = useTransform(scrollYProgress, [0, 1], ['0%', '-100%']);
 
   const springX = useSpring(translateX, { stiffness: 80, damping: 20 });
-
-
 
   gsap.registerPlugin(ScrollToPlugin);
 
@@ -59,10 +58,10 @@ const About = () => {
                 </div>
                 <div className='max-w-[550px] justify-self-center'>
                   <p className='text-[20px] text-[#667479] font-[400] leading-[1.65em] tracking-normal'>
-                    We are a team of passionate individuals dedicated to making
-                    a difference in the world. Our mission is to create
-                    innovative solutions that empower communities and foster
-                    sustainable development.
+                    Welcome to <strong>Shopapocalypse</strong>—your final pit
+                    stop before the fallout. Whether it's nuclear disaster, AI
+                    tyranny, or a viral pigeon uprising, we're stocked, locked,
+                    and ready to help you ride out the end in style.
                   </p>
                 </div>
               </div>
@@ -115,23 +114,22 @@ const About = () => {
                   </div>
                   <div className='max-w-[425px]'>
                     <div className='text-[#667479] text-[18px] leading-[1.65em] tracking-normal'>
-                      As the end draws closer with threats of nuclear fallout,
-                      AI overlords and airborne pandemics, the will to live
-                      stays within us, the forward-thinking ones. For we have
-                      taken the neccessry precautions to get ready, stay stafe
-                      and stay head of the sheep. As we shop for the apocalypse
-                      and Doomsday, we will survive because of dogged
-                      preparedness.
+                      We’re not waiting for disaster—we’re dressed for it.
+                      Shopapocalypse outfits forward-thinkers with rugged,
+                      hilarious, life-saving gear to help them outlast the
+                      clueless masses.
                     </div>
                   </div>
                 </StackedIntro>
                 <div className='justify-self-start'>
-                  <RevealButton
-                    text='shop now'
-                    backgroundColor='#080808'
-                    textColor='white'
-                    borderRadius='100px'
-                  />
+                  <Link to={`/shop`}>
+                    <RevealButton
+                      text='shop now'
+                      backgroundColor='#080808'
+                      textColor='white'
+                      borderRadius='100px'
+                    />
+                  </Link>
                 </div>
               </StackedIntro>
             </div>
@@ -148,7 +146,7 @@ const About = () => {
                 <div
                   className='absolute inset-0 bg-no-repeat bg-[50%] bg-cover'
                   style={{
-                    backgroundImage: `url(${slidesTwo[2].image})`,
+                    backgroundImage: `url(/images/sliders/slide_16.jpg)`,
                   }}
                 ></div>
               </div>
@@ -159,25 +157,24 @@ const About = () => {
               </div>
               <StackedIntro type='small'>
                 <div className='justify-self-start max-w-[700px]'>
-                  <Heading type='large' text={`started from the bottom`} />
+                  <Heading type='large' text={`started from the bunker`} />
                 </div>
                 <div className='max-w-[425px]'>
                   <div className='text-[#667479] text-[18px] leading-[1.65em] tracking-normal'>
-                    As the end draws closer with threats of nuclear fallout, AI
-                    overlords and airborne pandemics, the will to live stays
-                    within us, the forward-thinking ones. For we have taken the
-                    neccessry precautions to get ready, stay stafe and stay head
-                    of the sheep. As we shop for the apocalypse and Doomsday, we
-                    will survive because of dogged preparedness.
+                    Shopapocalypse began as one man's panic closet and grew into
+                    the internet’s most trusted spoof survival outfitter. We saw
+                    the memes. We read the signs. We stocked the shelves.
                   </div>
                 </div>
               </StackedIntro>
               <div className='justify-self-start'>
-                <RevealButtonWithIcon
-                  text='Shop now'
-                  textColor='#667479'
-                  isTextPadding={false}
-                />
+                <Link to={`/shop`}>
+                  <RevealButtonWithIcon
+                    text='Shop now'
+                    textColor='#667479'
+                    isTextPadding={false}
+                  />
+                </Link>
               </div>
             </div>
           </div>
@@ -189,29 +186,29 @@ const About = () => {
           <div className='grid row-[1/2] col-[2/4] gap-y-[0px] grid-cols-[1fr] gap-x-[100px] min-[992px]:gap-y-[16px] min-[992px]:grid-cols-[1fr_50vw] w-full grid-rows-[auto]'>
             <div className='pt-[48px] min-[480px]:pt-[60px] min-[768px]:pt-[80px]  min-[768px]:pb-[0] grid gap-y-[36px] max-w-none p-[0_10vw_80px_5vw] gap-x-[48px] min-[992px]:gap-y-[48px] grid-rows-[auto_auto] grid-cols-[1fr] auto-cols-[1fr] content-center min-[992px]:max-w-[600px] min-[992px]:py-[150px] min-[992px]:px-0'>
               <div className='text-[#667479] tracking-[4px] uppercase text-[14px] leading-[1.3em] font-[300]'>
-                Our founding prepper
+                We are for the preppers
               </div>
               <StackedIntro type='small'>
                 <div className='justify-self-start max-w-[700px]'>
-                  <Heading type='large' text={`started from the bottom`} />
+                  <Heading type='large' text={`We are going to save you`} />
                 </div>
                 <div className='max-w-[425px]'>
                   <div className='text-[#667479] text-[18px] leading-[1.65em] tracking-normal'>
-                    As the end draws closer with threats of nuclear fallout, AI
-                    overlords and airborne pandemics, the will to live stays
-                    within us, the forward-thinking ones. For we have taken the
-                    neccessry precautions to get ready, stay stafe and stay head
-                    of the sheep. As we shop for the apocalypse and Doomsday, we
-                    will survive because of dogged preparedness.
+                    We're not just here to sell survival kits—we're your
+                    slightly paranoid, extremely resourceful guide to weathering
+                    the weirdest of times. When the world goes sideways, you’ll
+                    be glad you stocked up.
                   </div>
                 </div>
               </StackedIntro>
               <div className='justify-self-start'>
-                <RevealButtonWithIcon
-                  text='Shop now'
-                  textColor='#667479'
-                  isTextPadding={false}
-                />
+                <Link to={`/shop`}>
+                  <RevealButtonWithIcon
+                    text='Shop now'
+                    textColor='#667479'
+                    isTextPadding={false}
+                  />
+                </Link>
               </div>
             </div>
             <div className='h-[80vw] min-h-[275px] min-[480px]:h-[75vw] min-[480px]:min-h-[400px] min-[768px]:min-h-[500px] min-[768px]:h-[70vw] min-[992px]:min-h-[700px] relative overflow-hidden'>
@@ -219,7 +216,7 @@ const About = () => {
                 <div
                   className='absolute inset-0 bg-no-repeat bg-[50%] bg-cover'
                   style={{
-                    backgroundImage: `url(${slidesTwo[2].image})`,
+                    backgroundImage: `url(/images/sliders/slide_1.jpg)`,
                   }}
                 ></div>
               </div>
