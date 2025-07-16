@@ -13,6 +13,7 @@ type RevealButtonWithIconProps = {
   isTextPadding?: boolean;
   iconType?: 'left' | 'right' | 'none';
   isIconCircular?: boolean;
+  onClick?: () => void;
 };
 
 const RevealButtonWithIcon = ({
@@ -23,6 +24,7 @@ const RevealButtonWithIcon = ({
   isTextPadding = true,
   iconType = 'right',
   isIconCircular = true,
+  onClick,
 }: RevealButtonWithIconProps) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
@@ -30,6 +32,7 @@ const RevealButtonWithIcon = ({
       className='flex relative sm:w-auto'
       style={{ touchAction: 'none', backgroundColor }}
       role='button'
+      onClick={onClick}
     >
       <div
         className='absolute inset-0 z-50 cursor-pointer'
@@ -44,7 +47,6 @@ const RevealButtonWithIcon = ({
         isParentHovered={isHovered}
         paddingInline='0px'
         isPadding={isTextPadding}
-        
       />
 
       <IconButton
@@ -54,7 +56,6 @@ const RevealButtonWithIcon = ({
         isParentHovered={isHovered}
         borderColor={iconBorderColor}
         isCircle={isIconCircular}
-        
       />
     </div>
   );

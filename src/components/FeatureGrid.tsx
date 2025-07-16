@@ -7,7 +7,7 @@ import FadeInIconButton from './FadeInIconButton';
 import useSwipe from '@/hooks/useSwipe';
 import Heading from './Heading';
 
-const SectionTwo = () => {
+const FeatureGrid = () => {
   // Create infinite loop slides: [last, ...original, first]
   const infiniteSlides = [
     slidesTwo[slidesTwo.length - 1], // Clone of last slide
@@ -109,7 +109,7 @@ const SectionTwo = () => {
                   key={`slide-${index}`}
                   className='w-full shrink-0 whitespace-normal relative h-full inline-block align-top text-left'
                 >
-                  <div className='min-h-[70vw] p-[36px_24px] min-[768px]:min-h-[65vw] min-[480px]:p-[36px] min-[992px]:min-h-[700px] min-[768px]:p-[40px] min-[992px]:p-[80px] flex flex-col justify-end mx-[3px] overflow-hidden relative'>
+                  <div className='min-h-[70vw] h-full p-[36px_24px] min-[768px]:min-h-[65vw] min-[480px]:p-[36px] min-[992px]:min-h-[700px] min-[768px]:p-[40px] min-[992px]:p-[80px] flex flex-col justify-end mx-[3px] overflow-hidden relative'>
                     <div className='z-25 text-white relative max-w-[475px]'>
                       <div className='grid items-start grid-cols-1 grid-rows-1 gap-y-6 gap-x-4'>
                         <Heading type='normal' text={slide.title_1} />
@@ -173,4 +173,4 @@ const SectionTwo = () => {
   );
 };
 
-export default SectionTwo;
+export default FeatureGrid;

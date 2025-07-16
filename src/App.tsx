@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 import FAQ from './pages/FAQ';
 import Product from './pages/Product';
 import Category from './pages/Category';
+import SearchResults from './pages/SearchResults';
 import ScrollToTop from './components/ScrollToTop';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -15,7 +16,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
   return (
     <Router>
-      <ScrollToTop/>
+      <ScrollToTop />
       <div className='relative m-0 min-h-full'>
         {/* <LightBox /> */}
         <NavBar />
@@ -27,7 +28,8 @@ function App() {
             <Route path='/contact' element={<Contact />} />
             <Route path='/faq' element={<FAQ />} />
             <Route path='/products/:id' element={<Product />} />
-            <Route path='/category/:id' element={<Category/>}/>
+            <Route path='/category/:id' element={<Category />} />
+            <Route path='/search_results' element={<SearchResults />} />
 
             {/* Add more routes as needed */}
           </Routes>

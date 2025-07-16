@@ -56,7 +56,7 @@ const BestSellers = () => {
       <GridWrapper>
         <div className='col-[1/4] row-[1/2] min-[992px]:col-[2/3] grid z-20 relative gap-x-4 gap-y-[48px] grid-rows-[auto] grid-cols-[1fr] content-between'>
           <div className='justify-self-center max-w-[550px]'>
-            <div className='wrapper-intro-centered grid text-center grid-cols-[1fr] justify-items-center justify-start gap-x-4 gap-y-4 grid-rows-[auto]'>
+            <div className='grid text-center grid-cols-[1fr] justify-items-center justify-start gap-x-4 gap-y-4 grid-rows-[auto]'>
               <div className='justify-center text-[#667479] tracking-[4x] uppercase text-[14px] font-[300] leading-[1.3em]'>
                 Popular
               </div>

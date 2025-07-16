@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion, MotionValue, useScroll, useTransform } from 'framer-motion';
-import { Search, AlignLeft, X } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import MobileMenu from '@/components/MobileMenu';
 import RevealButton from './RevealButton';
 import GridWrapper from './GridWrapper';
@@ -199,10 +199,26 @@ const Navbar = () => {
                   style={{ color: textColor }}
                   className='min-[992px]:hidden block p-0 items-center relative cursor-pointer'
                 >
-                  <AlignLeft
+                  {/* <AlignLeft
                     size={24}
                     className='w-[28px] align-middle max-w-full'
-                  />
+                  /> */}
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    width='28'
+                    height='28'
+                    viewBox='0 0 24 24'
+                    fill='none'
+                    stroke='currentColor'
+                    strokeWidth='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  
+                  >
+                    <line x1='3' y1='6' x2='21' y2='6' />
+                    <line x1='3' y1='12' x2='21' y2='12' />
+                    <line x1='3' y1='18' x2='21' y2='18' />
+                  </svg>
                 </motion.button>
               </div>
             </div>

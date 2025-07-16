@@ -23,6 +23,12 @@ export interface Category {
   id: string;
 }
 
+export interface CartItem {
+  product: Product;
+  quantity: number;
+  size: 'S' | 'M' | 'L';
+}
+
 export const categories: Category[] = [
   {
     name: 'Armored Outerwear',
