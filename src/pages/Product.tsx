@@ -367,7 +367,7 @@ const Product = () => {
             </div>
 
             {/* Text Content */}
-            <div className='grid pt-0 pb-[48px] min-[480px]:pb-[60px] max-[991px]:gap-y-[36px] max-[991px]:bg-white max-[991px]:pr-[10vw] max-[991px]:pl-[5vw] min-[992px]:gap-y-[48px] gap-x-[48px] grid-rows-[auto_auto] grid-cols-1 content-center min-[991px]:max-w-[600px] min-[769px]:py-[150px]'>
+            <div className='grid pt-0 pb-[48px] min-[480px]:pb-[60px] max-[991px]:gap-y-[36px] max-[991px]:bg-white max-[991px]:pr-[10vw] max-[991px]:px-[5vw] min-[992px]:gap-y-[48px] gap-x-[48px] grid-rows-[auto_auto] grid-cols-1 content-center min-[991px]:max-w-[600px] min-[769px]:py-[150px]'>
               <div className='grid gap-x-[16px] gap-y-[24px] items-start'>
                 <div className='text-[#667479] tracking-[4px] uppercase text-[14px] leading-[1.3em] font-[300]'>
                   Our Fabric and Gear
@@ -466,7 +466,7 @@ const Product = () => {
           </GridWrapper>
           <div className='gap-y-[140px] grid-rows-[auto] z-20 gap-x-[14px] grid-cols-[1fr] content-between grid relative'>
             <GridWrapper>
-              <div className='grid grid-cols-[1fr_1fr_1fr_1fr] grid-rows-[auto] gap-x-[6px] gap-y-[16px] pl-[5vw] overflow-auto col-[1/4] min-[992px]:col-[2/3] row-[1/2]'>
+              <div className='grid grid-cols-[1fr_1fr_1fr_1fr] grid-rows-[auto] gap-x-[6px] gap-y-[16px] min-[480px]:px-[5vw] overflow-auto col-[1/4] min-[992px]:col-[2/3] row-[1/2]'>
                 <div className='row-[span_1] col-[span_4] '>
                   <div className='grid grid-cols-[1fr_1fr_1fr] grid-rows-[auto] gap-y-[16px] gap-x-[6px]'>
                     {relatedProducts?.map((product) => (
