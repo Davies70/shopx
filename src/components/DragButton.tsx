@@ -15,14 +15,19 @@ const DragButton = ({ type, onClick, sliderRef }: DragButtonProps) => {
   const [mousePos, setMousePos] = useState<{ x: number; y: number } | null>(
     null
   );
+  const [showPrompt, setShowPrompt] = useState(false);
   const arrowRef = useRef<HTMLDivElement>(null);
 
   const handlePointerDown = () => setIsActive(true);
   const handlePointerUp = () => setIsActive(false);
-  const handleMouseEnter = () => setIsActive(true);
+  const handleMouseEnter = () => {
+    setIsActive(true);
+    setShowPrompt(true);
+  };
   const handleMouseLeave = () => {
     setIsActive(false);
     setMousePos(null);
+    setShowPrompt(false);
   };
   const handleMouseMove = (e: React.MouseEvent) => {
     const parentRect = (
@@ -49,7 +54,7 @@ const DragButton = ({ type, onClick, sliderRef }: DragButtonProps) => {
   return (
     <motion.div
       role='button'
-      className='absolute justify-center items-center w-[20%] flex z-10 cursor-pointer top-0 bottom-0 '
+      className='absolute justify-center items-center w-[40%] flex z-10 cursor-pointer top-0 bottom-0'
       style={type === 'left' ? { left: 0 } : { right: 0 }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -59,11 +64,36 @@ const DragButton = ({ type, onClick, sliderRef }: DragButtonProps) => {
     >
       <div className='relative w-full h-full'>
         <div className='inset-0 absolute z-[25]'></div>
+        {/* Prompt cursor */}
+        <AnimatePresence>
+          {showPrompt && mousePos && !isActive && (
+            <motion.div
+              className='pointer-events-none absolute z-[60] flex flex-col items-center justify-center'
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.2 }}
+              style={{
+                left: mousePos.x - 36,
+                top: mousePos.y - 36,
+                width: 72,
+                height: 72,
+              }}
+            >
+              <div className='rounded-full bg-[#222] bg-opacity-80 text-white flex flex-col items-center justify-center shadow-lg w-[72px] h-[72px]'>
+                <span className='text-xs font-semibold tracking-wide'>
+                  Drag
+                </span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        {/* Drag arrow */}
         <AnimatePresence>
           {isActive && mousePos && (
             <motion.div
               ref={arrowRef}
-              className='aboslute z-[50] h-[48px] w-[48px] rounded-full border bg-[#07090c] border-[#e4e9ec] flex justify-center items-center text-gray-400 cursor-pointer text-[10px] overflow-hidden'
+              className='absolute z-[50] h-[48px] w-[48px] rounded-full border bg-[#07090c] border-[#e4e9ec] flex justify-center items-center text-gray-400 cursor-pointer text-[10px] overflow-hidden'
               drag
               dragConstraints={false}
               dragMomentum={false}
@@ -77,7 +107,6 @@ const DragButton = ({ type, onClick, sliderRef }: DragButtonProps) => {
               transition={{ duration: 0.3, ease: 'easeInOut' }}
               onClick={onClick}
               style={{
-                position: 'absolute',
                 left: mousePos.x - 24,
                 top: mousePos.y - 24,
               }}

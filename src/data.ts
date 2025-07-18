@@ -117,33 +117,27 @@ export const footerProductLinks = [
 
 export const testimonials: Review[] = [
   {
-    review:
-      '"Wore the Ballistic Composite Helmet to my HOA meeting. Nobody questioned my bunker plans again."',
+    review: 'HOA meetings changed forever. My bunker plans are now finally respected by everyone.',
     author: 'Paranoid Pete',
   },
   {
-    review:
-      '"The Kevlar Vest kept me warm, safe, and stylish while scavenging the frozen food aisle."',
+    review: 'Kevlar Vest: Warm, safe, stylish. Cashier even complimented me at the store.',
     author: 'Icy Ivy',
   },
   {
-    review:
-      '"I put on the Full-Seal Gas Mask during my commute. Best air I’ve breathed since 1998."',
+    review: 'Gas Mask: Best air, no subway smells, people keep distance, peace of mind.',
     author: 'Metro Max',
   },
   {
-    review:
-      '"These armored gloves helped me open a stubborn can of beans *and* survive a raccoon ambush. Five stars."',
+    review: 'Armored gloves: Opened cans, survived raccoon ambush, no scratches, hands always safe.',
     author: 'Bunker Brenda',
   },
   {
-    review:
-      '"The Recon Cap is so casual, no one suspects I’m one broken supply chain away from snapping."',
+    review: 'Recon Cap: Fits at work, ready for anything after hours, always looks sharp.',
     author: 'Subtle Steve',
   },
   {
-    review:
-      '"I bought the Night-Ops Goggles for stealth missions. Ended up using them to find snacks in the dark. Still worth it."',
+    review: 'Night-Ops Goggles: Midnight snacks, chips found, house stays quiet, vision always clear.',
     author: 'Snack Ops Sam',
   },
 ];

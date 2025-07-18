@@ -38,16 +38,16 @@ const Testimonials = () => {
     <section className='overflow-hidden py-[72px] min-[480px]:py-[80px] min-[768px]:py-[100px] min-[992px]:py-[160px] flex relative justify-center z-10'>
       <GridWrapper isClipped={true}>
         <div className='flex col-[1/4] row-[1/2] min-[768px]:col-[2/3] justify-center w-full px-[5vw] overflow-hidden py-[36px] min-[768px]:overflow-visible'>
-          <div className='bg-transparent clear-both justify-center w-full h-full pb-[60px] flex text-center relative '>
+          <div className='bg-transparent clear-both justify-center w-full h-fit pb-[32px] min-[480px]:pb-[40px] min-[768px]:pb-[60px] flex text-center relative '>
             <div
               {...swipeHandlers}
               ref={sliderRef}
-              className='w-full overflow-visible min-[768px]:w-[60%] z-1 h-full relative left-0 right-0 whitespace-nowrap'
+              className='w-full overflow-visible min-[768px]:w-[60%] z-1 h-fit relative left-0 right-0 whitespace-nowrap'
             >
               {testimonials.map((slide, index) => (
                 <motion.div
                   key={index}
-                  className='align-top text-left w-full h-full inline-block relative whitespace-normal'
+                  className='align-top text-left w-full h-fit inline-block relative whitespace-normal '
                   animate={{ x: `${currentIndex * -100}%` }}
                   transition={
                     instantJump
@@ -60,7 +60,7 @@ const Testimonials = () => {
                   }}
                 >
                   <motion.div
-                    className='max-w-none min-[768px]:max-w-[600px] text-center h-full mx-auto'
+                    className='max-w-none min-[768px]:max-w-[600px] text-center h-fit mx-auto'
                     animate={{
                       opacity: currentIndex === index ? 1 : 0.3,
                       scaleX: currentIndex === index ? 1 : 0.8,
@@ -74,10 +74,10 @@ const Testimonials = () => {
                   >
                     <div className='grid relative gap-y-[26px] z-2 gap-x-[16px] grid-rows-[auto] grid-cols-[1fr] content-between'>
                       <div className='max-w-[975px]'>
-                        <Heading text={slide.review} type='large' />
+                        <Heading text={slide.review} type='normal' />
                       </div>
-                      <div className='self-center'>
-                        <div className='text-[#667479] tracking-[4px] uppercase text-[14px] font-[300] leading-[1.3em]'>
+                      <div className=''>
+                        <div className='text-[#667479] tracking-[4px] uppercase text-[8px] min-[480]:text-[14px] font-[300] leading-0'>
                           {slide.author}
                         </div>
                       </div>
