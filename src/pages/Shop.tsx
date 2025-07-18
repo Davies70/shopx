@@ -57,10 +57,10 @@ const Shop = () => {
         <GridWrapper>
           <div className='grid col-[1/4] min-[480px]:col-[2/3] row-[1/2] gap-y-10 relative content-between grid-cols-1 z-20'>
             {/* Categories */}
-            <div className='pt-12 px-4 min-[768px]:pt-16 min-[992px]:pt-20 flex pb-2'>
+            <div className='pt-12 min-[480px]:px-4 min-[768px]:pt-16 min-[992px]:pt-20 flex pb-2'>
               <div className='flex flex-col gap-y-4 w-full'>
-                <div className='tracking-widest text-xs font-light uppercase text-[#667479] mb-2'>
-                  Category:
+                <div className='tracking-widest text-xs font-light uppercase text-[#667479] mb-2 flex justify-center items-center'>
+                  <span>Categories:</span>
                 </div>
                 <div className='flex flex-wrap gap-x-4 gap-y-3 items-center'>
                   {categories.map(({ text, link }) => (
