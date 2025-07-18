@@ -10,10 +10,7 @@ export const getProduct = (id: string): Product | null => {
 };
 
 export const addToCart = (cartItem: CartItem) => {
-  localStorage.setItem(
-    cartItem.product.id,
-    JSON.stringify(cartItem)
-  );
+  localStorage.setItem(cartItem.product.id, JSON.stringify(cartItem));
 };
 
 export const getRelatedProducts = (id: string): Product[] => {
@@ -21,10 +18,12 @@ export const getRelatedProducts = (id: string): Product[] => {
     .flatMap((c) => c.products)
     .filter((p) => p.id !== id);
 
-  const n = filtered.length;
+  // Shuffle the array
+  for (let i = filtered.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+  }
 
-  return Array.from(
-    { length: 3 },
-    () => filtered[Math.floor(n * Math.random())]
-  );
+  // Return the first 3 (or fewer if not enough)
+  return filtered.slice(0, 3);
 };

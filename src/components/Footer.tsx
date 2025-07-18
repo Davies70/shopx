@@ -11,17 +11,17 @@ const Footer = () => {
   );
 
   return (
-    <footer className=' top-auto bottom-[0%] left-[0] right-[0] bg-[#080808] sticky z-0 w-full max-w-screen'>
+    <footer className=' top-auto bottom-[0%] left-[0] right-[0] bg-[#080808]  min-[480px]:sticky z-0 w-full max-w-screen'>
       <div className='pb-0 pt-[72px] min-[480px]:pt-[80px] min-[768px]:py-[100px] min-[992px]:pb-[160px] z-10 justify-center flex relative'>
         <GridWrapper>
           <div className='row-[1/2] col-[2/3] min-h-[300px] '>
             <div className='flex pb-[12px] min-[480px]:pb-[60px]'>
               <div className='flex flex-col gap-y-[30px] min-[480px]:gap-y-[12px] min-[480px]:flex-row min-[480px]:gap-x-[12px] min-[480px]:justify-between w-full'>
-                <div className='flex flex-col gap-y-[18px]'>
-                  <div className='tracking-[3px] text-[11px] text-white uppercase font-[300] leading-[1.3em]'>
+                <div className='flex flex-col gap-y-[9px] min-[480px]:gap-y-[18px]'>
+                  <div className='tracking-[3px] text-[11px] text-[#667479] uppercase font-[300] leading-[1.3em]'>
                     Navigation
                   </div>
-                  <div className='flex flex-col gap-y-[18px]'>
+                  <div className='flex flex-col min-[480px]:gap-y-[18px]'>
                     {footerNavigationLinks.map(({ link, name }, index) => (
                       <Link to={link} key={index}>
                         <RevealButtonWithIcon
@@ -35,11 +35,11 @@ const Footer = () => {
                     ))}
                   </div>
                 </div>
-                <div className='flex flex-col gap-y-[24px]'>
-                  <div className='tracking-[3px] text-[11px] text-white uppercase font-[300] leading-[1.3em]  '>
+                <div className='flex flex-col gap-y-[9px] min-[480px]:gap-y-[18px]'>
+                  <div className='tracking-[3px] text-[11px] text-[#667479] uppercase font-[300] leading-[1.3em]  '>
                     Products
                   </div>
-                  <div className='flex flex-col gap-y-[18px]'>
+                  <div className='flex flex-col min-[480px]:gap-y-[18px]'>
                     {productLinks.map(({ link, name }, index) => (
                       <Link to={link} key={index}>
                         <RevealButtonWithIcon

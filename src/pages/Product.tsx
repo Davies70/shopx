@@ -10,13 +10,14 @@ import StackedIntro from '@/components/StackedIntro';
 import Heading from '@/components/Heading';
 import RevealButton from '@/components/RevealButton';
 import RevealButtonWithIcon from '@/components/RevealButtonWithIcon';
-import ProductCard from '@/components/ProductCard';
+
 import Testimonials from '@/components/Testimonials';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { CartItem } from '@/categories';
+import OldProductCard from '@/components/OldProductCard';
 
 const Product = () => {
   const [product, setProduct] = useState<ProductType | null>(null);
@@ -111,7 +112,7 @@ const Product = () => {
             </div>
             <div
               ref={scrollRef}
-              className='col-[span_1] row-[span_1] self-start justify-self-start max-[767px]:pt-[36px] max-[991px]:max-w-[675px] max-[991px]:pt-[40px] max-[991px]:pl-[5vw] gap-x-[16px] gap-y-[24px] grid-rows-[auto_auto] grid-cols-[1fr] content-start justify-stretch items-start w-full min-[992px]:pt-[60px] pb-0 grid sticky top-[65px]'
+              className='col-[span_1] row-[span_1] self-start justify-self-start max-[767px]:pt-[36px] max-[991px]:max-w-[675px] max-[991px]:pt-[40px] max-[991px]:px-[5vw] gap-x-[16px] gap-y-[24px] grid-rows-[auto_auto] grid-cols-[1fr] content-start justify-stretch items-start w-full min-[992px]:pt-[60px] pb-0 grid sticky top-[65px]'
             >
               <div className='grid grid-cols-[1fr] grid-rows-[auto_auto] gap-[12px] '>
                 <div className='flex flex-col'>
@@ -173,23 +174,27 @@ const Product = () => {
                         className='flex ml-[-3px] mb-0 justify-items-start justify-between flex-wrap'
                         aria-label='Size'
                       >
-                        {(['S', 'M', 'L'] as Array<'S' | 'M' | 'L'>).map((sz) => (
-                          <div
-                            key={sz}
-                            onClick={() => setSize(sz)}
-                            style={{ borderColor: size === sz ? 'black' : '' }}
-                            className='flex transition-all leading-[1em] text-[14px] p-[16px_24px] mr-[3px] mb-[6px] items-center justify-center flex-1 rounded-[3px] whitespace-nowrap tracking-[0.1em] text-center text-[#667479] border-[#e4e9ec] cursor-pointer bg-white border'
-                          >
-                            <div>
-                              {sz}{' '}
-                              {sz === 'S'
-                                ? '(4-6)'
-                                : sz === 'M'
-                                ? '(8-10)'
-                                : '(12-14)'}
+                        {(['S', 'M', 'L'] as Array<'S' | 'M' | 'L'>).map(
+                          (sz) => (
+                            <div
+                              key={sz}
+                              onClick={() => setSize(sz)}
+                              style={{
+                                borderColor: size === sz ? 'black' : '',
+                              }}
+                              className='flex transition-all leading-[1em] text-[14px] p-[16px_24px] mr-[3px] mb-[6px] items-center justify-center flex-1 rounded-[3px] whitespace-nowrap tracking-[0.1em] text-center text-[#667479] border-[#e4e9ec] cursor-pointer bg-white border'
+                            >
+                              <div>
+                                {sz}{' '}
+                                {sz === 'S'
+                                  ? '(4-6)'
+                                  : sz === 'M'
+                                  ? '(8-10)'
+                                  : '(12-14)'}
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          )
+                        )}
                       </div>
 
                       {/* Quantity Selector */}
@@ -465,7 +470,7 @@ const Product = () => {
                 <div className='row-[span_1] col-[span_4] '>
                   <div className='grid grid-cols-[1fr_1fr_1fr] grid-rows-[auto] gap-y-[16px] gap-x-[6px]'>
                     {relatedProducts?.map((product) => (
-                      <ProductCard product={product} key={product.id} />
+                      <OldProductCard product={product} key={product.id} />
                     ))}
                   </div>
                 </div>
