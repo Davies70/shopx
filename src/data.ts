@@ -101,15 +101,17 @@ export const footerNavigationLinks = [
 ];
 
 export const footerProductLinks = [
-  { name: 'Armored Outerwear', link: '/category/armored_outerwear' },
   {
-    name: 'Tacktical Head Protection',
+    name: 'Head',
     link: '/category/tactical_head_protection',
   },
   {
-    name: 'Mission-Ready Eye Gear',
+    name: 'Eyes',
     link: '/category/mission_ready_eye_gear',
   },
+  { name: 'Armor', link: '/category/armored_outerwear' },
+  { name: 'Handwear', link: '/category/survival_handwear' },
+
   { name: 'Shop All', link: '/shop' },
 ];
 

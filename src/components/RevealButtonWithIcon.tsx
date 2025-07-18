@@ -29,7 +29,7 @@ const RevealButtonWithIcon = ({
   const [isHovered, setIsHovered] = useState(false);
   return (
     <div
-      className='flex relative sm:w-auto'
+      className='flex relative w-fit'
       style={{ touchAction: 'none', backgroundColor }}
       role='button'
       onClick={onClick}
@@ -51,7 +51,6 @@ const RevealButtonWithIcon = ({
 
       <IconButton
         type={iconType}
-        onClick={() => console.log('clicked')}
         color={textColor}
         isParentHovered={isHovered}
         borderColor={iconBorderColor}

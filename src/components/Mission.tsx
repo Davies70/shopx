@@ -100,7 +100,7 @@ const SectionOne = () => {
       className='flex py-[72px] min-[479px]:py-[80px] min-[768px]:py-[100px] z-10 relative justify-center min-[992px]:py-40 overflow-hidden'
     >
       <GridWrapper>
-        <div className=' grid gap-x-1.5 row-[1/2] col-[2/3] min-[992px]:row-[1/-1] min-[992px]:col-[1/-1] max-md:gap-y-15 max-[991px]:gap-y-20 gap-y-4 grid-cols-[auto_auto] grid-rows-[auto_auto] min-[992px]:grid-cols-[auto_1fr_auto] justify-stretch items-center'>
+        <div className='relative grid gap-x-1.5 row-[1/2] col-[2/3] min-[992px]:row-[1/-1] min-[992px]:col-[1/-1] max-md:gap-y-15 max-[991px]:gap-y-20 gap-y-4 grid-cols-[auto_auto] grid-rows-[auto_auto] min-[992px]:grid-cols-[auto_1fr_auto] justify-stretch items-center'>
           {/* First Image with Enhanced Parallax */}
           <motion.div
             style={{

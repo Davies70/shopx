@@ -26,7 +26,7 @@ const Featured = ({ cards }: FeaturedProps) => {
 
   return (
     <div className='relative'>
-      <div className='grid gap-y-[36px] grid-cols-[1fr_1fr_1fr] min-[992px]:gap-y-[16px] gap-x-[6px] min-[992px]:grid-cols-[1fr_1fr_1fr_1fr] items-start pt-0 grid-rows-[auto]'>
+      <div className='relative grid gap-y-[36px] grid-cols-[1fr_1fr_1fr] min-[992px]:gap-y-[16px] gap-x-[6px] min-[992px]:grid-cols-[1fr_1fr_1fr_1fr] items-start pt-0 grid-rows-[auto]'>
         <div className='grid max-[991px]:row-[span_1] max-[991px]:col-[span_3] mb-0 relative top-0  min-[992px]:mb-[20vw] min-[992px]:sticky min-[992px]:top-[120px] gap-x-[12px] gap-y-[24px] grid-rows-[auto_auto] grid-cols-[1fr] justify-items-start max-w-[300px] pl-0 pr-[60px]'>
           <div className='grid gap-y-[18px] gap-x-[16px] grid-rows-[auto] grid-cols-[1fr] justify-items-start'>
             <h1 className='text-[26px] tracking-[0] leading-[1.3em] font-[500] '>
