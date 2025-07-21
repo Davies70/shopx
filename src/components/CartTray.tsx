@@ -4,6 +4,10 @@ import Heading from './Heading';
 import RevealButton from './RevealButton';
 import CartTrayFooter from './CartTrayFooter';
 import CartItem from './CartItem';
+import { getCartItems, removeCartItem } from '@/services';
+import { useEffect, useState } from 'react';
+import { CartItem as CartItemType } from '@/categories';
+import { Link } from 'react-router-dom';
 
 type CartTrayProps = {
   isCartOpen: boolean;
@@ -23,6 +27,29 @@ const trayVariants = {
 };
 
 const CartTray = ({ isCartOpen, setIsCartOpen }: CartTrayProps) => {
+  const [cartItems, setCartItems] = useState<CartItemType[]>([]);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    // Only fetch on mount or when the tray is opened
+    if (isCartOpen) {
+      const data = getCartItems();
+      setCartItems(data);
+    }
+  }, [isCartOpen]);
+
+  useEffect(() => {
+    // Calculate total when cartItems changes
+    const sum = cartItems
+      .map((c) => c.product.price * c.quantity)
+      .reduce((acc, curr) => curr + acc, 0);
+    setTotal(sum);
+  }, [cartItems]);
+
+  const handleRemoveCartItem = (id: string) => {
+    removeCartItem(id); // updates localStorage
+    setCartItems((prev) => prev.filter((c) => c.product.id !== id)); // update local state
+  };
   return (
     <AnimatePresence>
       {isCartOpen && (
@@ -32,7 +59,7 @@ const CartTray = ({ isCartOpen, setIsCartOpen }: CartTrayProps) => {
           animate='visible'
           exit='exit'
           transition={{ duration: 0.3 }}
-          className='z-5000 cursor-pointer bg-[rgba(8,8,8,.7)] inset-0 fixed flex flex-row justify-end items-stretch'
+          className='z-5000  bg-[rgba(8,8,8,.7)] inset-0 fixed flex flex-row justify-end items-stretch'
           onClick={() => setIsCartOpen(false)}
         >
           <motion.div
@@ -63,36 +90,47 @@ const CartTray = ({ isCartOpen, setIsCartOpen }: CartTrayProps) => {
                 <div>Bag</div>
                 <div className='grid text-[12px] grid-flow-col grid-cols-[auto] grid-rows-[auto] tracking-[0] gap-y-[16px] gap-x-[2px]'>
                   <div>(</div>
-                  <div></div>
+                  {cartItems.length}
                   <div>)</div>
                 </div>
               </div>
             </div>
             <div className='z-25 bg-white max-h-[100vh] mt-[-60px] py-0 relative flex flex-1 flex-col'>
-              <form className='max-[479px]:h-full flex-[0_auto] max-h-screen overflow-hidden flex justify-between flex-col'>
+              <div className='max-[479px]:h-full flex-[0_auto] max-h-screen overflow-hidden flex justify-between flex-col'>
                 <div className='grid auto-cols-[1fr] mr-[12px] ml-[24px] gap-y-[24px] min-[480px]:ml-[36px] min-[767px]:py-[24px] min-[768px]:gap-y-[36px] min-[768px]:ml-[40px] min-[480px]:mr-[16px] gap-x-[16px] border-t border-[#e4e9ec] flex-[0_auto] grid-rows-[auto_auto] grid-cols-[1fr] mt-[60px]  overflow-auto min-[992px]:py-[36px] min-[992px]'>
-                  <CartItem />
-                  <CartItem />
-                  <CartItem />
+                  {cartItems.map((cartItem) => (
+                    <CartItem
+                      cartItem={cartItem}
+                      key={cartItem.product.id}
+                      removeCartItem={handleRemoveCartItem}
+                    />
+                  ))}
                 </div>
-                <CartTrayFooter />
-              </form>
-              <div className='flex-1 justify-center w-full  items-center hidden'>
-                <div className='grid grid-cols-[1fr] grid-rows-[auto] gap-y-[24px] gap-x-[16px] justify-items-center'>
-                  <div className='grid grid-cols-[1fr] grid-rows-[auto_auto] gap-y-[12px] gap-x-[16px]'>
-                    <Heading type='small' text='Still shopping?' />
-                    <div className='text-[15px] text-[#667479] leading-[1.65em] tracking-normal'>
-                      Your cart is currently empty.
-                    </div>
-                  </div>
-                  <RevealButton
-                    backgroundColor='#080808'
-                    text='Shop all'
-                    borderRadius='100px'
-                    textColor='white'
-                  />
-                </div>
+                {cartItems.length !== 0 && <CartTrayFooter total={total} />}
               </div>
+
+              {cartItems.length === 0 && (
+                <div className='flex-1 justify-center w-full  items-center'>
+                  <div className='grid grid-cols-[1fr] grid-rows-[auto] gap-y-[24px] gap-x-[16px] justify-items-center'>
+                    <div className='grid grid-cols-[1fr] grid-rows-[auto_auto] gap-y-[12px] gap-x-[16px] justify-items-center'>
+                      <Heading type='small' text='Still shopping?' />
+                      <div className='text-[15px] text-[#667479] leading-[1.65em] tracking-normal'>
+                        Your cart is currently empty.
+                      </div>
+                    </div>
+
+                    <Link to='/shop'>
+                      <RevealButton
+                        backgroundColor='#080808'
+                        text='Shop all'
+                        borderRadius='100px'
+                        textColor='white'
+                      />
+                    </Link>
+                  </div>
+                </div>
+              )}
+
               <div
                 style={{
                   borderLeft: '3px solid #a74030',

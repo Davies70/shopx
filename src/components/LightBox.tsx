@@ -1,19 +1,20 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronRight, ChevronLeft, X } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
+import { getProductImages } from '@/services';
 
-const images = [
-  'gren-1.png',
-  'gren-2.png',
-  'gren-3.png',
-  'gren-4.png',
-  'gren-5.png',
-  'gren-6.png',
-];
+type LightBoxProps = {
+  setIsLightBoxOpen: (a: boolean) => void;
+};
 
-const LightBox = () => {
+const LightBox = ({ setIsLightBoxOpen }: LightBoxProps) => {
   const [current, setCurrent] = useState(2); // Default to 'gren-3.png'
   const thumbsRef = useRef<HTMLDivElement>(null);
+
+  const location = useLocation();
+  const id = location.pathname.slice(10);
+  const images = getProductImages(id);
 
   // Scroll thumbnail into view when current changes
   useEffect(() => {
@@ -21,7 +22,11 @@ const LightBox = () => {
     if (thumbs) {
       const activeThumb = thumbs.querySelector(`[data-index="${current}"]`);
       if (activeThumb && activeThumb instanceof HTMLElement) {
-        activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        activeThumb.scrollIntoView({
+          behavior: 'smooth',
+          inline: 'center',
+          block: 'nearest',
+        });
       }
     }
   }, [current]);
@@ -51,7 +56,7 @@ const LightBox = () => {
             <figure className='cursor-pointer relative'>
               <img
                 className='max-h-[86vh] max-w-screen w-auto h-auto rounded-lg shadow-lg transition-all duration-300'
-                src={`images/card_5_1.png`}
+                src={images[current]}
                 alt='Main'
               />
             </figure>
@@ -62,7 +67,9 @@ const LightBox = () => {
             <button
               className='hidden min-[768px]:flex text-white right-0 top-0 bottom-0 absolute transition-all w-[4em] cursor-pointer justify-center items-center z-10'
               aria-label='next image'
-              onClick={() => setCurrent((i) => Math.min(i + 1, images.length - 1))}
+              onClick={() =>
+                setCurrent((i) => Math.min(i + 1, images.length - 1))
+              }
               tabIndex={0}
             >
               <ChevronRight size={48} opacity={0.7} />
@@ -74,6 +81,7 @@ const LightBox = () => {
             className='h-[2.6em] text-white right-0 cursor-pointer w-[4em] absolute transition-all top-0 min-[768px]:opacity-80 flex justify-center items-center z-20'
             aria-label='close lightbox'
             tabIndex={0}
+            onClick={() => setIsLightBoxOpen(false)}
             // Add your close logic here
           >
             <X size={24} />
@@ -104,7 +112,7 @@ const LightBox = () => {
               <div className='bg-[#222] h-[10vh] relative overflow-hidden rounded-lg'>
                 <motion.img
                   className='w-full h-full object-cover'
-                  src={`https://cdn.prod.website-files.com/642fc428f0c0b942b1ba7a71/643054${img}`}
+                  src={img}
                   alt={`Thumbnail ${index + 1}`}
                   animate={{ scale: current === index ? 1.05 : 1 }}
                   transition={{ type: 'spring', stiffness: 300 }}

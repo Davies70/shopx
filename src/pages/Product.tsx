@@ -3,9 +3,12 @@ import GridWrapper from '@/components/GridWrapper';
 import { TagIcon } from 'lucide-react';
 import TabItem from '@/components/TabItem';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { getProduct, getRelatedProducts, addToCart } from '@/services';
-import { Product as ProductType } from '@/categories';
+import { useState } from 'react';
+import {
+  getProduct,
+  getRelatedProducts,
+  addOrUpdateCartItem,
+} from '@/services';
 import StackedIntro from '@/components/StackedIntro';
 import Heading from '@/components/Heading';
 import RevealButton from '@/components/RevealButton';
@@ -19,9 +22,11 @@ import { Link } from 'react-router-dom';
 import { CartItem } from '@/categories';
 import OldProductCard from '@/components/OldProductCard';
 
-const Product = () => {
-  const [product, setProduct] = useState<ProductType | null>(null);
-  const [relatedProducts, setRelatedProducts] = useState<ProductType[]>();
+type ProductProps = {
+  setIsLightBoxOpen: (a: boolean) => void;
+};
+
+const Product = ({ setIsLightBoxOpen }: ProductProps) => {
   const [size, setSize] = useState<'M' | 'L' | 'S'>('M');
   const [quantity, setQuantity] = useState<number>(1);
   const [isAdding, setisAdding] = useState<boolean>(false);
@@ -42,28 +47,36 @@ const Product = () => {
     }
   };
 
-  useEffect(() => {
-    if (params.id) {
-      const data = getProduct(params.id);
-      setProduct(data);
-      const relatedData = getRelatedProducts(params.id);
-      setRelatedProducts(relatedData);
-    }
-  }, [params.id]);
+  const product = params.id ? getProduct(params.id) : null;
+  const relatedProducts = params.id ? getRelatedProducts(params.id) : [];
 
   const handleAddToCart = () => {
+    setisAdding(true);
     if (product) {
-      setisAdding(true);
+      const cartProduct = { ...product, id: product.id + size };
       const cartItem: CartItem = {
-        product,
+        product: cartProduct,
         quantity,
         size,
       };
-
-      addToCart(cartItem);
-      setTimeout(() => setisAdding(false), 5000);
+      setTimeout(() => setisAdding(false), 3000);
+      addOrUpdateCartItem(cartItem);
     }
   };
+
+  const handleCartItemQuantityDecrease = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setQuantity((q) => Math.max(1, q - 1));
+  };
+
+  const handleCartItemQuantityIncrease = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setQuantity((q) => Math.max(1, q + 1));
+  };
+
+  if (!product) {
+    return <div>Product not found.</div>;
+  }
 
   return (
     <div className='z-10 bg-white relative '>
@@ -73,7 +86,10 @@ const Product = () => {
             <div className='min-[992px]:row-[1/2] min-[992px]:col-[1/2] relative overflow-auto'>
               <div className='relative top-0 min-[992px]:sticky min-[992px]:top-[65px] px-[3px] overflow-visible min-[992px]:overflow-hidden'>
                 <div className='flex mb-0 flex-nowrap min-[992px]:flex-wrap min-[992px]:mb-[-3px] min-[768px]:overflow-hidden'>
-                  <div className='min-w-[95%] min-[768px]:min-w-[50%] min-[992px]:min-w-full min-[992px]:mb-[3px] min-[992px]:w-[50%] p-[3px_3px_0] h-full max-h-none pt-0 overflow-hidden'>
+                  <div
+                    onClick={() => setIsLightBoxOpen(true)}
+                    className='min-w-[95%] min-[768px]:min-w-[50%] min-[992px]:min-w-full min-[992px]:mb-[3px] min-[992px]:w-[50%] p-[3px_3px_0] h-full max-h-none pt-0 overflow-hidden'
+                  >
                     <a
                       href='#'
                       className='w-full min-w-full max-w-fit inline-block bg-transparent'
@@ -159,16 +175,16 @@ const Product = () => {
                   </div>
                 </div>
                 <div className='pt-0 pb-[12px] border-t border-[rgba(228,233,236,.6)]'>
-                  <form className=''>
+                  <form className='' onSubmit={handleAddToCart}>
                     <div className='grid grid-cols-[1fr] grid-rows-[auto] gap-[12px]'>
                       {/* Size Selection */}
                       <div className='grid text-[12px] gap-[16px] text-[#667479] grid-rows-[auto] grid-cols-[auto_auto] justify-between items-center'>
-                        <div className='text-[12px] uppercase font-[500] tracking-[0.15em] text-[#080808]'>
+                        <div className='text-[12px] uppercase font-[500] tracking-[0.15em] '>
                           Size
                         </div>
-                        <div className='flex overflow-hidden justify-center flex-col cursor-pointer'>
+                        {/* <div className='flex overflow-hidden justify-center flex-col cursor-pointer'>
                           <div className='tracking-normal'>Size guide</div>
-                        </div>
+                        </div> */}
                       </div>
                       <div
                         className='flex ml-[-3px] mb-0 justify-items-start justify-between flex-wrap'
@@ -199,15 +215,13 @@ const Product = () => {
 
                       {/* Quantity Selector */}
                       <div className='grid grid-cols-[auto_1fr_auto] items-center gap-[12px] mt-2'>
-                        <span className='uppercase text-[12px] font-[500] text-[#080808] tracking-[0.15em]'>
+                        <span className='uppercase text-[12px] font-[500] tracking-[0.15em] text-[#667479]'>
                           Quantity
                         </span>
                         <div className='flex items-center gap-[12px]'>
                           <button
                             type='button'
-                            onClick={() =>
-                              setQuantity((q) => Math.max(1, q - 1))
-                            }
+                            onClick={handleCartItemQuantityDecrease}
                             className='w-[36px] h-[36px] border border-[#e4e9ec] rounded-[3px] text-[18px] text-[#667479] hover:bg-[#f4f8fa]'
                           >
                             −
@@ -217,7 +231,7 @@ const Product = () => {
                           </span>
                           <button
                             type='button'
-                            onClick={() => setQuantity((q) => q + 1)}
+                            onClick={handleCartItemQuantityIncrease}
                             className='w-[36px] h-[36px] border border-[#e4e9ec] rounded-[3px] text-[18px] text-[#667479] hover:bg-[#f4f8fa]'
                           >
                             +
@@ -229,7 +243,6 @@ const Product = () => {
                       <button
                         type='submit'
                         className='flex bg-[#080808] justify-center items-center tracking-[5px] uppercase rounded-[100px] w-full min-h-[60px] mt-[24px] text-[12px] cursor-pointer'
-                        onClick={handleAddToCart}
                       >
                         <div className='text-white text-center'>
                           {isAdding ? 'Adding to bag...' : 'Add to bag'}
@@ -291,7 +304,7 @@ const Product = () => {
         </GridWrapper>
       </div>
       <section>
-        <GridWrapper>
+        {/* <GridWrapper>
           <div>
             <GridWrapper>
               <div>
@@ -299,7 +312,7 @@ const Product = () => {
               </div>
             </GridWrapper>
           </div>
-        </GridWrapper>
+        </GridWrapper> */}
       </section>
       <section className='py-[20px] min-[480px]:py-[80px] min-[768px]:py-[100px] min-[992px]:py-[160px] flex justify-center relative z-10'>
         <GridWrapper isClipped={false}>
@@ -447,7 +460,7 @@ const Product = () => {
           <GridWrapper>
             <div className='grid row-[1/2] col-[2/3] text-center min-[767px]:justify-start grid-cols-[1fr] min-[768px]:grid-cols-[1fr_1fr] max-[767px]:justify-items-start gap-[16px] grid-rows-[auto] items-end'>
               <StackedIntro type='normal'>
-                <div className='text-[#667479] tracking-[4px] uppercase text-[14px] leading-[1.3em] font-[300]'>
+                <div className='text-[#667479] tracking-[4px] uppercase text-[14px] leading-[1.3em] font-[300] min-[991px]:justify-self-start'>
                   related
                 </div>
 

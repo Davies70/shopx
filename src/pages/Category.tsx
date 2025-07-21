@@ -6,14 +6,11 @@ import ProductCard from '@/components/ProductCard';
 import RevealButton from '@/components/RevealButton';
 import Testimonials from '@/components/Testimonials';
 import { getCategory } from '@/services';
-import { useEffect, useState } from 'react';
-import type { Category as CategoryType } from '@/categories'; // Adjust the import path as needed
 
 const Category = () => {
   const params = useParams();
 
-  const [category, setCategory] = useState<CategoryType | null>(null);
-
+  const category = params.id ? getCategory(params.id) : undefined;
   const productData = [
     {
       text: 'Armored Outerwear',
@@ -49,14 +46,6 @@ const Category = () => {
   const heroText =
     productData.find((product) => product.link === category?.id)?.heroText ??
     '';
-
-  useEffect(() => {
-    if (params.id) {
-      // window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-      const data = getCategory(params.id);
-      setCategory(data);
-    }
-  }, [params.id]);
 
   return (
     <div className='z-10 bg-white relative'>

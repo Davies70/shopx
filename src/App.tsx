@@ -9,16 +9,18 @@ import Product from './pages/Product';
 import Category from './pages/Category';
 import SearchResults from './pages/SearchResults';
 import ScrollToTop from './components/ScrollToTop';
+import { useState } from 'react';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import LightBox from './components/LightBox';
+import LightBox from './components/LightBox';
 
 function App() {
+  const [isLightBoxOpen, setisLightBoxOpen] = useState(false);
   return (
     <Router>
       <ScrollToTop />
       <div className='relative m-0 min-h-full'>
-        {/* <LightBox /> */}
+        {isLightBoxOpen && <LightBox setIsLightBoxOpen={setisLightBoxOpen} />}
         <NavBar />
         <main className='overflow-hidden min-[480px]:overflow-visible'>
           <Routes>
@@ -27,7 +29,10 @@ function App() {
             <Route path='/about' element={<About />} />
             <Route path='/contact' element={<Contact />} />
             <Route path='/faq' element={<FAQ />} />
-            <Route path='/products/:id' element={<Product />} />
+            <Route
+              path='/products/:id'
+              element={<Product setIsLightBoxOpen={setisLightBoxOpen} />}
+            />
             <Route path='/category/:id' element={<Category />} />
             <Route path='/search_results' element={<SearchResults />} />
 

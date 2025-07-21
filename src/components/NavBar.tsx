@@ -7,12 +7,15 @@ import GridWrapper from './GridWrapper';
 import { Link, useLocation } from 'react-router-dom';
 import { navLinks } from '@/data';
 import CartTray from './CartTray';
+import { getCartItems } from '@/services';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const toggleRef = useRef(null);
+
+  const bag = getCartItems().length;
 
   const { pathname } = useLocation();
   const includedLinks = ['/', '/shop'];
@@ -186,7 +189,7 @@ const Navbar = () => {
                     <div>Bag</div>
                     <div className='flex items-center'>
                       <span>(</span>
-                      <span className='px-0.5'>0</span>
+                      <span className='px-0.5'>{bag}</span>
                       <span>)</span>
                     </div>
                   </div>
@@ -213,7 +216,6 @@ const Navbar = () => {
                     strokeWidth='2'
                     strokeLinecap='round'
                     strokeLinejoin='round'
-                  
                   >
                     <line x1='3' y1='6' x2='21' y2='6' />
                     <line x1='3' y1='12' x2='21' y2='12' />
