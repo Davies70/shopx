@@ -7,7 +7,7 @@ const CartTrayFooter = ({ total }: CartFooterProps) => {
       <div className='flex mb-[24px] pb-[18px] text-black tracking-[.02em] border-b text-[15px] border-[#e5ebf0] min-[480px]:mb-[30px]  min-[480px]:pb-[28px] flex-none justify-between '>
         <div>Estimated total</div>
         <div className='text-[15px] font-[400] text-[#667479] tracking-[0.05em]'>
-          $ {total} USD
+          $ {total.toFixed(2)} USD
         </div>
       </div>
       <div className='flex justify-between'>

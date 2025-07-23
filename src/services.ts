@@ -29,7 +29,7 @@ export const saveCartItems = (cartItems: CartItem[]) => {
 };
 
 // Add or update a cart item
-export const addOrUpdateCartItem = (cartItem: CartItem) => {
+export const addOrUpdateCartItem = (cartItem: CartItem): CartItem[] => {
   const cartItems = getCartItems();
   const index = cartItems.findIndex(
     (c) => c.product.id === cartItem.product.id
@@ -43,6 +43,7 @@ export const addOrUpdateCartItem = (cartItem: CartItem) => {
     cartItems.push(cartItem);
   }
   saveCartItems(cartItems);
+  return getCartItems();
 };
 
 // Remove a cart item by product id

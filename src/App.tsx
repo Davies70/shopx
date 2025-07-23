@@ -9,19 +9,28 @@ import Product from './pages/Product';
 import Category from './pages/Category';
 import SearchResults from './pages/SearchResults';
 import ScrollToTop from './components/ScrollToTop';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { CartItem as CartItemType } from '@/categories';
+import { getCartItems } from './services';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LightBox from './components/LightBox';
 
 function App() {
   const [isLightBoxOpen, setisLightBoxOpen] = useState(false);
+  const [cartItems, setCartItems] = useState<CartItemType[]>([]);
+
+  useEffect(() => {
+    const data = getCartItems();
+    setCartItems(data);
+  }, []);
+
   return (
     <Router>
       <ScrollToTop />
       <div className='relative m-0 min-h-full'>
         {isLightBoxOpen && <LightBox setIsLightBoxOpen={setisLightBoxOpen} />}
-        <NavBar />
+        <NavBar cartItems={cartItems} setCartItems={setCartItems} />
         <main className='overflow-hidden min-[480px]:overflow-visible'>
           <Routes>
             <Route path='/' element={<Home />} />
@@ -31,7 +40,12 @@ function App() {
             <Route path='/faq' element={<FAQ />} />
             <Route
               path='/products/:id'
-              element={<Product setIsLightBoxOpen={setisLightBoxOpen} />}
+              element={
+                <Product
+                  setIsLightBoxOpen={setisLightBoxOpen}
+                  setCartItems={setCartItems}
+                />
+              }
             />
             <Route path='/category/:id' element={<Category />} />
             <Route path='/search_results' element={<SearchResults />} />

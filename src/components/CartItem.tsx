@@ -61,16 +61,15 @@ const CartItem = ({ cartItem, removeCartItem }: CartItemProps) => {
               <div className='flex flex-col items-start justify-between sm:items-end'>
                 <div className='mb-2 flex text-[#667479] text-[11px] items-center tracking-[4px] sm:mb-0'>
                   <div>Qty:</div>
-                  <input
-                    type='number'
+                  <div
                     className='text-[#596066] text-center tracking-[4px] bg-[rgba(244,248,250,0)] flex border border-[#e5ebf0] rounded-md focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-100 transition-all duration-200 justify-center items-center w-10 h-6 ml-2 p-1 text-xs hover:border-blue-300'
                     style={{
                       transition:
                         'border-color .4s cubic-bezier(.25,.46,.45,.94)',
                     }}
-                    value={cartItem.quantity}
-                    min={1}
-                  />
+                  >
+                    {cartItem.quantity}
+                  </div>
                   <span className='ml-2 text-[13px] font-medium'>
                     $ {cartItem.product.price} USD
                   </span>

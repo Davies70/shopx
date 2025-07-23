@@ -4,7 +4,7 @@ import Heading from './Heading';
 import RevealButton from './RevealButton';
 import CartTrayFooter from './CartTrayFooter';
 import CartItem from './CartItem';
-import { getCartItems, removeCartItem } from '@/services';
+import { removeCartItem } from '@/services';
 import { useEffect, useState } from 'react';
 import { CartItem as CartItemType } from '@/categories';
 import { Link } from 'react-router-dom';
@@ -12,6 +12,8 @@ import { Link } from 'react-router-dom';
 type CartTrayProps = {
   isCartOpen: boolean;
   setIsCartOpen: (arg: boolean) => void;
+  cartItems: CartItemType[];
+  setCartItems: React.Dispatch<React.SetStateAction<CartItemType[]>>;
 };
 
 const backdropVariants = {
@@ -26,17 +28,13 @@ const trayVariants = {
   exit: { x: '100%' },
 };
 
-const CartTray = ({ isCartOpen, setIsCartOpen }: CartTrayProps) => {
-  const [cartItems, setCartItems] = useState<CartItemType[]>([]);
+const CartTray = ({
+  isCartOpen,
+  setIsCartOpen,
+  cartItems,
+  setCartItems,
+}: CartTrayProps) => {
   const [total, setTotal] = useState(0);
-
-  useEffect(() => {
-    // Only fetch on mount or when the tray is opened
-    if (isCartOpen) {
-      const data = getCartItems();
-      setCartItems(data);
-    }
-  }, [isCartOpen]);
 
   useEffect(() => {
     // Calculate total when cartItems changes
@@ -86,7 +84,7 @@ const CartTray = ({ isCartOpen, setIsCartOpen }: CartTrayProps) => {
                   </div>
                 </a>
               </div>
-              <div className='grid text-[11px] grid-cols-[1fr_auto] grid-rows-[auto] uppercase tracking-[5px] gap-y-[16px] gap-x-[9px]'>
+              <div className='grid text-[12px] grid-cols-[1fr_auto] grid-rows-[auto] uppercase tracking-[5px] gap-y-[16px] gap-x-[9px]'>
                 <div>Bag</div>
                 <div className='grid text-[12px] grid-flow-col grid-cols-[auto] grid-rows-[auto] tracking-[0] gap-y-[16px] gap-x-[2px]'>
                   <div>(</div>

@@ -7,15 +7,18 @@ import GridWrapper from './GridWrapper';
 import { Link, useLocation } from 'react-router-dom';
 import { navLinks } from '@/data';
 import CartTray from './CartTray';
-import { getCartItems } from '@/services';
+import { CartItem } from '@/categories';
 
-const Navbar = () => {
+type NavBarProps = {
+  cartItems: CartItem[];
+  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
+};
+
+const Navbar = ({ cartItems, setCartItems }: NavBarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const toggleRef = useRef(null);
-
-  const bag = getCartItems().length;
 
   const { pathname } = useLocation();
   const includedLinks = ['/', '/shop'];
@@ -72,7 +75,12 @@ const Navbar = () => {
 
   return (
     <div className='relative w-screen'>
-      <CartTray isCartOpen={isCartOpen} setIsCartOpen={setIsCartOpen} />
+      <CartTray
+        isCartOpen={isCartOpen}
+        setIsCartOpen={setIsCartOpen}
+        setCartItems={setCartItems}
+        cartItems={cartItems}
+      />
       <motion.div
         style={{
           willChange: 'height',
@@ -189,7 +197,7 @@ const Navbar = () => {
                     <div>Bag</div>
                     <div className='flex items-center'>
                       <span>(</span>
-                      <span className='px-0.5'>{bag}</span>
+                      <span className='px-0.5'>{cartItems.length}</span>
                       <span>)</span>
                     </div>
                   </div>

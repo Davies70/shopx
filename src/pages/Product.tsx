@@ -24,9 +24,10 @@ import OldProductCard from '@/components/OldProductCard';
 
 type ProductProps = {
   setIsLightBoxOpen: (a: boolean) => void;
+  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
 };
 
-const Product = ({ setIsLightBoxOpen }: ProductProps) => {
+const Product = ({ setIsLightBoxOpen, setCartItems }: ProductProps) => {
   const [size, setSize] = useState<'M' | 'L' | 'S'>('M');
   const [quantity, setQuantity] = useState<number>(1);
   const [isAdding, setisAdding] = useState<boolean>(false);
@@ -60,7 +61,8 @@ const Product = ({ setIsLightBoxOpen }: ProductProps) => {
         size,
       };
       setTimeout(() => setisAdding(false), 3000);
-      addOrUpdateCartItem(cartItem);
+      const data = addOrUpdateCartItem(cartItem);
+      setCartItems(data);
     }
   };
 
