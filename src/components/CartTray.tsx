@@ -35,6 +35,7 @@ const CartTray = ({
   setCartItems,
 }: CartTrayProps) => {
   const [total, setTotal] = useState(0);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
     // Calculate total when cartItems changes
@@ -47,6 +48,12 @@ const CartTray = ({
   const handleRemoveCartItem = (id: string) => {
     removeCartItem(id); // updates localStorage
     setCartItems((prev) => prev.filter((c) => c.product.id !== id)); // update local state
+  };
+
+  const handleCheckOut = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDisabled(true);
   };
   return (
     <AnimatePresence>
@@ -104,7 +111,12 @@ const CartTray = ({
                     />
                   ))}
                 </div>
-                {cartItems.length !== 0 && <CartTrayFooter total={total} />}
+                {cartItems.length !== 0 && (
+                  <CartTrayFooter
+                    total={total}
+                    handleCheckOut={handleCheckOut}
+                  />
+                )}
               </div>
 
               {cartItems.length === 0 && (
@@ -129,14 +141,16 @@ const CartTray = ({
                 </div>
               )}
 
-              <div
-                style={{
-                  borderLeft: '3px solid #a74030',
-                }}
-                className='hidden flex-none tracking-normal mb-[24px] mx-[24px] min-[480px]:mx-[36px] min-[768px]:mx-[40px] py-[12px] pl-[18px] pr-[10px] bg-[#ffdede] mt-[10px] p-[10px]'
-              >
-                <div>Checkout is disabled for this spoof site</div>
-              </div>
+              {isDisabled && (
+                <div
+                  style={{
+                    borderLeft: '3px solid #a74030',
+                  }}
+                  className='flex-none tracking-normal mb-[24px] mx-[24px] min-[480px]:mx-[36px] min-[768px]:mx-[40px] py-[12px] pl-[18px] pr-[10px] bg-[#ffdede] mt-[10px] p-[10px]'
+                >
+                  <div>Checkout is disabled for this spoof site</div>
+                </div>
+              )}
             </div>
           </motion.div>
         </motion.div>

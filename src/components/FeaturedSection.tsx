@@ -2,8 +2,7 @@ import GridWrapper from './GridWrapper';
 import Featured from './Featured';
 import { firstFeaturedCards, secondFeaturedCards } from '@/data';
 
-
-const SectionFive = () => {
+const FeaturedSection = () => {
   return (
     <section className='py-[72px] min-[480px]:py-[80px] min-[768px]:py-[100px] min-[992px]:py-[160px] flex z-10 justify-center relative'>
       <GridWrapper>
@@ -34,4 +33,4 @@ const SectionFive = () => {
   );
 };
 
-export default SectionFive;
+export default FeaturedSection;

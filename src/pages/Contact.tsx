@@ -7,8 +7,15 @@ import { FAQ } from '@/data';
 import SectionEight from '@/components/SectionEight';
 import TabItem from '@/components/TabItem';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const Contact = () => {
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsFormSubmitted(true);
+    setTimeout(() => setIsFormSubmitted(false), 5000);
+  };
   return (
     <div className='z-10 bg-white relative'>
       <div className='flex pt-[120px] pb-[60px] min-[768px]:pt-[160px] min-[768px]:pb-[80px] min-[992px]:pt-[220px] min-[992px]:pb-[100px] relative justify-center'>
@@ -67,7 +74,10 @@ const Contact = () => {
                 </div>
               </StackedIntro>
               <div className='m-0'>
-                <form className='grid gap-y-[36px] gap-x-[16px] grid-rows-[auto_auto] grid-cols-[1fr] '>
+                <form
+                  onSubmit={handleSubmit}
+                  className='grid gap-y-[36px] gap-x-[16px] grid-rows-[auto_auto] grid-cols-[1fr] '
+                >
                   <div>
                     <label
                       htmlFor='name'
@@ -82,6 +92,7 @@ const Contact = () => {
                         border: '1px solid #ccc',
                       }}
                       type='text'
+                      required
                       id='name'
                       maxLength={256}
                       className='tracking-normal border-[#e4e9ec] text-[#667479] bg-[rgba(255,255,255,0)] rounded-[2px] h-[52px] mb-[24px] p-[14px_20px] text-[15px] w-full leading-[1.42857] m-0 '
@@ -101,6 +112,7 @@ const Contact = () => {
                       type='email'
                       id='email'
                       maxLength={256}
+                      required
                       className='tracking-normal border-[#e4e9ec] text-[#667479] bg-[rgba(255,255,255,0)] rounded-[2px] h-[52px] mb-[24px] p-[14px_20px] text-[15px] w-full leading-[1.42857] m-0 '
                     />
                     <label
@@ -121,24 +133,28 @@ const Contact = () => {
                     />
                   </div>
                   <button
-                    className='bg-[#080808]  tracking-[4px] uppercase rounded-[1000px] justify-center items-center h-[52px] mb-0 py-0 text-[11px] flex text-white p-[9px_15px] '
+                    className='bg-[#080808]  tracking-[4px] uppercase rounded-[1000px] justify-center items-center h-[52px] mb-0 py-0 text-[11px] flex text-white p-[9px_15px] cursor-pointer'
                     style={{
                       textDecoration: 'none',
                     }}
+                    type='submit'
                   >
                     <span>Submit</span>
                   </button>
                 </form>
-                <div className='bg-[rgba(221,221,221,0)] text-center hidden'>
-                  <div className='tracking-normal bg-[#f4f8fa] justify-center items-center h-full min-h-[400px] flex'>
-                    <div className='grid gap-x-[16px] gap-y-[12px] grid-rows-[auto_auto] grid-cols-[1fr]'>
-                      <h3>Thank You!</h3>
-                      <div className='text-[15px] text-[#667479] leading-[1.65em]'>
-                        Your submission has been received
+                {isFormSubmitted && (
+                  <div className='bg-[rgba(221,221,221,0)] text-center'>
+                    <div className='tracking-normal bg-[#f4f8fa] justify-center items-center h-full min-h-[400px] flex'>
+                      <div className='grid gap-x-[16px] gap-y-[12px] grid-rows-[auto_auto] grid-cols-[1fr]'>
+                        <h3>Thank You!</h3>
+                        <div className='text-[15px] text-[#667479] leading-[1.65em]'>
+                          Your submission has been received
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                )}
+
                 <div
                   style={{
                     borderLeft: '3px solid #a74030',

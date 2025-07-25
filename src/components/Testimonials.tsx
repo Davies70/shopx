@@ -96,6 +96,7 @@ const Testimonials = () => {
               type='right'
               isParentHovered
               onClick={handleNextButton}
+              sliderRef={sliderRef}
             />
             <div className='flex absolute items-end h-[36px] bottom-0 justify-center min-h-[12px] m-auto p-0 text-[6px] top-auto left-0 right-0 transform-none  text-white'>
               {testimonials.map((_, index) => (

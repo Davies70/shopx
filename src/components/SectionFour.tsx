@@ -5,7 +5,7 @@ import { productCards } from '@/data';
 
 import RevealButtonWithIcon from './RevealButtonWithIcon';
 
-const SectionFour = () => {
+const ShopAllSection = () => {
   const slide = slidesOne[2];
   return (
     <div className='p-0   z-10 justify-center flex relative'>
@@ -57,4 +57,4 @@ const SectionFour = () => {
   );
 };
 
-export default SectionFour;
+export default ShopAllSection;

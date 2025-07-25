@@ -30,6 +30,7 @@ export interface FeaturedType {
   title: string;
   images: string[];
   text: string;
+  link: string;
 }
 
 export interface Review {

@@ -13,7 +13,7 @@ const ActionBanner = () => {
               key={index}
               className='rotating-text pr-[60px] -z-50'
               animate={{ x: ['0%', '-100%'] }}
-              transition={{ repeat: Infinity, ease: 'linear', duration: 10 }}
+              transition={{ repeat: Infinity, ease: 'linear', duration: 25 }}
               whileHover={{ animationPlayState: 'paused' }}
             >
               <h1 className='text-[100px] min-[992px]:text-[120px] leading-[1em] tracking-[0.04em] uppercase font-[600]'>

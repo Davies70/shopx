@@ -32,7 +32,7 @@ const CartItem = ({ cartItem, removeCartItem }: CartItemProps) => {
             <div className='flex w-full flex-col justify-between ml-4 mr-0 flex-1'>
               <div className='mb-6 sm:mb-9 justify-between flex items-start mx-0'>
                 <div className='flex items-start flex-col'>
-                  <div className='mb-2 text-base font-medium tracking-normal'>
+                  <div className='mb-2 text-[12px] min-[480px]:text-base font-medium tracking-normal'>
                     {cartItem.product.name}
                   </div>
                   <ul className='text-[#667479] text-sm font-light leading-[1.6em] my-0 pl-0'>

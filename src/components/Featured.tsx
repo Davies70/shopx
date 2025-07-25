@@ -2,6 +2,7 @@ import RevealButtonWithIcon from './RevealButtonWithIcon';
 import { FeaturedType } from '@/types';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 import FeatureCard from './FeatureCard';
 
@@ -35,11 +36,13 @@ const Featured = ({ cards }: FeaturedProps) => {
             <div className='text-[15px] text-[#667479] leading-[1.65em] font-[400] tracking-[0]'>
               {cards.text}
             </div>
-            <RevealButtonWithIcon
-              text='view full product'
-              isTextPadding={false}
-              textColor='#667479'
-            />
+            <Link to={`/category/${cards.link}`}>
+              <RevealButtonWithIcon
+                text='view full product'
+                isTextPadding={false}
+                textColor='#667479'
+              />
+            </Link>
           </div>
         </div>
         <motion.div ref={imageRef}>

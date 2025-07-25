@@ -12,13 +12,16 @@ import ScrollToTop from './components/ScrollToTop';
 import { useState, useEffect } from 'react';
 import { CartItem as CartItemType } from '@/categories';
 import { getCartItems } from './services';
+import { useDynamicTitle } from './hooks/useDynamicTitle';
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import LightBox from './components/LightBox';
 
 function App() {
   const [isLightBoxOpen, setisLightBoxOpen] = useState(false);
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
+
+  useDynamicTitle();
 
   useEffect(() => {
     const data = getCartItems();
@@ -26,7 +29,7 @@ function App() {
   }, []);
 
   return (
-    <Router>
+    <>
       <ScrollToTop />
       <div className='relative m-0 min-h-full'>
         {isLightBoxOpen && <LightBox setIsLightBoxOpen={setisLightBoxOpen} />}
@@ -55,7 +58,7 @@ function App() {
         </main>
         <Footer />
       </div>
-    </Router>
+    </>
   );
 }
 

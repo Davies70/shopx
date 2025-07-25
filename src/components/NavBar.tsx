@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react';
 import { motion, MotionValue, useScroll, useTransform } from 'framer-motion';
-import { Search, X } from 'lucide-react';
 import MobileMenu from '@/components/MobileMenu';
 import RevealButton from './RevealButton';
 import GridWrapper from './GridWrapper';
@@ -8,6 +7,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { navLinks } from '@/data';
 import CartTray from './CartTray';
 import { CartItem } from '@/categories';
+import SearchBar from './SearchBar';
 
 type NavBarProps = {
   cartItems: CartItem[];
@@ -16,7 +16,7 @@ type NavBarProps = {
 
 const Navbar = ({ cartItems, setCartItems }: NavBarProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  // const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const toggleRef = useRef(null);
 
@@ -140,48 +140,7 @@ const Navbar = ({ cartItems, setCartItems }: NavBarProps) => {
                     ))}
                   </div>
                   <div className='flex order-[-9999] justify-self-stretch row-[span_1] col-[span_1] min-[992px]:row-[1/2] min-[992px]:col-[3/4] flex-col justify-center items-end  min-[992px]:pr-[6px]'>
-                    {/* Search */}
-                    <motion.div
-                      className='hidden lg:flex w-8 h-8 rounded-full border border-opacity-25 justify-center items-center overflow-hidden tracking-normal'
-                      animate={{ width: isSearchOpen ? '100%' : 34 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
-                      style={{
-                        borderColor: searchTextColor,
-                      }}
-                    >
-                      {!isSearchOpen ? (
-                        <motion.button
-                          onClick={() => setIsSearchOpen(true)}
-                          className='w-8 h-8 flex justify-center items-center'
-                          style={{
-                            color: searchTextColor,
-                          }}
-                        >
-                          <Search size={14} className='cursor-pointer' />
-                        </motion.button>
-                      ) : (
-                        <form className='flex items-center w-full px-2'>
-                          <motion.input
-                            type='text'
-                            placeholder='Search...'
-                            autoFocus
-                            className='bg-transparent text-sm border-none outline-none w-full'
-                            style={{
-                              color: searchTextColor,
-                              fontFamily: '"Inter", sans-serif', // Clean, modern font for search
-                            }}
-                          />
-                          <motion.button
-                            type='reset'
-                            onClick={() => setIsSearchOpen(false)}
-                            className='ml-2 cursor-pointer w-8 h-8 flex justify-center items-center rounded-full'
-                            style={{ color: searchTextColor }}
-                          >
-                            <X size={16} />
-                          </motion.button>
-                        </form>
-                      )}
-                    </motion.div>
+                    <SearchBar searchTextColor={searchTextColor} />
                   </div>
                 </div>
               </nav>

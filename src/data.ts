@@ -49,16 +49,18 @@ export const firstFeaturedCards: FeaturedType = {
     'images/fullhelm_5.jpg',
   ],
   title: ' DoomsDay Helmet',
+  link: 'tactical_head_protection',
 };
 
 export const secondFeaturedCards: FeaturedType = {
-  text: `Camouflage Gear isn’t just for blending into the ruins — it’s for standing out in tactical style. From street-smart urban camo to dirt-streaked desert prints, our doomsday-ready fits are lined with low-profile armor and high-key attitude. Whether you're sneaking past raiders or just ghosting your neighbors, these survival layers help you disappear when it counts — and look dangerously good doing it.`,
+  text: `Camouflage Gear isn’t just for blending into the ruins — it’s for standing out in tactical style. From street-smart urban camo to dirt-streaked desert prints, our doomsday-ready fits are lined with low-profile armor and high-key attitude. Whether you're sneaking past raiders or just ghosting your neighbors, these survival layers help you disappear when it counts, and look dangerously good doing it.`,
   images: [
     'images/camohelm_3.jpg',
     'images/cap_3.jpg',
     'images/camo_googles_1.jpg',
   ],
   title: 'Camo for Endtimes',
+  link: 'mission_ready_eye_gear',
 };
 
 type Story = {
@@ -117,27 +119,33 @@ export const footerProductLinks = [
 
 export const testimonials: Review[] = [
   {
-    review: 'HOA meetings changed forever. My bunker plans are now finally respected by everyone.',
+    review:
+      'HOA meetings changed forever. My bunker plans are now finally respected by everyone.',
     author: 'Paranoid Pete',
   },
   {
-    review: 'Kevlar Vest: Warm, safe, stylish. Cashier even complimented me at the store.',
+    review:
+      'Kevlar Vest: Warm, safe, stylish. Cashier even complimented me at the store.',
     author: 'Icy Ivy',
   },
   {
-    review: 'Gas Mask: Best air, no subway smells, people keep distance, peace of mind.',
+    review:
+      'Gas Mask: Best air, no subway smells, people keep distance, peace of mind.',
     author: 'Metro Max',
   },
   {
-    review: 'Armored gloves: Opened cans, survived raccoon ambush, no scratches, hands always safe.',
+    review:
+      'Armored gloves: Opened cans, survived raccoon ambush, no scratches, hands always safe.',
     author: 'Bunker Brenda',
   },
   {
-    review: 'Recon Cap: Fits at work, ready for anything after hours, always looks sharp.',
+    review:
+      'Recon Cap: Fits at work, ready for anything after hours, always looks sharp.',
     author: 'Subtle Steve',
   },
   {
-    review: 'Night-Ops Goggles: Midnight snacks, chips found, house stays quiet, vision always clear.',
+    review:
+      'Night-Ops Goggles: Midnight snacks, chips found, house stays quiet, vision always clear.',
     author: 'Snack Ops Sam',
   },
 ];

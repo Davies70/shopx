@@ -56,6 +56,7 @@ const DragButton = ({ type, onClick, sliderRef }: DragButtonProps) => {
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
       onMouseMove={handleMouseMove}
+      onClick={onClick}
     >
       <div className='relative w-full h-full'>
         <div className='inset-0 absolute z-[25]'></div>
@@ -75,7 +76,6 @@ const DragButton = ({ type, onClick, sliderRef }: DragButtonProps) => {
               }}
               exit={{ opacity: 0, scale: 0.5 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
-              onClick={onClick}
               style={{
                 position: 'absolute',
                 left: mousePos.x - 24,
