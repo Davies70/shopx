@@ -15,7 +15,6 @@ const SearchBar = ({ searchTextColor }: SearchBarType) => {
 
   const handleSearchQuery = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      console.log('Enter key pressed! Value:', query);
       navigate(`/search_results/query=${encodeURIComponent(query)}`);
     }
   };

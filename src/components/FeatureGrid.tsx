@@ -6,6 +6,7 @@ import RevealButtonWithIcon from './RevealButtonWithIcon';
 import FadeInIconButton from './FadeInIconButton';
 import useSwipe from '@/hooks/useSwipe';
 import Heading from './Heading';
+import { Link } from 'react-router-dom';
 
 const FeatureGrid = () => {
   // Create infinite loop slides: [last, ...original, first]
@@ -113,11 +114,13 @@ const FeatureGrid = () => {
                     <div className='z-25 text-white relative max-w-[475px]'>
                       <div className='grid items-start grid-cols-1 grid-rows-1 gap-y-6 gap-x-4'>
                         <Heading type='normal' text={slide.title_1} />
-                        <RevealButtonWithIcon
-                          text='Shop All'
-                          iconBorderColor='transparent'
-                          isTextPadding={false}
-                        />
+                        <Link to='/shop'>
+                          <RevealButtonWithIcon
+                            text='Shop All'
+                            iconBorderColor='transparent'
+                            isTextPadding={false}
+                          />
+                        </Link>
                       </div>
                     </div>
                     <div className='absolute inset-0 overflow-hidden'>

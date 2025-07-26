@@ -1,9 +1,10 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search } from 'lucide-react';
 import RevealButton from './RevealButton';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { navLinks } from '@/data';
+import { useNavigate } from 'react-router-dom';
 
 //implement exit mobile view on outside click
 type MobileMenuProps = {
@@ -14,6 +15,10 @@ type MobileMenuProps = {
 
 const MobileMenu = ({ isOpen, setIsOpen, toggleRef }: MobileMenuProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
+  const [query, setQuery] = useState('');
+
+  const navigate = useNavigate();
+
   const handleClickOutside = (event: MouseEvent) => {
     if (
       menuRef.current &&
@@ -43,12 +48,12 @@ const MobileMenu = ({ isOpen, setIsOpen, toggleRef }: MobileMenuProps) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleTouchOutside);
-      // Clean up event listeners
-      // to prevent memory leaks
-      // and ensure proper functionality
-      // when the component unmounts
     };
-  }); // Add isOpen as a dependency to re-run effect when it changes
+  });
+
+  const handleSearchQuery = () => {
+    navigate(`/search_results`);
+  };
 
   return (
     <AnimatePresence>
@@ -63,10 +68,15 @@ const MobileMenu = ({ isOpen, setIsOpen, toggleRef }: MobileMenuProps) => {
           className='fixed min-w-[50px] bg-white left-0 z-50 flex w-full flex-col items-center justify-center  shadow-lg overflow-hidden'
         >
           <div className='max-w-full w-full flex flex-col decorate-none p-0 border-b-[#e4e9ec] border-b justify-self-stretch px-3 justify-center items-end'>
-            <form className='flex justify-center items-center  max-w-[500px] my-3 mx-auto w-full py-0 z-25 outline-none border bg-[#f4f8fa] border-[rgba(255,255,255,.25)] rounded-[100px] min-w-[34px] min-h-[34px] relative'>
+            <form
+              onSubmit={handleSearchQuery}
+              className='flex justify-center items-center  max-w-[500px] my-3 mx-auto w-full py-0 z-25 outline-none border bg-[#f4f8fa] border-[rgba(255,255,255,.25)] rounded-[100px] min-w-[34px] min-h-[34px] relative'
+            >
               <input
                 className='tracking-normal flex-grow px-4 py-2 text-sm text-gray-700 bg-transparent border-none outline-none placeholder-gray-500'
                 placeholder='Search...'
+                onChange={(e) => setQuery(e.target.value)}
+                value={query}
               />
               <button
                 type='submit'

@@ -2,6 +2,7 @@ import GridWrapper from './GridWrapper';
 import { slidesOne } from '@/data';
 import ProductCard from './ProductCard';
 import { productCards } from '@/data';
+import { Link } from 'react-router-dom';
 
 import RevealButtonWithIcon from './RevealButtonWithIcon';
 
@@ -33,11 +34,13 @@ const ShopAllSection = () => {
                       <h2 className='tracking-[0.07em] text-[36px] leading-[1.35em] uppercase font-[600] text-center break-words '>
                         {slide.title_1} <br />
                       </h2>
-                      <RevealButtonWithIcon
-                        text='Shop All'
-                        iconBorderColor='transparent'
-                        isTextPadding={false}
-                      />
+                      <Link to='/shop'>
+                        <RevealButtonWithIcon
+                          text='Shop All'
+                          iconBorderColor='transparent'
+                          isTextPadding={false}
+                        />
+                      </Link>
                     </div>
                   </div>
                 </div>

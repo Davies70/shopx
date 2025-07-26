@@ -49,7 +49,7 @@ const Product = ({ setIsLightBoxOpen, setCartItems }: ProductProps) => {
   };
 
   const product = params.id ? getProduct(params.id) : null;
-  const relatedProducts = params.id ? getRelatedProducts(params.id) : [];
+  const relatedProducts = params.id ? getRelatedProducts(params.id, 3) : [];
 
   const handleAddToCart = () => {
     setisAdding(true);

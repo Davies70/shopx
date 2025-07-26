@@ -62,7 +62,7 @@ export const updateCartItemQuantity = (productId: string, quantity: number) => {
   }
 };
 
-export const getRelatedProducts = (id: string): Product[] => {
+export const getRelatedProducts = (id: string, quantity: number): Product[] => {
   const filtered = categories
     .flatMap((c) => c.products)
     .filter((p) => p.id !== id);
@@ -74,5 +74,17 @@ export const getRelatedProducts = (id: string): Product[] => {
   }
 
   // Return the first 3 (or fewer if not enough)
-  return filtered.slice(0, 3);
+  return filtered.slice(0, quantity);
+};
+
+export const getSearchResults = (quantity: number): Product[] => {
+  const filtered = categories.flatMap((c) => c.products);
+
+  // Shuffle the array
+  for (let i = filtered.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+  }
+
+  return filtered.slice(0, quantity);
 };
