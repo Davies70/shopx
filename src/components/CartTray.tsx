@@ -120,7 +120,7 @@ const CartTray = ({
               </div>
 
               {cartItems.length === 0 && (
-                <div className='flex-1 justify-center w-full  items-center'>
+                <div className='flex-1 justify-center w-full  items-center absolute left-0 right-0 top-[20%]'>
                   <div className='grid grid-cols-[1fr] grid-rows-[auto] gap-y-[24px] gap-x-[16px] justify-items-center'>
                     <div className='grid grid-cols-[1fr] grid-rows-[auto_auto] gap-y-[12px] gap-x-[16px] justify-items-center'>
                       <Heading type='small' text='Still shopping?' />
