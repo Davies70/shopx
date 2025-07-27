@@ -11,11 +11,45 @@ import { useState } from 'react';
 
 const Contact = () => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+  const [errors, setErrors] = useState<{
+    name?: string;
+    email?: string;
+    message?: string;
+  }>({});
+
+  const validateForm = () => {
+    const newErrors: typeof errors = {};
+
+    if (!/^[a-zA-Z\s]{2,50}$/.test(formData.name)) {
+      newErrors.name = 'Name must be 2–50 characters, only letters and spaces.';
+    }
+
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address.';
+    }
+
+    if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters.';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     setIsFormSubmitted(true);
     setTimeout(() => setIsFormSubmitted(false), 5000);
   };
+
   return (
     <div className='z-10 bg-white relative'>
       <div className='flex pt-[120px] pb-[60px] min-[768px]:pt-[160px] min-[768px]:pb-[80px] min-[992px]:pt-[220px] min-[992px]:pb-[100px] relative justify-center'>
@@ -75,6 +109,7 @@ const Contact = () => {
               </StackedIntro>
               <div className='m-0'>
                 <form
+                  noValidate
                   onSubmit={handleSubmit}
                   className='grid gap-y-[36px] gap-x-[16px] grid-rows-[auto_auto] grid-cols-[1fr] '
                 >
@@ -96,9 +131,18 @@ const Contact = () => {
                       id='name'
                       pattern='^[a-zA-Z\s]{2,50}$'
                       maxLength={256}
+                      value={formData.name}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
                       title='Name must be 2-50 characters long and contain only letters and spaces.'
                       className='tracking-normal border-[#e4e9ec] text-[#667479] bg-[rgba(255,255,255,0)] rounded-[2px] h-[52px] mb-[24px] p-[14px_20px] text-[15px] w-full leading-[1.42857] m-0 '
                     />
+                    {errors.name && (
+                      <div className='text-red-500 text-sm mt-1 tracking-normal'>
+                        {errors.name}
+                      </div>
+                    )}
                     <label
                       htmlFor='email'
                       className='text-[#667479] tracking-[4px] uppercase mb-[9px] text-[10px] font-[400] leading-[1.6em]'
@@ -106,6 +150,10 @@ const Contact = () => {
                       Email
                     </label>
                     <input
+                      value={formData.email}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
                       style={{
                         transition: `border-color .4s cubic-bezier(.25,.46,.45,.94)`,
                         verticalAlign: 'middle',
@@ -119,6 +167,11 @@ const Contact = () => {
                       title='Enter a valid email address (e.g., yourname@example.com)'
                       className='tracking-normal border-[#e4e9ec] text-[#667479] bg-[rgba(255,255,255,0)] rounded-[2px] h-[52px] mb-[24px] p-[14px_20px] text-[15px] w-full leading-[1.42857] m-0 '
                     />
+                    {errors.name && (
+                      <div className='text-red-500 text-sm mt-1 tracking-normal'>
+                        {errors.email}
+                      </div>
+                    )}
                     <label
                       htmlFor='message'
                       className='text-[#667479] tracking-[4px] uppercase mb-[9px] text-[10px] font-[400] leading-[1.6em]'
@@ -127,6 +180,10 @@ const Contact = () => {
                     </label>
                     <textarea
                       id='message'
+                      value={formData.message}
+                      onChange={(e) =>
+                        setFormData({ ...formData, message: e.target.value })
+                      }
                       minLength={10}
                       maxLength={1000}
                       title='Message should be at least 10 characters'
@@ -138,6 +195,11 @@ const Contact = () => {
                       placeholder='type your message here'
                       className='h-auto min-h-[150px] tracking-normal border-[#e4e9ec] text-[#667479] bg-[rgba(255,255,255,0)] rounded-[2px]  mb-[24px] p-[14px_20px] text-[15px] w-full leading-[1.42857] m-0 '
                     />
+                    {errors.name && (
+                      <div className='text-red-500 text-sm mt-1 tracking-normal'>
+                        {errors.message}
+                      </div>
+                    )}
                   </div>
                   <button
                     className='bg-[#080808]  tracking-[4px] uppercase rounded-[1000px] justify-center items-center h-[52px] mb-0 py-0 text-[11px] flex text-white p-[9px_15px] cursor-pointer'
