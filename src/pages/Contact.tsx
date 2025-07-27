@@ -136,10 +136,10 @@ const Contact = () => {
                         setFormData({ ...formData, name: e.target.value })
                       }
                       title='Name must be 2-50 characters long and contain only letters and spaces.'
-                      className='tracking-normal border-[#e4e9ec] text-[#667479] bg-[rgba(255,255,255,0)] rounded-[2px] h-[52px] mb-[24px] p-[14px_20px] text-[15px] w-full leading-[1.42857] m-0 '
+                      className='tracking-normal border-[#e4e9ec] text-[#667479] bg-[rgba(255,255,255,0)] rounded-[2px] h-[52px] mb-[0px] p-[14px_20px] text-[15px] w-full leading-[1.42857] m-0 '
                     />
                     {errors.name && (
-                      <div className='text-red-500 text-sm mt-1 tracking-normal'>
+                      <div className='text-red-500 text-sm tracking-normal'>
                         {errors.name}
                       </div>
                     )}
@@ -165,10 +165,10 @@ const Contact = () => {
                       required
                       pattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$'
                       title='Enter a valid email address (e.g., yourname@example.com)'
-                      className='tracking-normal border-[#e4e9ec] text-[#667479] bg-[rgba(255,255,255,0)] rounded-[2px] h-[52px] mb-[24px] p-[14px_20px] text-[15px] w-full leading-[1.42857] m-0 '
+                      className='tracking-normal border-[#e4e9ec] text-[#667479] bg-[rgba(255,255,255,0)] rounded-[2px] h-[52px]  p-[14px_20px] text-[15px] w-full leading-[1.42857] m-0 '
                     />
                     {errors.name && (
-                      <div className='text-red-500 text-sm mt-1 tracking-normal'>
+                      <div className='text-red-500 text-sm tracking-normal'>
                         {errors.email}
                       </div>
                     )}
@@ -193,10 +193,10 @@ const Contact = () => {
                         border: '1px solid #ccc',
                       }}
                       placeholder='type your message here'
-                      className='h-auto min-h-[150px] tracking-normal border-[#e4e9ec] text-[#667479] bg-[rgba(255,255,255,0)] rounded-[2px]  mb-[24px] p-[14px_20px] text-[15px] w-full leading-[1.42857] m-0 '
+                      className='h-auto min-h-[150px] tracking-normal border-[#e4e9ec] text-[#667479] bg-[rgba(255,255,255,0)] rounded-[2px]  p-[14px_20px] text-[15px] w-full leading-[1.42857] m-0 '
                     />
                     {errors.name && (
-                      <div className='text-red-500 text-sm mt-1 tracking-normal'>
+                      <div className='text-red-500 text-sm tracking-normal'>
                         {errors.message}
                       </div>
                     )}
