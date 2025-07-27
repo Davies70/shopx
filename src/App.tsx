@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react';
 import { CartItem as CartItemType } from '@/categories';
 import { getCartItems } from './services';
 import { useDynamicTitle } from './hooks/useDynamicTitle';
+import CartTray from './components/CartTray';
 
 import { Routes, Route } from 'react-router-dom';
 import LightBox from './components/LightBox';
@@ -20,6 +21,7 @@ import LightBox from './components/LightBox';
 function App() {
   const [isLightBoxOpen, setisLightBoxOpen] = useState(false);
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   useDynamicTitle();
 
@@ -32,8 +34,16 @@ function App() {
     <>
       <ScrollToTop />
       <div className='relative m-0 min-h-full'>
+        {/* <PopUp /> */}
         {isLightBoxOpen && <LightBox setIsLightBoxOpen={setisLightBoxOpen} />}
-        <NavBar cartItems={cartItems} setCartItems={setCartItems} />
+        <NavBar cartItems={cartItems} setIsCartOpen={setIsCartOpen} />
+        <CartTray
+          isCartOpen={isCartOpen}
+          setIsCartOpen={setIsCartOpen}
+          setCartItems={setCartItems}
+          cartItems={cartItems}
+        />
+
         <main className='overflow-hidden min-[480px]:overflow-visible'>
           <Routes>
             <Route path='/' element={<Home />} />
@@ -47,6 +57,7 @@ function App() {
                 <Product
                   setIsLightBoxOpen={setisLightBoxOpen}
                   setCartItems={setCartItems}
+                  setIsCartOpen={setIsCartOpen}
                 />
               }
             />

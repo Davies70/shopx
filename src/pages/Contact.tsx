@@ -94,7 +94,9 @@ const Contact = () => {
                       type='text'
                       required
                       id='name'
+                      pattern='^[a-zA-Z\s]{2,50}$'
                       maxLength={256}
+                      title='Name must be 2-50 characters long and contain only letters and spaces.'
                       className='tracking-normal border-[#e4e9ec] text-[#667479] bg-[rgba(255,255,255,0)] rounded-[2px] h-[52px] mb-[24px] p-[14px_20px] text-[15px] w-full leading-[1.42857] m-0 '
                     />
                     <label
@@ -113,6 +115,8 @@ const Contact = () => {
                       id='email'
                       maxLength={256}
                       required
+                      pattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$'
+                      title='Enter a valid email address (e.g., yourname@example.com)'
                       className='tracking-normal border-[#e4e9ec] text-[#667479] bg-[rgba(255,255,255,0)] rounded-[2px] h-[52px] mb-[24px] p-[14px_20px] text-[15px] w-full leading-[1.42857] m-0 '
                     />
                     <label
@@ -123,6 +127,9 @@ const Contact = () => {
                     </label>
                     <textarea
                       id='message'
+                      minLength={10}
+                      maxLength={1000}
+                      title='Message should be at least 10 characters'
                       style={{
                         transition: `border-color .4s cubic-bezier(.25,.46,.45,.94)`,
                         verticalAlign: 'middle',
@@ -143,14 +150,14 @@ const Contact = () => {
                   </button>
                 </form>
                 {isFormSubmitted && (
-                  <div className='bg-[rgba(221,221,221,0)] text-center'>
-                    <div className='tracking-normal bg-[#f4f8fa] justify-center items-center h-full min-h-[400px] flex'>
-                      <div className='grid gap-x-[16px] gap-y-[12px] grid-rows-[auto_auto] grid-cols-[1fr]'>
-                        <h3>Thank You!</h3>
-                        <div className='text-[15px] text-[#667479] leading-[1.65em]'>
-                          Your submission has been received
-                        </div>
-                      </div>
+                  <div className='fixed inset-0 bg-[rgba(0,0,0,0.6)] z-50 flex justify-center items-center px-4'>
+                    <div className='bg-white rounded-[8px] shadow-lg p-6 max-w-md w-full text-center animate-fade-in'>
+                      <h3 className='text-[20px] font-semibold text-[#1a1a1a] mb-2'>
+                        Thank You!
+                      </h3>
+                      <p className='text-[#667479] text-[16px] leading-[1.5em]'>
+                        Your submission has been received.
+                      </p>
                     </div>
                   </div>
                 )}

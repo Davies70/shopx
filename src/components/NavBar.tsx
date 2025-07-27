@@ -5,19 +5,16 @@ import RevealButton from './RevealButton';
 import GridWrapper from './GridWrapper';
 import { Link, useLocation } from 'react-router-dom';
 import { navLinks } from '@/data';
-import CartTray from './CartTray';
 import { CartItem } from '@/categories';
 import SearchBar from './SearchBar';
 
 type NavBarProps = {
   cartItems: CartItem[];
-  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
+  setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Navbar = ({ cartItems, setCartItems }: NavBarProps) => {
+const Navbar = ({ cartItems, setIsCartOpen }: NavBarProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  // const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const toggleRef = useRef(null);
 
   const { pathname } = useLocation();
@@ -75,12 +72,12 @@ const Navbar = ({ cartItems, setCartItems }: NavBarProps) => {
 
   return (
     <div className='relative w-screen'>
-      <CartTray
+      {/* <CartTray
         isCartOpen={isCartOpen}
         setIsCartOpen={setIsCartOpen}
         setCartItems={setCartItems}
         cartItems={cartItems}
-      />
+      /> */}
       <motion.div
         style={{
           willChange: 'height',
@@ -150,7 +147,7 @@ const Navbar = ({ cartItems, setCartItems }: NavBarProps) => {
                   tabIndex={0}
                   className='flex cursor-pointer'
                   style={{ color: textColor }}
-                  onClick={() => setIsCartOpen(!isCartOpen)}
+                  onClick={() => setIsCartOpen(true)}
                 >
                   <div className='text-xs sm:text-sm grid min-h-9 h-9 items-center justify-center content-center auto-cols-fr grid-cols-[1fr_auto] grid-rows-[auto] uppercase gap-x-2 sm:gap-x-2 gap-y-4 font-light'>
                     <div>Bag</div>

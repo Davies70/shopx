@@ -25,9 +25,14 @@ import OldProductCard from '@/components/OldProductCard';
 type ProductProps = {
   setIsLightBoxOpen: (a: boolean) => void;
   setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
+  setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Product = ({ setIsLightBoxOpen, setCartItems }: ProductProps) => {
+const Product = ({
+  setIsLightBoxOpen,
+  setCartItems,
+  setIsCartOpen,
+}: ProductProps) => {
   const [size, setSize] = useState<'M' | 'L' | 'S'>('M');
   const [quantity, setQuantity] = useState<number>(1);
   const [isAdding, setisAdding] = useState<boolean>(false);
@@ -51,7 +56,9 @@ const Product = ({ setIsLightBoxOpen, setCartItems }: ProductProps) => {
   const product = params.id ? getProduct(params.id) : null;
   const relatedProducts = params.id ? getRelatedProducts(params.id, 3) : [];
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
     setisAdding(true);
     if (product) {
       const cartProduct = { ...product, id: product.id + size };
@@ -63,6 +70,7 @@ const Product = ({ setIsLightBoxOpen, setCartItems }: ProductProps) => {
       setTimeout(() => setisAdding(false), 3000);
       const data = addOrUpdateCartItem(cartItem);
       setCartItems(data);
+      setTimeout(() => setIsCartOpen(true), 1000);
     }
   };
 
@@ -224,7 +232,7 @@ const Product = ({ setIsLightBoxOpen, setCartItems }: ProductProps) => {
                           <button
                             type='button'
                             onClick={handleCartItemQuantityDecrease}
-                            className='w-[36px] h-[36px] border border-[#e4e9ec] rounded-[3px] text-[18px] text-[#667479] hover:bg-[#f4f8fa]'
+                            className='w-[36px] h-[36px] border border-[#e4e9ec] rounded-[3px] text-[18px] text-[#667479] hover:bg-[#f4f8fa] cursor-pointer'
                           >
                             −
                           </button>
@@ -234,7 +242,7 @@ const Product = ({ setIsLightBoxOpen, setCartItems }: ProductProps) => {
                           <button
                             type='button'
                             onClick={handleCartItemQuantityIncrease}
-                            className='w-[36px] h-[36px] border border-[#e4e9ec] rounded-[3px] text-[18px] text-[#667479] hover:bg-[#f4f8fa]'
+                            className='w-[36px] h-[36px] border border-[#e4e9ec] rounded-[3px] text-[18px] text-[#667479] hover:bg-[#f4f8fa] cursor-pointer'
                           >
                             +
                           </button>
@@ -305,17 +313,7 @@ const Product = ({ setIsLightBoxOpen, setCartItems }: ProductProps) => {
           </div>
         </GridWrapper>
       </div>
-      <section>
-        {/* <GridWrapper>
-          <div>
-            <GridWrapper>
-              <div>
-                <div></div>
-              </div>
-            </GridWrapper>
-          </div>
-        </GridWrapper> */}
-      </section>
+      <section></section>
       <section className='py-[20px] min-[480px]:py-[80px] min-[768px]:py-[100px] min-[992px]:py-[160px] flex justify-center relative z-10'>
         <GridWrapper isClipped={false}>
           <div className='col-[2/3] w-full grid grid-cols-1 min-[992px]:grid-cols-[1fr_1fr] gap-[48px]'>
