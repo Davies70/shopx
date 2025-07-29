@@ -37,7 +37,7 @@
 
 ## 📁 Project Structure
 
-````bash
+```bash
 src/
 ├── components/   # Reusable UI components
 ├── pages/        # Main views or sections
@@ -46,6 +46,7 @@ src/
 ├── utils/        # Utility functions
 ├── assets/       # Images, icons, etc.
 └── types/        # Global TypeScript types/interfaces
+```
 
 ## 🛠️ Getting Started
 
@@ -56,7 +57,7 @@ git clone https://github.com/your-username/shopapocalypse.git
 cd shopapocalypse
 npm install
 npm run dev
-````
+```
 
 Then open http://localhost:5173 in your browser.
 
@@ -97,3 +98,7 @@ Click “Deploy Site”
 ## 🙏 Acknowledgments
 
 Inspired by the fun of parody projects and the challenge of crafting smooth UI/UX with animation-focused frontend tech.
+
+```
+
+```
