@@ -2,7 +2,7 @@
 
 **Shopapocalypse** is a spoof eCommerce site built for those prepping in style for the end of days. It delivers a smooth, animated, and responsive shopping experience with a cached cart system — all powered by modern frontend technologies.
 
-![Shopapocalypse Screenshot](./public/shopapo.png)
+![Shopapocalypse Screenshot](./public/images/shopapo.png)
 
 ---
 
