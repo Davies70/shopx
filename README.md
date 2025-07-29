@@ -37,16 +37,15 @@
 
 ## 📁 Project Structure
 
+````bash
 src/
-├── components/ # Reusable UI components
-├── pages/ # Main views or sections
-├── hooks/ # Custom React hooks
-├── styles/ # Tailwind configs or custom styles
-├── utils/ # Utility functions
-├── assets/ # Images, icons, etc.
-└── types/ # Global TypeScript types/interfaces
-
----
+├── components/   # Reusable UI components
+├── pages/        # Main views or sections
+├── hooks/        # Custom React hooks
+├── styles/       # Tailwind configs or custom styles
+├── utils/        # Utility functions
+├── assets/       # Images, icons, etc.
+└── types/        # Global TypeScript types/interfaces
 
 ## 🛠️ Getting Started
 
@@ -57,7 +56,7 @@ git clone https://github.com/your-username/shopapocalypse.git
 cd shopapocalypse
 npm install
 npm run dev
-```
+````
 
 Then open http://localhost:5173 in your browser.
 
@@ -71,6 +70,7 @@ Then open http://localhost:5173 in your browser.
 📱 Mobile-First Design: Fully responsive from small to large screens
 
 ## 📦 Deployment
+
 Deployed via Netlify with continuous deployment from GitHub.
 
 To deploy your own copy:
@@ -95,4 +95,5 @@ Click “Deploy Site”
 🌍 Multi-language support
 
 ## 🙏 Acknowledgments
+
 Inspired by the fun of parody projects and the challenge of crafting smooth UI/UX with animation-focused frontend tech.
