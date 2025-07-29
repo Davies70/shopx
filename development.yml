@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shopx-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shopx
+  template:
+    metadata:
+      labels:
+        app: shopx
+    spec:
+      containers:
+        - name: shopx
+          image: shopx:latest
+          ports:
+            - containerPort: 80
