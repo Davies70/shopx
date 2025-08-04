@@ -77,12 +77,9 @@ const SearchResults = () => {
                         className='min-h-[65vw] min-[768px]:min-h-[35vw] min-[992px]:min-h-[22vw] bg-[50%] bg-no-repeat bg-cover'
                       ></div>
                       <div className='grid gap-y-[12px] min-[768px]:gap-y-[40px] col-[16px] grid-rows-[auto_auto] grid-cols-[1fr] content-between'>
-                        <a
-                          href='/sample-result'
-                          className='text-[#07090c] text-[28px] font-[500] leading-[1.4em] tracking-normal'
-                        >
+                        <div className='text-[#07090c] text-[28px] font-[500] leading-[1.4em] tracking-normal'>
                           {product.name}
-                        </a>
+                        </div>
                         <div className='grid gap-y-[18px] gap-x-[16px] grid-rows-[auto] grid-cols-[1fr] justify-items-start'>
                           <p className='text-[15px] leading-[1.65em] text-[#667479] tracking-normal'>
                             <span>{product.shortDescription}</span>
