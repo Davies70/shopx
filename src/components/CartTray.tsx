@@ -141,7 +141,7 @@ const CartTray = ({
                 </div>
               )}
 
-              {isDisabled && (
+              {isDisabled && cartItems.length > 0  &&(
                 <div
                   style={{
                     borderLeft: '3px solid #a74030',
