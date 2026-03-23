@@ -6,7 +6,7 @@ import ShopAllSection from "@/components/ShopAllSection";
 import FeaturedSection from "@/components/FeaturedSection";
 import ActionBanner from "@/components/ActionBanner";
 import Testimonials from "@/components/Testimonials";
-import SectionEight from "@/components/SurveillanceGrid";
+import SurveillanceGird from "@/components/SurveillanceGrid";
 
 const Home = () => {
   return (
@@ -19,7 +19,7 @@ const Home = () => {
       <FeaturedSection />
       <ActionBanner />
       <Testimonials />
-      <SectionEight />
+      <SurveillanceGird />
     </div>
   );
 };

@@ -44,7 +44,7 @@ const SectionEight = () => {
 
           {/* CENTER NODE: The Call to Action */}
           <motion.a
-            href="https://instagram.com/shopapocalypse"
+            href="https://daviesajayi.com"
             target="_blank"
             rel="noopener noreferrer"
             initial={{ opacity: 0, scale: 0.9 }}
