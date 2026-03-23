@@ -135,8 +135,8 @@ const Product = ({
                     <Cpu size={14} className="text-[#FF3366]" /> ASSET_CLASS:{" "}
                     {product.tags?.[0] || "GENERAL_ISSUE"}
                   </div>
-                  <div className="font-mono text-[10px] text-[#C5F82A] animate-pulse uppercase">
-                    [ STOCK_STABLE ]
+                  <div className="font-mono text-[10px] text-[#C5F82A] animate-pulse uppercase ">
+                    [STOCK_STABLE]
                   </div>
                 </div>
 
