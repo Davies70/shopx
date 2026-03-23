@@ -1,5 +1,5 @@
 import { Product } from "../categories";
-import { Target, ShieldAlert } from "lucide-react";
+import { Target, ShieldAlert, ArrowUpRight } from "lucide-react";
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
@@ -9,6 +9,7 @@ type ProductCardProps = {
   translateX?: number;
   handleAnimationComplete?: () => void;
   instantJump?: boolean;
+  className?: string; // Added to support parent grid 'h-full'
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -16,6 +17,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   translateX = 0,
   handleAnimationComplete,
   instantJump,
+  className = "",
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
@@ -29,8 +31,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const TRANSITION_DURATION = 0.8;
 
   const images = product.images.slice(0, 3);
-
-  // Simulated Tactical Stats based on product price/name length for consistent UI
   const threatLevel = product.price > 150 ? "HIGH" : "ELEVATED";
   const weightClass = (product.name.length * 0.15).toFixed(1);
 
@@ -47,7 +47,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
           setCurrentImageIndex((prev) =>
             prev === images.length - 1 ? 0 : prev + 1,
           );
-
           progressControls
             .start({ width: "0%", transition: { duration: 0 } })
             .then(() => {
@@ -60,13 +59,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
               });
             });
         }, IMAGE_DISPLAY_DURATION * 1000);
-
         progressControls.start({
           width: "100%",
           transition: { duration: IMAGE_DISPLAY_DURATION, ease: "linear" },
         });
       }, DELAY_BEFORE_START * 1000);
-
       return () => {
         clearTimeout(startTimeout);
         if (intervalRef.current) clearInterval(intervalRef.current);
@@ -86,22 +83,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
     setIsHovering(false);
     setCurrentImageIndex(0);
     if (intervalRef.current) clearInterval(intervalRef.current);
-
     scaleControls.start({ scale: 1, transition: { duration: 0.4 } });
     progressControls.start({ width: "0%", transition: { duration: 0.3 } });
   };
 
-  // Preload images
-  useEffect(() => {
-    images.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
-  }, [images]);
-
   return (
     <motion.div
-      className="inline-block w-full max-w-[320px] sm:max-w-[360px] align-top cursor-pointer h-full"
+      className={`relative w-full cursor-pointer flex flex-col ${className}`}
       animate={{ x: `${-100 * translateX}%` }}
       transition={
         instantJump
@@ -111,21 +99,22 @@ const ProductCard: React.FC<ProductCardProps> = ({
       onAnimationComplete={handleAnimationComplete}
       onMouseEnter={handleHoverStart}
       onMouseLeave={handleHoverEnd}
+      // Improved Mobile Support: Triggering "hover" state on touch
+      onTouchStart={handleHoverStart}
+      onTouchEnd={handleHoverEnd}
     >
-      {/* Brutalist Container */}
       <div
-        className="group bg-white border-2 border-[#080808] flex flex-col h-full transition-all duration-300 relative"
+        className="group bg-white border-2 border-[#080808] flex flex-col h-full transition-all duration-300 relative overflow-hidden"
         style={{
-          boxShadow: isHovering ? "8px 8px 0px #FF3366" : "4px 4px 0px #080808",
+          boxShadow: isHovering ? "4px 4px 0px #FF3366" : "2px 2px 0px #080808",
         }}
       >
         <Link
           to={`/products/${product.id}`}
-          className="block no-underline text-black h-full"
+          className="flex flex-col h-full no-underline text-black"
         >
-          {/* Image Area */}
-          <div className="relative aspect-[4/5] bg-[#f4f8fa] border-b-2 border-[#080808] overflow-hidden">
-            {/* The Images */}
+          {/* IMAGE AREA */}
+          <div className="relative aspect-[4/5] sm:aspect-square bg-[#f4f8fa] border-b-2 border-[#080808] overflow-hidden shrink-0">
             <motion.div
               className="absolute inset-0 w-full h-full"
               animate={scaleControls}
@@ -143,64 +132,54 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     backgroundImage: `url(${images[currentImageIndex]})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
                   }}
                 />
               </AnimatePresence>
             </motion.div>
 
-            {/* Tactical HUD Overlay (Appears on Hover) */}
+            {/* TACTICAL HUD OVERLAY (Hidden on mobile or simplified) */}
             <AnimatePresence>
               {isHovering && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="absolute inset-0 bg-[rgba(8,8,8,0.75)] z-20 flex flex-col justify-between p-4"
+                  className="absolute inset-0 bg-black/80 z-20 flex flex-col justify-between p-3 sm:p-4"
                 >
-                  {/* Targeting Corners */}
-                  <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-[#FF3366]"></div>
-                  <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-[#FF3366]"></div>
-                  <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-[#FF3366]"></div>
-                  <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-[#FF3366]"></div>
+                  <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-[#FF3366]" />
+                  <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-[#FF3366]" />
 
-                  {/* Center Crosshair */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-30">
-                    <Target size={64} color="#FF3366" strokeWidth={1} />
+                  <div className="font-mono text-[8px] sm:text-[10px] text-[#FF3366] tracking-tighter sm:tracking-widest flex justify-between uppercase">
+                    <span>SCAN_ACTIVE</span>
+                    <span>ID_{product.id.slice(0, 5)}</span>
                   </div>
 
-                  {/* Top Readout */}
-                  <div className="font-mono text-[10px] text-[#FF3366] tracking-widest flex justify-between uppercase">
-                    <span>SYS.SCAN.ACTIVE</span>
-                    <span>[{product.id}]</span>
+                  <div className="flex flex-col items-center opacity-40">
+                    <Target
+                      className="w-8 h-8 sm:w-12 sm:h-12 text-[#FF3366]"
+                      strokeWidth={1}
+                    />
                   </div>
 
-                  {/* Bottom Stats */}
-                  <div className="font-mono text-[10px] text-white space-y-1 relative z-30">
-                    <div className="flex justify-between border-b border-white/20 pb-1">
-                      <span className="text-white/60">THREAT_LVL:</span>
+                  <div className="font-mono text-[8px] sm:text-[10px] text-white space-y-1">
+                    <div className="flex justify-between border-b border-white/10 pb-1">
+                      <span className="text-white/40">THREAT:</span>
                       <span className="text-[#FF3366] font-bold">
                         {threatLevel}
                       </span>
                     </div>
-                    <div className="flex justify-between border-b border-white/20 pb-1">
-                      <span className="text-white/60">WT_CLASS:</span>
-                      <span>{weightClass} KG</span>
-                    </div>
-                    <div className="flex justify-between pb-1">
-                      <span className="text-white/60">STATUS:</span>
-                      <span className="text-[#C5F82A]">
-                        CLEARED_FOR_DEPLOYMENT
-                      </span>
+                    <div className="flex justify-between">
+                      <span className="text-white/40">STATUS:</span>
+                      <span className="text-[#C5F82A]">CLEARED</span>
                     </div>
                   </div>
                 </motion.div>
               )}
             </AnimatePresence>
 
-            {/* Progress bar (Ammo gauge style) */}
+            {/* AMMO GAUGE (Progress Bar) */}
             {images.length > 1 && (
-              <div className="absolute bottom-0 left-0 right-0 h-[4px] bg-[#080808] z-30">
+              <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#080808] z-30">
                 <motion.div
                   className="h-full bg-[#FF3366] w-[0%]"
                   animate={progressControls}
@@ -209,53 +188,51 @@ const ProductCard: React.FC<ProductCardProps> = ({
             )}
           </div>
 
-          {/* Details Area */}
-          <div className="p-5 flex flex-col flex-1 bg-white relative z-30">
-            {/* Tag / Discount (Stamped Military Style) */}
-            <div className="min-h-[24px] text-[10px] uppercase tracking-widest font-mono flex items-center gap-2 mb-2">
+          {/* DETAILS AREA */}
+          <div className="p-3 sm:p-5 flex flex-col flex-1 bg-white">
+            {/* Tag / Discount */}
+            <div className="min-h-[18px] sm:min-h-[24px]">
               {product.discount?.isDiscounted ? (
-                <div className="flex items-center gap-1.5 bg-[#FF3366] text-white px-2 py-1 font-bold">
-                  <ShieldAlert size={12} />
-                  <span>{product.discount.percentOff}</span>
+                <div className="inline-flex items-center gap-1 bg-[#FF3366] text-white px-1.5 py-0.5 text-[8px] sm:text-[10px] font-bold uppercase font-mono">
+                  <ShieldAlert size={10} />
+                  <span>{product.discount.percentOff} OFF</span>
                 </div>
               ) : (
-                (product.tags?.length ?? 0) > 0 && (
-                  <span className="bg-[#080808] text-white px-2 py-1">
-                    {product.tags?.join(", ")}
+                product.tags?.[0] && (
+                  <span className="bg-[#080808] text-white px-1.5 py-0.5 text-[8px] sm:text-[10px] font-mono uppercase">
+                    {product.tags[0]}
                   </span>
                 )
               )}
             </div>
 
-            {/* Product Name */}
-            <h3 className="mt-2 text-[16px] font-[600] uppercase tracking-[0.05em] group-hover:text-[#FF3366] transition-colors line-clamp-2 leading-[1.3em]">
+            {/* Name: Balanced line height and clamping */}
+            <h3 className="mt-2 text-[14px] sm:text-[16px] font-bold uppercase tracking-tight sm:tracking-normal line-clamp-2 leading-tight flex-1">
               {product.name}
             </h3>
 
-            {/* Color Classification */}
-            <div className="text-[10px] text-[#667479] mt-2 uppercase tracking-widest font-mono border-l-2 border-[#080808] pl-2">
-              SPEC: {product.color}
-            </div>
-
-            {/* Price Readout */}
-            <div className="mt-4 pt-4 border-t-2 border-dotted border-[#e4e9ec] min-h-[48px] text-[14px] font-mono tracking-widest flex items-end justify-between">
-              {product.discount?.isDiscounted ? (
-                <div className="flex flex-col">
-                  <span className="line-through text-gray-400 text-[10px]">
-                    ${product.price} USD
+            {/* Price Readout: Cleaned up for mobile widths */}
+            <div className="mt-3 pt-3 border-t border-dashed border-black/10 flex items-center justify-between">
+              <div className="font-mono tracking-tighter sm:tracking-widest">
+                {product.discount?.isDiscounted ? (
+                  <div className="flex flex-col">
+                    <span className="line-through text-gray-400 text-[9px] sm:text-[10px]">
+                      ${product.price}
+                    </span>
+                    <span className="text-[#FF3366] font-bold text-[13px] sm:text-[15px]">
+                      ${product.discount.discountPrice}
+                    </span>
+                  </div>
+                ) : (
+                  <span className="text-[#080808] font-bold text-[13px] sm:text-[15px]">
+                    ${product.price}.00
                   </span>
-                  <span className="text-[#FF3366] font-bold text-[16px]">
-                    ${product.discount.discountPrice} USD
-                  </span>
-                </div>
-              ) : (
-                <span className="text-[#080808] font-bold text-[16px]">
-                  ${product.price} USD
-                </span>
-              )}
+                )}
+              </div>
 
-              <div className="text-[10px] text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                [ CLICK_TO_ACQUIRE ]
+              {/* Icon-only for mobile to save space */}
+              <div className="bg-[#080808] p-1.5 text-white group-hover:bg-[#FF3366] transition-colors">
+                <ArrowUpRight size={14} className="sm:w-4 sm:h-4" />
               </div>
             </div>
           </div>
