@@ -7,16 +7,17 @@ import { missonImages } from "@/data";
 const Mission = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
-
   const isTextInView = useInView(textRef, { once: true, margin: "-100px" });
 
-  // Only photoOrder is needed to manage the stack
+  // 1. New state for the redacted text toggle
+  const [isRevealed, setIsRevealed] = useState(false);
+
   const [photoOrder, setPhotoOrder] = useState(missonImages.map((p) => p.id));
 
   const bringToFront = (id: number) => {
     setPhotoOrder((prev) => {
       const newOrder = prev.filter((pId) => pId !== id);
-      return [...newOrder, id]; // Moves the selected ID to the highest index
+      return [...newOrder, id];
     });
   };
 
@@ -26,7 +27,6 @@ const Mission = () => {
       ref={containerRef}
       className="relative w-full min-h-[100vh] bg-[#12141A] overflow-hidden flex flex-col lg:flex-row border-t-2 border-white/10"
     >
-      {/* Background Tactical Grid */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-screen"
         style={{
@@ -36,7 +36,7 @@ const Mission = () => {
         }}
       />
 
-      {/* LEFT COLUMN: The Briefing Text */}
+      {/* LEFT COLUMN */}
       <div className="relative z-10 w-full lg:w-1/2 p-8 md:p-16 lg:p-24 flex flex-col justify-center pointer-events-none">
         <div className="flex items-center gap-4 mb-8">
           <Fingerprint size={32} className="text-[#FF3366]" strokeWidth={1} />
@@ -85,9 +85,20 @@ const Mission = () => {
             and industrial-grade survival tools.
           </p>
 
+          {/* 2. THE TACTICAL REDACTED SPAN */}
           <p>
             Our sourcing network remains{" "}
-            <span className="group relative cursor-pointer inline-block bg-[#0B0C10] text-[#0B0C10] hover:bg-transparent hover:text-[#FF3366] transition-colors border border-[#0B0C10] hover:border-[#FF3366] px-1">
+            <span
+              onClick={() => setIsRevealed(!isRevealed)} // Toggles on mobile tap
+              className={`
+                group relative cursor-pointer inline-block transition-all duration-300 border px-1
+                ${
+                  isRevealed
+                    ? "bg-transparent text-[#FF3366] border-[#FF3366]"
+                    : "bg-[#0B0C10] text-[#0B0C10] border-[#0B0C10] hover:bg-transparent hover:text-[#FF3366] hover:border-[#FF3366]"
+                }
+              `}
+            >
               [CLASSIFIED_REDACTED]
             </span>{" "}
             to protect supply integrity. If you are here, you already know why.
@@ -104,7 +115,7 @@ const Mission = () => {
         </motion.div>
       </div>
 
-      {/* RIGHT COLUMN: The Interactive Intel Desk */}
+      {/* RIGHT COLUMN */}
       <div className="relative w-full lg:w-1/2 min-h-[50vh] lg:min-h-full p-8 md:p-16 border-t-2 lg:border-t-0 lg:border-l-2 border-white/10 bg-[#0B0C10] overflow-hidden">
         <div className="absolute top-8 right-8 z-0 font-mono text-[10px] text-[#667479] tracking-widest uppercase text-right opacity-50 hidden sm:block pointer-events-none">
           <p>INTERACTIVE_SURFACE</p>
@@ -123,7 +134,6 @@ const Mission = () => {
             initialX={photo.x}
             initialY={photo.y}
             constraintsRef={containerRef}
-            // indexOf + 10 ensures they are always above the background but below overlays
             zIndex={photoOrder.indexOf(photo.id) + 10}
             setTopZIndex={() => bringToFront(photo.id)}
           />

@@ -146,7 +146,7 @@ export const categories: Category[] = [
           "/images/altvest_2.jpg",
           "/images/heavy.jpg",
           "/images/heavy_2.jpg",
-          "/images/altvest_1.jpg",
+          "/images/altvest_3.jpg",
           "/images/heavy_3.jpg",
         ],
         shortDescription: "Waterproof outer shell with reactive armor inserts.",
