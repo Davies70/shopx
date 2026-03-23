@@ -101,7 +101,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <motion.div
-      className="inline-block w-full max-w-[320px] sm:max-w-[360px] align-top cursor-pointer"
+      className="inline-block w-full max-w-[320px] sm:max-w-[360px] align-top cursor-pointer h-full"
       animate={{ x: `${-100 * translateX}%` }}
       transition={
         instantJump

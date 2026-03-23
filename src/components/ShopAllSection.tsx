@@ -1,12 +1,11 @@
 import { motion } from "framer-motion";
 import { slidesOne } from "@/data";
-import ProductCard from "./ProductCard"; // Uses our upgraded tactical card
+import ProductCard from "./ProductCard";
 import { productCards } from "@/data";
 import { Link } from "react-router-dom";
 import { Database, ArrowRight } from "lucide-react";
 
 const ShopAllSection = () => {
-  // Using the 3rd slide image as the background for the sticky section
   const slide = slidesOne[2];
 
   return (
@@ -24,11 +23,9 @@ const ShopAllSection = () => {
       <div className="max-w-[1600px] mx-auto flex flex-col lg:flex-row relative z-10">
         {/* LEFT COLUMN: Sticky Cinematic Poster */}
         <div className="w-full lg:w-1/2 relative lg:sticky top-[70px] h-[60vh] lg:h-[calc(100vh-70px)] border-b lg:border-b-0 lg:border-r border-white/10 overflow-hidden group/poster">
-          {/* Tactical Framing */}
           <div className="absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 border-[#FF3366] z-30 pointer-events-none" />
           <div className="absolute bottom-4 right-4 w-4 h-4 border-b-2 border-r-2 border-[#FF3366] z-30 pointer-events-none" />
 
-          {/* The Image (Grayscale with contrast) */}
           <div
             className="absolute inset-0 grayscale-[0.6] contrast-125 transition-transform duration-1000 group-hover/poster:scale-105"
             style={{
@@ -39,7 +36,6 @@ const ShopAllSection = () => {
             }}
           />
 
-          {/* Overlays (Fade + CRT Scanlines) */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C10] via-[#0B0C10]/40 to-transparent z-10" />
           <div
             className="absolute inset-0 pointer-events-none opacity-20 mix-blend-overlay z-20"
@@ -49,7 +45,6 @@ const ShopAllSection = () => {
             }}
           />
 
-          {/* Text & CTA Container */}
           <div className="absolute inset-0 z-30 p-8 md:p-16 flex flex-col justify-end items-start">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -90,8 +85,6 @@ const ShopAllSection = () => {
                     className="transition-transform group-hover/btn:translate-x-1"
                   />
                 </span>
-
-                {/* Red Target Hover Effect */}
                 <div className="absolute inset-0 z-0 opacity-0 group-hover/btn:opacity-100 bg-[#FF3366] transition-opacity duration-300" />
               </Link>
             </motion.div>
@@ -105,7 +98,11 @@ const ShopAllSection = () => {
             <span>DISPLAYING: 04</span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 lg:gap-8 items-stretch [&>div]:flex [&>div]:flex-col">
+          {/* FIX APPLIED HERE: 
+              1. auto-rows-fr forces all rows to have equal height items.
+              2. h-full ensures cards stretch to fill the grid cell.
+          */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 auto-rows-fr gap-4 md:gap-6 lg:gap-8">
             {productCards.slice(0, 4).map((product, index) => (
               <motion.div
                 key={product.id}
@@ -113,14 +110,13 @@ const ShopAllSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex-1"
+                className="h-full flex"
               >
                 <ProductCard product={product} />
               </motion.div>
             ))}
           </div>
 
-          {/* Mobile Only: Extra CTA at the bottom of the grid */}
           <div className="mt-8 lg:hidden block">
             <Link
               to="/shop"

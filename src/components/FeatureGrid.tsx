@@ -8,9 +8,9 @@ import { ChevronLeft, ChevronRight, Target } from "lucide-react";
 const FeatureGrid = () => {
   // Create infinite loop slides: [last, ...original, first]
   const infiniteSlides = [
-    slidesTwo[slidesTwo.length - 1], // Clone of last slide
-    ...slidesTwo, // Original slides
-    slidesTwo[0], // Clone of first slide
+    slidesTwo[slidesTwo.length - 1],
+    ...slidesTwo,
+    slidesTwo[0],
   ];
 
   const [currentIndex, setCurrentIndex] = useState(1);
@@ -96,7 +96,7 @@ const FeatureGrid = () => {
 
         {/* The Carousel Frame */}
         <div className="relative border-2 border-white/10 bg-[#12141A] overflow-hidden group">
-          {/* Corner Framing */}
+          {/* Corner Framing Brackets */}
           <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#FF3366] z-30 pointer-events-none" />
           <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#FF3366] z-30 pointer-events-none" />
 
@@ -116,9 +116,9 @@ const FeatureGrid = () => {
               <motion.div
                 {...swipeHandlers}
                 key={`slide-${index}`}
-                className="w-full shrink-0 relative h-[60vh] min-h-[500px] md:h-[700px] inline-block align-top text-left group/slide"
+                className="w-full shrink-0 relative h-[70vh] min-h-[550px] md:h-[700px] inline-block align-top text-left group/slide"
               >
-                {/* The Image (Grayscale with contrast) */}
+                {/* Background Image */}
                 <div
                   className="absolute inset-0 grayscale-[0.6] contrast-125 transition-all duration-700 group-hover/slide:grayscale-[0.2]"
                   style={{
@@ -129,8 +129,8 @@ const FeatureGrid = () => {
                   }}
                 />
 
-                {/* Dark Fade Overlay for Text Legibility */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C10] via-[#0B0C10]/60 to-transparent" />
+                {/* Legibility Gradients */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C10] via-[#0B0C10]/40 to-transparent" />
                 <div
                   className="absolute inset-0 pointer-events-none opacity-20 mix-blend-overlay"
                   style={{
@@ -139,21 +139,20 @@ const FeatureGrid = () => {
                   }}
                 />
 
-                {/* Text Content Area */}
-                <div className="absolute inset-0 p-8 md:p-16 flex flex-col justify-end whitespace-normal z-20">
-                  <div className="max-w-[600px]">
-                    {/* Data Ribbon */}
-                    <div className="bg-white text-[#0B0C10] font-mono text-[10px] uppercase tracking-widest px-2 py-1 inline-block mb-4 font-bold">
+                {/* Text Content Area - MOBILE PADDING FIXED */}
+                <div className="absolute inset-0 p-6 sm:p-10 md:p-16 flex flex-col justify-end whitespace-normal z-20 pb-28 md:pb-16">
+                  <div className="max-w-[650px]">
+                    <div className="bg-white text-[#0B0C10] font-mono text-[9px] sm:text-[10px] uppercase tracking-widest px-2 py-1 inline-block mb-4 font-bold">
                       ASSET_CLASS: ARCHIVE
                     </div>
 
-                    <h3 className="font-clash text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-wide leading-[1.1] mb-8 drop-shadow-xl">
+                    <h3 className="font-clash text-3xl sm:text-5xl lg:text-6xl font-black text-white uppercase tracking-wide leading-[1.1] mb-6 md:mb-8 drop-shadow-2xl">
                       {slide.title_1}
                     </h3>
 
                     <Link
                       to="/shop"
-                      className="group/btn relative inline-flex items-center justify-center bg-transparent text-white px-8 py-4 font-mono text-xs sm:text-sm font-bold tracking-[0.2em] uppercase overflow-hidden transition-all border-2 border-white hover:border-[#FF3366] hover:text-white"
+                      className="group/btn relative inline-flex items-center justify-center bg-transparent text-white px-6 py-3 md:px-8 md:py-4 font-mono text-[10px] sm:text-sm font-bold tracking-[0.2em] uppercase overflow-hidden transition-all border-2 border-white hover:border-[#FF3366] hover:text-white"
                     >
                       <span className="relative z-10">PROCURE_ASSETS</span>
                       <div className="absolute inset-0 z-0 opacity-0 group-hover/btn:opacity-100 bg-[#FF3366] transition-opacity duration-300" />
@@ -164,38 +163,43 @@ const FeatureGrid = () => {
             ))}
           </motion.div>
 
-          {/* Tactical Navigation Overlays */}
-          <div
-            className={`absolute top-1/2 -translate-y-1/2 left-4 md:left-8 z-30 transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0 md:opacity-0 opacity-100"}`}
-          >
+          {/* RE-ROUTED NAVIGATION CONTROLS */}
+          {/* Mobile: Bottom Left | Desktop: Vertical Center Sides */}
+          <div className="absolute bottom-6 left-6 md:inset-y-0 md:left-0 md:right-0 z-40 flex md:block items-center gap-3">
+            {/* Prev Button */}
             <button
               onClick={handlePrevButton}
-              className="cursor-pointer w-12 h-12 flex items-center justify-center bg-[#0B0C10]/80 border-2 border-white/20 text-white hover:border-[#FF3366] hover:text-[#FF3366] transition-all backdrop-blur-sm"
+              className={`cursor-pointer w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-[#0B0C10]/90 border border-white/20 text-white hover:border-[#FF3366] hover:text-[#FF3366] transition-all backdrop-blur-md md:absolute md:top-1/2 md:-translate-y-1/2 md:left-8 ${isHovered ? "opacity-100" : "opacity-100 md:opacity-0"}`}
             >
-              <ChevronLeft size={24} strokeWidth={1.5} />
+              <ChevronLeft
+                size={20}
+                strokeWidth={2}
+                className="w-[18px] h-[18px] md:w-[20px] md:h-[20px]"
+              />
             </button>
-          </div>
 
-          <div
-            className={`absolute top-1/2 -translate-y-1/2 right-4 md:right-8 z-30 transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0 md:opacity-0 opacity-100"}`}
-          >
+            {/* Next Button */}
             <button
               onClick={handleNextButton}
-              className="cursor-pointer w-12 h-12 flex items-center justify-center bg-[#0B0C10]/80 border-2 border-white/20 text-white hover:border-[#FF3366] hover:text-[#FF3366] transition-all backdrop-blur-sm"
+              className={`cursor-pointer w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-[#0B0C10]/90 border border-white/20 text-white hover:border-[#FF3366] hover:text-[#FF3366] transition-all backdrop-blur-md md:absolute md:top-1/2 md:-translate-y-1/2 md:right-8 ${isHovered ? "opacity-100" : "opacity-100 md:opacity-0"}`}
             >
-              <ChevronRight size={24} strokeWidth={1.5} />
+              <ChevronRight
+                size={20}
+                strokeWidth={2}
+                className="w-[18px] h-[18px] md:w-[20px] md:h-[20px]"
+              />
             </button>
           </div>
 
-          {/* Classified Data Block Indicators (Replaces standard dots) */}
-          <div className="absolute bottom-6 md:bottom-8 right-6 md:right-12 z-30 flex items-center gap-2">
+          {/* Indicators - Bottom Right */}
+          <div className="absolute bottom-6 right-6 md:bottom-8 md:right-12 z-30 flex items-center gap-2">
             {slidesTwo.map((_, index) => (
               <div
                 key={`dot-${index}`}
                 className={`transition-all duration-300 ${
                   actualSlideIndex === index
-                    ? "h-1.5 w-8 bg-[#FF3366] shadow-[0_0_10px_rgba(255,51,102,0.5)]"
-                    : "h-1 w-4 bg-white/20"
+                    ? "h-1 w-6 sm:h-1.5 sm:w-8 bg-[#FF3366] shadow-[0_0_10px_rgba(255,51,102,0.5)]"
+                    : "h-1 w-2 sm:w-4 bg-white/20"
                 }`}
               />
             ))}
