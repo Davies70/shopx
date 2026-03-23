@@ -123,21 +123,29 @@ const Testimonials = () => {
                   </div>
 
                   {/* Rating / Integrity Check */}
-                  <div className="mt-8 pt-6 border-t border-white/10 flex items-center gap-4">
-                    <span className="font-mono text-[10px] text-[#667479] uppercase tracking-widest">
+                  <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-y-3 gap-x-4">
+                    <span className="font-mono text-[10px] text-[#667479] uppercase tracking-widest shrink-0">
                       GEAR_INTEGRITY:
                     </span>
-                    <div className="flex gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <div
-                          key={i}
-                          className={`h-2 w-6 ${i < fieldReports[activeIndex].rating ? "bg-[#FF3366]" : "bg-white/10"}`}
-                        />
-                      ))}
+
+                    <div className="flex items-center gap-3">
+                      <div className="flex gap-1">
+                        {[...Array(5)].map((_, i) => (
+                          <div
+                            key={i}
+                            className={`h-1.5 w-4 sm:w-6 transition-colors duration-500 ${
+                              i < fieldReports[activeIndex].rating
+                                ? "bg-[#FF3366]"
+                                : "bg-white/10"
+                            }`}
+                          />
+                        ))}
+                      </div>
+
+                      <span className="font-mono text-[10px] text-white uppercase tracking-widest min-w-[35px] text-right">
+                        {fieldReports[activeIndex].rating * 20}%
+                      </span>
                     </div>
-                    <span className="font-mono text-[10px] text-white uppercase tracking-widest ml-2">
-                      {fieldReports[activeIndex].rating * 20}%
-                    </span>
                   </div>
                 </motion.div>
               </AnimatePresence>
