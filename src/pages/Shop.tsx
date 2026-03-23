@@ -68,7 +68,7 @@ const Shop = () => {
   return (
     <div className="z-10 bg-[#0B0C10] relative min-h-screen">
       {/* 1. HERO SECTION */}
-      <section className="relative min-h-[40vh] md:min-h-[450px] flex items-center justify-center overflow-hidden border-b border-white/10 pt-[80px]">
+      <section className="relative min-h-[30vh] md:min-h-[450px] flex items-center justify-center overflow-hidden border-b border-white/10 pt-[100px]">
         <div className="absolute inset-0 z-0">
           <div
             className="w-full h-full bg-center bg-no-repeat bg-cover grayscale opacity-30"
@@ -85,7 +85,6 @@ const Shop = () => {
         </div>
 
         <GridWrapper>
-          {/* Use col-[2/3] to keep content centered and away from screen edges */}
           <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-6">
             <AnimatePresence mode="wait">
               <motion.div
@@ -112,7 +111,7 @@ const Shop = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
-                className="font-clash text-3xl sm:text-5xl md:text-7xl font-black text-white uppercase tracking-tight leading-[1.1] text-balance"
+                className="font-clash text-xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white uppercase tracking-tight leading-[1.1] text-balance max-w-[90vw] md:max-w-4xl"
               >
                 {heroText}
               </motion.h1>
@@ -124,15 +123,12 @@ const Shop = () => {
       {/* 2. REQUISITION GRID & ROUTING */}
       <section className="relative py-8 md:py-20 z-10 flex justify-center">
         <GridWrapper>
-          {/* FIX: Changed col-[1/4] to col-[2/3] to prevent edge-to-edge bleed on mobile */}
           <div className="col-[2/3] flex flex-col gap-y-12 md:gap-y-16 px-4 md:px-0">
-            {/* TACTICAL ROUTING */}
             <div className="flex flex-col gap-6">
               <div className="font-mono text-[10px] text-[#667479] tracking-widest uppercase flex items-center gap-3">
                 <Layers className="w-3 h-3 md:w-4 md:h-4" /> // ROUTING_TABLE
               </div>
 
-              {/* flex-wrap ensures buttons stack on mobile without overflowing */}
               <div className="flex flex-wrap gap-2 md:gap-3">
                 {sectorData.map((sector) => {
                   const isActive = activeId === sector.link;

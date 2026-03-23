@@ -31,7 +31,8 @@ const About = () => {
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              className="font-clash text-5xl md:text-8xl font-black uppercase leading-[0.9] mb-8"
+              className=" text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[9vw] font-clash font-black uppercase leading-[0.85] md:leading-[0.9] tracking-tighter text-balance 
+    mb-8"
             >
               Survival is <br />
               <span className="text-white/40">The Only Metric.</span>
