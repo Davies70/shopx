@@ -1,7 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ShieldAlert } from "lucide-react";
-import Heading from "./Heading";
-import RevealButton from "./RevealButton";
 import CartTrayFooter from "./CartTrayFooter";
 import CartItem from "./CartItem";
 import { removeCartItem } from "@/services";

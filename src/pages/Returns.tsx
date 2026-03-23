@@ -1,4 +1,4 @@
-import { RotateCcw, ShieldAlert, ClipboardCheck, History } from "lucide-react";
+import { ShieldAlert, History } from "lucide-react";
 import GridWrapper from "@/components/GridWrapper";
 
 const Returns = () => {

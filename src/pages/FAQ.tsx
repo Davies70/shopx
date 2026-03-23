@@ -99,7 +99,7 @@ const Faq = () => {
 
             {/* Right Column: Accordion List */}
             <div className="flex-1 space-y-4">
-              {filteredFaq.map((item, index) => (
+              {filteredFaq.map((item) => (
                 <FaqItem
                   key={item.id}
                   item={item}

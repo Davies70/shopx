@@ -1,4 +1,4 @@
-import { Instagram, ScanEye, ExternalLink, Camera } from "lucide-react";
+import { Instagram, ExternalLink, Camera } from "lucide-react";
 import GridWrapper from "@/components/GridWrapper";
 
 const InstagramNode = () => {

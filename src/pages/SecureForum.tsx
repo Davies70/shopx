@@ -1,4 +1,4 @@
-import { Lock, MessagesSquare, AlertCircle, Terminal } from "lucide-react";
+import { Lock, AlertCircle } from "lucide-react";
 import GridWrapper from "@/components/GridWrapper";
 
 const SecureForum = () => {

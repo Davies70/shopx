@@ -14,7 +14,6 @@ const BestSellers = () => {
   const [currentIndex, setCurrentIndex] = useState(N);
   const [isAnimating, setIsAnimating] = useState(false);
   const [instantJump, setInstantJump] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
 
   const handleNextButton = () => {
     if (isAnimating) return;
@@ -54,13 +53,7 @@ const BestSellers = () => {
   const actualSlideIndex = currentIndex % N;
 
   return (
-    <section
-      className="relative w-full bg-[#0B0C10] py-16 md:py-24 border-t border-white/10 overflow-hidden z-10"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onTouchStart={() => setIsHovered(true)}
-      onTouchEnd={() => setIsHovered(false)}
-    >
+    <section className="relative w-full bg-[#0B0C10] py-16 md:py-24 border-t border-white/10 overflow-hidden z-10">
       {/* Background Tactical Grid */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-screen z-0"

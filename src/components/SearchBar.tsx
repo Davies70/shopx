@@ -3,11 +3,7 @@ import { Search, X, Terminal } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 
-type SearchBarType = {
-  searchTextColor?: any; // Keeping this for prop compatibility, but we are forcing the tactical theme
-};
-
-const SearchBar = ({ searchTextColor }: SearchBarType) => {
+const SearchBar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);

@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useRef } from "react"; // Added useEffect and useRef
 import GridWrapper from "@/components/GridWrapper";
 import ProductCard from "@/components/ProductCard";

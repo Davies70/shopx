@@ -8,17 +8,15 @@ const Mission = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
 
-  // This hook looks for textRef to trigger the opacity animation
   const isTextInView = useInView(textRef, { once: true, margin: "-100px" });
 
-  const [topIndex, setTopIndex] = useState(missonImages.length);
+  // Only photoOrder is needed to manage the stack
   const [photoOrder, setPhotoOrder] = useState(missonImages.map((p) => p.id));
 
   const bringToFront = (id: number) => {
-    setTopIndex((prev) => prev + 1);
     setPhotoOrder((prev) => {
       const newOrder = prev.filter((pId) => pId !== id);
-      return [...newOrder, id];
+      return [...newOrder, id]; // Moves the selected ID to the highest index
     });
   };
 
@@ -38,10 +36,9 @@ const Mission = () => {
         }}
       />
 
-      {/* LEFT COLUMN: The Briefing Text (This wrapper was missing!) */}
+      {/* LEFT COLUMN: The Briefing Text */}
       <div className="relative z-10 w-full lg:w-1/2 p-8 md:p-16 lg:p-24 flex flex-col justify-center pointer-events-none">
         <div className="flex items-center gap-4 mb-8">
-          {/* TASTEFUL RED: The Fingerprint icon */}
           <Fingerprint size={32} className="text-[#FF3366]" strokeWidth={1} />
           <div className="flex flex-col">
             <span className="font-mono text-[10px] text-white tracking-widest uppercase">
@@ -53,7 +50,6 @@ const Mission = () => {
           </div>
         </div>
 
-        {/* The textRef MUST be attached to a div so the animations know when to fire */}
         <div ref={textRef} className="overflow-hidden mb-8">
           <motion.h2
             initial={{ y: "100%", opacity: 0 }}
@@ -70,9 +66,7 @@ const Mission = () => {
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          // 1. Use whileInView instead of relying on the external isTextInView variable
           whileInView={{ opacity: 1, y: 0 }}
-          // 2. Add viewport config so it only triggers once, similar to your old hook
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, delay: 0.3 }}
           className="font-mono text-sm md:text-base text-[#E0E0E0]/80 leading-relaxed max-w-xl space-y-6 pointer-events-auto"
@@ -91,7 +85,6 @@ const Mission = () => {
             and industrial-grade survival tools.
           </p>
 
-          {/* TASTEFUL RED: The interactive redacted text hover */}
           <p>
             Our sourcing network remains{" "}
             <span className="group relative cursor-pointer inline-block bg-[#0B0C10] text-[#0B0C10] hover:bg-transparent hover:text-[#FF3366] transition-colors border border-[#0B0C10] hover:border-[#FF3366] px-1">
@@ -100,6 +93,7 @@ const Mission = () => {
             to protect supply integrity. If you are here, you already know why.
           </p>
         </motion.div>
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={isTextInView ? { opacity: 1 } : { opacity: 0 }}
@@ -129,6 +123,7 @@ const Mission = () => {
             initialX={photo.x}
             initialY={photo.y}
             constraintsRef={containerRef}
+            // indexOf + 10 ensures they are always above the background but below overlays
             zIndex={photoOrder.indexOf(photo.id) + 10}
             setTopZIndex={() => bringToFront(photo.id)}
           />
