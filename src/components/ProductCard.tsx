@@ -32,7 +32,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   const images = product.images.slice(0, 3);
   const threatLevel = product.price > 150 ? "HIGH" : "ELEVATED";
-  const weightClass = (product.name.length * 0.15).toFixed(1);
 
   useEffect(() => {
     return () => {
