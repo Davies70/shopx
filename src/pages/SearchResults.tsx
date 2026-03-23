@@ -1,107 +1,229 @@
-import GridWrapper from '@/components/GridWrapper';
-import Heading from '@/components/Heading';
-import RevealButtonWithIcon from '@/components/RevealButtonWithIcon';
-import { SearchIcon } from 'lucide-react';
-import SectionEight from '@/components/SectionEight';
-import { useState, useEffect } from 'react';
-import { getSearchResults } from '@/services';
-import { Link } from 'react-router-dom';
-import { Product } from '@/categories';
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Search,
+  Terminal,
+  Database,
+  Activity,
+  Target,
+  ArrowRight,
+  ShieldAlert,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import GridWrapper from "@/components/GridWrapper";
+import SectionEight from "@/components/SurveillanceGrid";
+import { getSearchResults } from "@/services";
+import { Product } from "@/categories";
 
 const SearchResults = () => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [products, setProducts] = useState<Product[]>([]);
-  const [isSearch, setIsSearch] = useState(false);
+  const [isScanning, setIsScanning] = useState(false);
 
+  // Initial Load & Query Trigger
   useEffect(() => {
-    const results = getSearchResults(10); // this can accept the query if needed
-    setProducts(results);
-  }, [isSearch]);
+    handleQuery();
+  }, []);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // prevents page reload
-    setIsSearch((prev) => !prev); // toggles to trigger effect
+  const handleQuery = () => {
+    setIsScanning(true);
+    // Simulate tactical database latency
+    setTimeout(() => {
+      const results = getSearchResults(10);
+      setProducts(results);
+      setIsScanning(false);
+    }, 1200);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleQuery();
   };
 
   return (
-    <div className='z-10 bg-white relative'>
-      <div className='flex pt-[120px] pb-[36px] min-[480px]:pb-[48px] min-[768px]:pt-[140px] min-[768px]:pb-[60px] min-[992px]:pt-[100px] min-[992px]:pb-[80px] bg-[#f4f8fa] text-[#07090c]'>
+    <div className="z-10 bg-[#0B0C10] relative min-h-screen text-white">
+      {/* 1. QUERY TERMINAL (Hero) */}
+      <section className="relative pt-[140px] pb-16 border-b border-white/10 overflow-hidden">
+        {/* Background Scanlines */}
+        <div
+          className="absolute inset-0 opacity-20 pointer-events-none"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(0deg, transparent, transparent 2px, #000 2px, #000 4px)",
+          }}
+        />
+
         <GridWrapper>
-          <div className='grid row-[1/2] self-end col-[2/3] mx-auto max-w-[525px] justify-items-center justify-center grid-cols-[1fr] grid-rows-[auto] text-center gap-y-[36px] gap-x-[40px]'>
-            <Heading text='search results' type='large' />
-            <form
-              action='/search'
-              className='border border-[#e4e9ec] rounded-[100px] p-[4px] flex bg-white'
-              onSubmit={handleSubmit}
+          <div className="max-w-3xl mx-auto flex flex-col items-center text-center space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-center gap-3 font-mono text-[10px] text-[#FF3366] tracking-[0.4em] uppercase"
             >
+              <Database size={14} className="animate-pulse" />
+              REGISTRY_QUERY_v9.4
+            </motion.div>
+
+            <h1 className="font-clash text-4xl md:text-7xl font-black uppercase leading-none">
+              Asset <br />
+              <span className="text-white/40">Search.</span>
+            </h1>
+
+            <form onSubmit={handleSubmit} className="w-full relative group">
+              <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                <Terminal
+                  size={18}
+                  className="text-[#667479] group-focus-within:text-[#FF3366] transition-colors"
+                />
+              </div>
               <input
-                className='min-w-[65vw] min-[768px]:min-w-[350px]  min-h-[50px] pl-[24px] text-[16px] text-[#333] w-full h-[38px] align-middle bg-[rgba(255,255,255,0)] leading-1.5 p-[8px_12px] tracking-normal outline-none'
-                maxLength={256}
-                name='query'
-                placeholder='Enter search...'
-                type='search'
-                id='search'
-                required
+                className="w-full bg-[#12141A] border-2 border-white/10 py-5 pl-14 pr-20 font-mono text-sm tracking-widest uppercase outline-none focus:border-[#FF3366] transition-all"
+                placeholder="INPUT_IDENTIFIER_"
                 value={query}
-                onChange={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setQuery(e.target.value);
-                }}
+                onChange={(e) => setQuery(e.target.value)}
               />
               <button
-                className='bg-[#07090c] flex  justify-center items-center item tracking-[4px] uppercase bg-[50%] bg-no-repeat rounded-[100px] w-[50px] min-w-[50px] text-[11px] bg-size-[16px]  p-[9px_15px] cursor-pointer'
-                value=''
+                type="submit"
+                className="absolute inset-y-2 right-2 px-6 bg-white text-[#0B0C10] hover:bg-[#FF3366] hover:text-white transition-all flex items-center justify-center"
               >
-                <SearchIcon color='white' />
+                <Search size={18} />
               </button>
             </form>
-          </div>
-        </GridWrapper>
-      </div>
-      <section className='pb-[80px] min-[768px]:pb-[100px] min-[992px]:pb-[160px] z-10 justify-center flex relative'>
-        <GridWrapper>
-          <div className='row-[1/2] col-[2/3] grid gap-x-[80px] gap-y-[16px] grid-rows-[auto] grid-cols-[1fr]'>
-            <div className='grid pt-0 min-[768px]:pt-[24px] gap-x-[16px] gap-y-[40px] grid-rows-[auto] grid-cols-[1fr]'>
-              <div>
-                <div className='grid grid-cols-[1fr] min-[992px]:grid-cols-[1fr_1fr] grid-rows-[auto_auto] gap-x-[80px]'>
-                  {products.map((product, id) => (
-                    <div
-                      key={id}
-                      className='grid grid-cols-[1fr] gap-x-[36px] gap-y-[24px] min-[768px]:gap-y-[16px] py-[36px] min-[768px]:grid-cols-[.8fr_1fr] border-b border-[#e4e9ec] p-[60px_0] transition-[background-color_.4s_cubic-bezier(.25,.46,.45,.94)] '
-                    >
-                      <div
-                        style={{
-                          backgroundImage: `url(${product.images[2]})`,
-                        }}
-                        className='min-h-[65vw] min-[768px]:min-h-[35vw] min-[992px]:min-h-[22vw] bg-[50%] bg-no-repeat bg-cover'
-                      ></div>
-                      <div className='grid gap-y-[12px] min-[768px]:gap-y-[40px] col-[16px] grid-rows-[auto_auto] grid-cols-[1fr] content-between'>
-                        <div className='text-[#07090c] text-[28px] font-[500] leading-[1.4em] tracking-normal'>
-                          {product.name}
-                        </div>
-                        <div className='grid gap-y-[18px] gap-x-[16px] grid-rows-[auto] grid-cols-[1fr] justify-items-start'>
-                          <p className='text-[15px] leading-[1.65em] text-[#667479] tracking-normal'>
-                            <span>{product.shortDescription}</span>
-                          </p>
-                          <Link to={`/products/${product.id}`}>
-                            <RevealButtonWithIcon
-                              text='view now'
-                              textColor='#667479'
-                            />
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+
+            <div className="font-mono text-[9px] text-[#667479] uppercase tracking-widest flex items-center gap-4">
+              <span>
+                STATUS: {isScanning ? "SCANNING_REGISTRY..." : "READY"}
+              </span>
+              <span className="text-white/20">|</span>
+              <span>
+                RESULTS: {products.length.toString().padStart(2, "0")}
+              </span>
             </div>
           </div>
         </GridWrapper>
       </section>
+
+      {/* 2. RESULTS FEED */}
+      <section className="py-16 md:py-24">
+        <GridWrapper>
+          <AnimatePresence mode="wait">
+            {isScanning ? (
+              <motion.div
+                key="scanning"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="py-32 flex flex-col items-center justify-center gap-6"
+              >
+                <Activity size={48} className="text-[#FF3366] animate-pulse" />
+                <div className="font-mono text-sm tracking-[0.4em] uppercase animate-pulse">
+                  Establishing_Secure_Link_
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="results"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="space-y-4"
+              >
+                {products.map((product, idx) => (
+                  <SearchResultItem
+                    key={product.id}
+                    product={product}
+                    index={idx}
+                  />
+                ))}
+
+                {products.length === 0 && (
+                  <div className="py-32 text-center border-2 border-dashed border-white/5">
+                    <ShieldAlert
+                      size={48}
+                      className="mx-auto text-[#667479] mb-4"
+                    />
+                    <div className="font-mono text-sm text-[#667479] uppercase tracking-widest">
+                      No_Matches_Found_In_Registry
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </GridWrapper>
+      </section>
+
       <SectionEight />
     </div>
+  );
+};
+
+// --- SUB-COMPONENT: INDIVIDUAL RESULT RECORD ---
+
+const SearchResultItem = ({
+  product,
+  index,
+}: {
+  product: Product;
+  index: number;
+}) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: index * 0.1 }}
+      className="group relative bg-[#12141A] border border-white/10 hover:border-[#FF3366]/50 transition-all overflow-hidden"
+    >
+      <div className="flex flex-col md:flex-row items-stretch">
+        {/* Visual ID (Image) */}
+        <div className="w-full md:w-[300px] aspect-video md:aspect-square relative overflow-hidden bg-black">
+          <img
+            src={product.images[0]}
+            alt={product.name}
+            className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 opacity-60 group-hover:opacity-100"
+          />
+          {/* Viewfinder Overlay */}
+          <div className="absolute inset-4 border border-white/5 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#FF3366]" />
+            <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#FF3366]" />
+          </div>
+        </div>
+
+        {/* Technical Specs (Data) */}
+        <div className="flex-1 p-6 md:p-10 flex flex-col justify-center space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="font-mono text-[9px] text-[#FF3366] tracking-widest uppercase flex items-center gap-2">
+              <Target size={12} /> ASSET_CLASS_{product.id.slice(0, 4)}
+            </div>
+            <div className="font-mono text-[10px] text-white/20">
+              MATCH_CONFIDENCE: 98.4%
+            </div>
+          </div>
+
+          <h2 className="font-clash text-2xl md:text-4xl font-black uppercase tracking-tight group-hover:text-[#FF3366] transition-colors">
+            {product.name}
+          </h2>
+
+          <p className="font-mono text-xs text-[#667479] leading-relaxed uppercase max-w-2xl">
+            {product.shortDescription}
+          </p>
+
+          <div className="pt-4 flex items-center justify-between border-t border-white/5">
+            <div className="font-mono text-lg font-bold">
+              ${product.price}.00
+            </div>
+            <Link
+              to={`/products/${product.id}`}
+              className="flex items-center gap-3 font-mono text-[10px] tracking-[0.3em] uppercase bg-white text-[#0B0C10] px-6 py-3 hover:bg-[#FF3366] hover:text-white transition-all"
+            >
+              Access_File <ArrowRight size={14} />
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Decorative ID Strip */}
+      <div className="absolute top-0 right-0 h-full w-1 bg-white/5 group-hover:bg-[#FF3366] transition-colors" />
+    </motion.div>
   );
 };
 

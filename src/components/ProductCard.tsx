@@ -1,8 +1,8 @@
-import { Product } from '../categories';
-import { TagIcon } from 'lucide-react';
-import { motion, useAnimation, AnimatePresence } from 'framer-motion';
-import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Product } from "../categories";
+import { Target, ShieldAlert } from "lucide-react";
+import { motion, useAnimation, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 type ProductCardProps = {
   product: Product;
@@ -30,37 +30,40 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   const images = product.images.slice(0, 3);
 
+  // Simulated Tactical Stats based on product price/name length for consistent UI
+  const threatLevel = product.price > 150 ? "HIGH" : "ELEVATED";
+  const weightClass = (product.name.length * 0.15).toFixed(1);
+
   useEffect(() => {
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
+      if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, []);
+
   useEffect(() => {
     if (isHovering && images.length > 1) {
       const startTimeout = setTimeout(() => {
         intervalRef.current = setInterval(() => {
           setCurrentImageIndex((prev) =>
-            prev === images.length - 1 ? 0 : prev + 1
+            prev === images.length - 1 ? 0 : prev + 1,
           );
 
           progressControls
-            .start({ width: '0%', transition: { duration: 0 } })
+            .start({ width: "0%", transition: { duration: 0 } })
             .then(() => {
               progressControls.start({
-                width: '100%',
+                width: "100%",
                 transition: {
                   duration: IMAGE_DISPLAY_DURATION,
-                  ease: 'linear',
+                  ease: "linear",
                 },
               });
             });
         }, IMAGE_DISPLAY_DURATION * 1000);
 
         progressControls.start({
-          width: '100%',
-          transition: { duration: IMAGE_DISPLAY_DURATION, ease: 'linear' },
+          width: "100%",
+          transition: { duration: IMAGE_DISPLAY_DURATION, ease: "linear" },
         });
       }, DELAY_BEFORE_START * 1000);
 
@@ -74,7 +77,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const handleHoverStart = () => {
     setIsHovering(true);
     scaleControls.start({
-      scale: 1.06,
+      scale: 1.05,
       transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1.0] },
     });
   };
@@ -85,10 +88,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
     if (intervalRef.current) clearInterval(intervalRef.current);
 
     scaleControls.start({ scale: 1, transition: { duration: 0.4 } });
-    progressControls.start({ width: '0%', transition: { duration: 0.3 } });
+    progressControls.start({ width: "0%", transition: { duration: 0.3 } });
   };
 
-  // preload images
+  // Preload images
   useEffect(() => {
     images.forEach((src) => {
       const img = new Image();
@@ -98,7 +101,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <motion.div
-      className='inline-block w-full max-w-[320px] sm:max-w-[360px] align-top cursor-pointer'
+      className="inline-block w-full max-w-[320px] sm:max-w-[360px] align-top cursor-pointer"
       animate={{ x: `${-100 * translateX}%` }}
       transition={
         instantJump
@@ -109,112 +112,152 @@ const ProductCard: React.FC<ProductCardProps> = ({
       onMouseEnter={handleHoverStart}
       onMouseLeave={handleHoverEnd}
     >
-      <div className='group bg-white border border-gray-100 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full'>
+      {/* Brutalist Container */}
+      <div
+        className="group bg-white border-2 border-[#080808] flex flex-col h-full transition-all duration-300 relative"
+        style={{
+          boxShadow: isHovering ? "8px 8px 0px #FF3366" : "4px 4px 0px #080808",
+        }}
+      >
         <Link
           to={`/products/${product.id}`}
-          className='block no-underline text-black h-full'
+          className="block no-underline text-black h-full"
         >
-          <div className='relative aspect-[4/5] bg-gray-50 overflow-hidden rounded-t-lg'>
+          {/* Image Area */}
+          <div className="relative aspect-[4/5] bg-[#f4f8fa] border-b-2 border-[#080808] overflow-hidden">
+            {/* The Images */}
             <motion.div
-              className='absolute inset-0 w-full h-full'
+              className="absolute inset-0 w-full h-full"
               animate={scaleControls}
               initial={{ scale: 1 }}
             >
-              <AnimatePresence mode='wait'>
+              <AnimatePresence mode="wait">
                 <motion.div
                   key={currentImageIndex}
-                  className='absolute inset-0 w-full h-full'
+                  className="absolute inset-0 w-full h-full"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: TRANSITION_DURATION }}
                   style={{
                     backgroundImage: `url(${images[currentImageIndex]})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
                   }}
                 />
               </AnimatePresence>
             </motion.div>
 
-            {/* Dot indicators */}
+            {/* Tactical HUD Overlay (Appears on Hover) */}
+            <AnimatePresence>
+              {isHovering && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute inset-0 bg-[rgba(8,8,8,0.75)] z-20 flex flex-col justify-between p-4"
+                >
+                  {/* Targeting Corners */}
+                  <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-[#FF3366]"></div>
+                  <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-[#FF3366]"></div>
+                  <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-[#FF3366]"></div>
+                  <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-[#FF3366]"></div>
+
+                  {/* Center Crosshair */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-30">
+                    <Target size={64} color="#FF3366" strokeWidth={1} />
+                  </div>
+
+                  {/* Top Readout */}
+                  <div className="font-mono text-[10px] text-[#FF3366] tracking-widest flex justify-between uppercase">
+                    <span>SYS.SCAN.ACTIVE</span>
+                    <span>[{product.id}]</span>
+                  </div>
+
+                  {/* Bottom Stats */}
+                  <div className="font-mono text-[10px] text-white space-y-1 relative z-30">
+                    <div className="flex justify-between border-b border-white/20 pb-1">
+                      <span className="text-white/60">THREAT_LVL:</span>
+                      <span className="text-[#FF3366] font-bold">
+                        {threatLevel}
+                      </span>
+                    </div>
+                    <div className="flex justify-between border-b border-white/20 pb-1">
+                      <span className="text-white/60">WT_CLASS:</span>
+                      <span>{weightClass} KG</span>
+                    </div>
+                    <div className="flex justify-between pb-1">
+                      <span className="text-white/60">STATUS:</span>
+                      <span className="text-[#C5F82A]">
+                        CLEARED_FOR_DEPLOYMENT
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Progress bar (Ammo gauge style) */}
             {images.length > 1 && (
-              <div className='absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1 z-10'>
-                {images.map((_, index) => (
-                  <div
-                    key={index}
-                    className={`h-2 w-2 rounded-full ${
-                      index === currentImageIndex ? 'bg-white' : 'bg-white/40'
-                    }`}
-                  />
-                ))}
+              <div className="absolute bottom-0 left-0 right-0 h-[4px] bg-[#080808] z-30">
+                <motion.div
+                  className="h-full bg-[#FF3366] w-[0%]"
+                  animate={progressControls}
+                />
               </div>
             )}
-
-            {/* Progress bar */}
-            <div className='absolute bottom-0 left-0 right-0 h-[3px] bg-black/10'>
-              <motion.div
-                className='h-full bg-white w-[0%]'
-                animate={progressControls}
-              />
-            </div>
-
-            <div className='absolute inset-0 bg-gradient-to-b from-transparent to-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
           </div>
 
-          <div className='p-4 flex flex-col flex-1'>
-            {/* Tag / Discount */}
-            <div className='min-h-[24px] text-xs uppercase tracking-widest font-medium text-gray-500 flex items-center gap-2'>
+          {/* Details Area */}
+          <div className="p-5 flex flex-col flex-1 bg-white relative z-30">
+            {/* Tag / Discount (Stamped Military Style) */}
+            <div className="min-h-[24px] text-[10px] uppercase tracking-widest font-mono flex items-center gap-2 mb-2">
               {product.discount?.isDiscounted ? (
-                <>
-                  <TagIcon className='w-4 h-4 text-[#a74030]' />
-                  <span className='text-[#a74030] font-semibold'>
-                    {product.discount.percentOff}
-                  </span>
-                </>
+                <div className="flex items-center gap-1.5 bg-[#FF3366] text-white px-2 py-1 font-bold">
+                  <ShieldAlert size={12} />
+                  <span>{product.discount.percentOff}</span>
+                </div>
               ) : (
                 (product.tags?.length ?? 0) > 0 && (
-                  <span className='border-l-2 border-gray-300 pl-2'>
-                    {product.tags?.join(', ')}
+                  <span className="bg-[#080808] text-white px-2 py-1">
+                    {product.tags?.join(", ")}
                   </span>
                 )
               )}
             </div>
 
             {/* Product Name */}
-            <h3 className='mt-2 text-sm md:text-base font-semibold uppercase tracking-wide group-hover:text-[#a74030] transition-colors line-clamp-2'>
+            <h3 className="mt-2 text-[16px] font-[600] uppercase tracking-[0.05em] group-hover:text-[#FF3366] transition-colors line-clamp-2 leading-[1.3em]">
               {product.name}
             </h3>
 
-            {/* Color */}
-            <div className='text-xs text-gray-500 mt-1 uppercase tracking-widest'>
-              {product.color}
+            {/* Color Classification */}
+            <div className="text-[10px] text-[#667479] mt-2 uppercase tracking-widest font-mono border-l-2 border-[#080808] pl-2">
+              SPEC: {product.color}
             </div>
 
-            {/* Price */}
-            <div className='mt-3 min-h-[48px] text-sm md:text-base font-bold'>
+            {/* Price Readout */}
+            <div className="mt-4 pt-4 border-t-2 border-dotted border-[#e4e9ec] min-h-[48px] text-[14px] font-mono tracking-widest flex items-end justify-between">
               {product.discount?.isDiscounted ? (
-                <>
-                  <span className='text-[#a74030] block'>
-                    ${product.discount.discountPrice} USD
-                  </span>
-                  <span className='line-through text-gray-400 text-sm'>
+                <div className="flex flex-col">
+                  <span className="line-through text-gray-400 text-[10px]">
                     ${product.price} USD
                   </span>
-                </>
+                  <span className="text-[#FF3366] font-bold text-[16px]">
+                    ${product.discount.discountPrice} USD
+                  </span>
+                </div>
               ) : (
-                <span className='text-gray-900 block'>
+                <span className="text-[#080808] font-bold text-[16px]">
                   ${product.price} USD
                 </span>
               )}
-            </div>
 
-            {/* <div className='mt-auto pt-4 opacity-0 group-hover:opacity-100 transition duration-300'>
-              <button className='w-full bg-[#080808] text-white py-2 rounded-md uppercase text-xs tracking-widest font-semibold hover:bg-[#a74030] transition'>
-                Quick Add
-              </button>
-            </div> */}
+              <div className="text-[10px] text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                [ CLICK_TO_ACQUIRE ]
+              </div>
+            </div>
           </div>
         </Link>
       </div>

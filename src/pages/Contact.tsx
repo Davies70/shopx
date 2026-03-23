@@ -1,309 +1,292 @@
-import GridWrapper from '@/components/GridWrapper';
-import Heading from '@/components/Heading';
-import RevealButton from '@/components/RevealButton';
-import StackedIntro from '@/components/StackedIntro';
-import { slidesTwo } from '@/data';
-import { FAQ } from '@/data';
-import SectionEight from '@/components/SectionEight';
-import TabItem from '@/components/TabItem';
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import GridWrapper from "@/components/GridWrapper";
+import { Mail, MapPin, Radio, Send, ShieldCheck, Activity } from "lucide-react";
 
 const Contact = () => {
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-
+  const [status, setStatus] = useState<"idle" | "transmitting" | "established">(
+    "idle",
+  );
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
+    name: "",
+    email: "",
+    message: "",
   });
-  const [errors, setErrors] = useState<{
-    name?: string;
-    email?: string;
-    message?: string;
-  }>({});
 
-  const validateForm = () => {
-    const newErrors: typeof errors = {};
-
-    if (!/^[a-zA-Z\s]{2,50}$/.test(formData.name)) {
-      newErrors.name = 'Name must be 2–50 characters, only letters and spaces.';
-    }
-
-    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address.';
-    }
-
-    if (formData.message.trim().length < 10) {
-      newErrors.message = 'Message must be at least 10 characters.';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleTransmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateForm()) return;
+    setStatus("transmitting");
 
-    setIsFormSubmitted(true);
-    setTimeout(() => setIsFormSubmitted(false), 5000);
+    // Simulate high-latency satellite uplink
+    setTimeout(() => {
+      setStatus("established");
+    }, 2500);
   };
 
   return (
-    <div className='z-10 bg-white relative'>
-      <div className='flex pt-[120px] pb-[60px] min-[768px]:pt-[160px] min-[768px]:pb-[80px] min-[992px]:pt-[220px] min-[992px]:pb-[100px] relative justify-center'>
-        <GridWrapper>
-          <div className='grid row-[1/2] col-[2/3] gap-y-[18px] grid-cols-[1fr] min-[992px]:gap-y-[16px] min-[992px]:grid-cols-[1fr_auto] gap-x-[60px] grid-rows-[auto] items-end'>
-            <div>
-              <StackedIntro type='normal'>
-                <div className='text-[#667479] uppercase leading-[1.3em] text-[14px] tracking-[4px] font-[300]'>
-                  Get in touch
-                </div>
-                <div className='max-w-[700px]'>
-                  <Heading
-                    type='extra-large'
-                    text='Unlock your survival instincts:'
-                  />
-                </div>
-              </StackedIntro>
-            </div>
-            <div className='max-w-[600px]'>
-              <div className='text-[#667479] text-[18px] leading-[1.6em] tracking-normal'>
-                We would like to hear from you. Reach out to us for questions
-                about our products or just to say hello. We always want to talk
-                to a fellow survivalist
-              </div>
-            </div>
-          </div>
-        </GridWrapper>
-      </div>
-      <section className='min-h-[400px] min-[768px]:min-h-[500px] min-[992px]:min-h-[700px] relative'>
-        <div className='absolute inset-0 overflow-hidden'>
-          <div
-            style={{
-              backgroundImage: `url(/images/sliders/slide_14.jpg)`,
-            }}
-            className='inset-0 bg-cover absolute bg-no-repeat bg-[50%]'
-          ></div>
-          <div className='bg-[rgba(8,8,8,.05)] absolute inset-0'></div>
-        </div>
-      </section>
-      <section className='bg-[#f4f8fa] pt-0 z-10 flex relative justify-center'>
-        <GridWrapper>
-          <div className='row-[1/2] col-[2/4] py-[36px] min-[480px]:py-[40px] min-[768px]:py-[60px] min-[992px]:py-[80px] grid grid-cols-[1fr] gap-y-[0px] min-[992px]:gap-y-[16px] grid-rows-[auto] min-[992px]:grid-cols-[minmax(200px,_auto)_1fr]'>
-            <div className='p-[36px_24px] min-[480px]:p-[60px_40px] min-w-auto min-[992px]:min-w-[600px] min-[992px]:p-[80px_60px] grid gap-x-[16px] gap-y-[48px] bg-white rounded-[2px] grid-rows-[auto] grid-cols-[1fr]'>
-              <StackedIntro type='small'>
-                <div className='max-w-[700px]'>
-                  <Heading
-                    type='normal'
-                    text='Please fill out the form below'
-                  />
-                </div>
-                <div className='max-w-[425px]'>
-                  <div className='text-[#667479] text-[18px] leading-[1.65em] tracking-normal'>
-                    Contact us today to learn more about out wholesale
-                    opportunities
-                  </div>
-                </div>
-              </StackedIntro>
-              <div className='m-0'>
-                <form
-                  noValidate
-                  onSubmit={handleSubmit}
-                  className='grid gap-y-[36px] gap-x-[16px] grid-rows-[auto_auto] grid-cols-[1fr] '
-                >
-                  <div>
-                    <label
-                      htmlFor='name'
-                      className='text-[#667479] tracking-[4px] uppercase mb-[9px] text-[10px] font-[400] leading-[1.6em]'
-                    >
-                      Name
-                    </label>
-                    <input
-                      style={{
-                        transition: `border-color .4s cubic-bezier(.25,.46,.45,.94)`,
-                        verticalAlign: 'middle',
-                        border: '1px solid #ccc',
-                      }}
-                      type='text'
-                      required
-                      id='name'
-                      pattern='^[a-zA-Z\s]{2,50}$'
-                      maxLength={256}
-                      value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
-                      title='Name must be 2-50 characters long and contain only letters and spaces.'
-                      className='tracking-normal border-[#e4e9ec] text-[#667479] bg-[rgba(255,255,255,0)] rounded-[2px] h-[52px] mb-[0px] p-[14px_20px] text-[15px] w-full leading-[1.42857] m-0 '
-                    />
-                    {errors.name && (
-                      <div className='text-red-500 text-sm tracking-normal'>
-                        {errors.name}
-                      </div>
-                    )}
-                    <label
-                      htmlFor='email'
-                      className='text-[#667479] tracking-[4px] uppercase mb-[9px] text-[10px] font-[400] leading-[1.6em]'
-                    >
-                      Email
-                    </label>
-                    <input
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                      style={{
-                        transition: `border-color .4s cubic-bezier(.25,.46,.45,.94)`,
-                        verticalAlign: 'middle',
-                        border: '1px solid #ccc',
-                      }}
-                      type='email'
-                      id='email'
-                      maxLength={256}
-                      required
-                      pattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$'
-                      title='Enter a valid email address (e.g., yourname@example.com)'
-                      className='tracking-normal border-[#e4e9ec] text-[#667479] bg-[rgba(255,255,255,0)] rounded-[2px] h-[52px]  p-[14px_20px] text-[15px] w-full leading-[1.42857] m-0 '
-                    />
-                    {errors.name && (
-                      <div className='text-red-500 text-sm tracking-normal'>
-                        {errors.email}
-                      </div>
-                    )}
-                    <label
-                      htmlFor='message'
-                      className='text-[#667479] tracking-[4px] uppercase mb-[9px] text-[10px] font-[400] leading-[1.6em]'
-                    >
-                      Message
-                    </label>
-                    <textarea
-                      id='message'
-                      value={formData.message}
-                      onChange={(e) =>
-                        setFormData({ ...formData, message: e.target.value })
-                      }
-                      minLength={10}
-                      maxLength={1000}
-                      title='Message should be at least 10 characters'
-                      style={{
-                        transition: `border-color .4s cubic-bezier(.25,.46,.45,.94)`,
-                        verticalAlign: 'middle',
-                        border: '1px solid #ccc',
-                      }}
-                      placeholder='type your message here'
-                      className='h-auto min-h-[150px] tracking-normal border-[#e4e9ec] text-[#667479] bg-[rgba(255,255,255,0)] rounded-[2px]  p-[14px_20px] text-[15px] w-full leading-[1.42857] m-0 '
-                    />
-                    {errors.name && (
-                      <div className='text-red-500 text-sm tracking-normal'>
-                        {errors.message}
-                      </div>
-                    )}
-                  </div>
-                  <button
-                    className='bg-[#080808]  tracking-[4px] uppercase rounded-[1000px] justify-center items-center h-[52px] mb-0 py-0 text-[11px] flex text-white p-[9px_15px] cursor-pointer'
-                    style={{
-                      textDecoration: 'none',
-                    }}
-                    type='submit'
-                  >
-                    <span>Submit</span>
-                  </button>
-                </form>
-                {isFormSubmitted && (
-                  <div className='fixed inset-0 bg-[rgba(0,0,0,0.6)] z-50 flex justify-center items-center px-4'>
-                    <div className='bg-white rounded-[8px] shadow-lg p-6 max-w-md w-full text-center animate-fade-in'>
-                      <h3 className='text-[20px] font-semibold text-[#1a1a1a] mb-2'>
-                        Thank You!
-                      </h3>
-                      <p className='text-[#667479] text-[16px] leading-[1.5em]'>
-                        Your submission has been received.
-                      </p>
-                    </div>
-                  </div>
-                )}
+    <main className="pt-[100px] bg-[#0B0C10] min-h-screen text-white">
+      {/* 1. HEADER: SIGNAL ORIGIN */}
+      <section className="py-12 md:py-20 border-b border-white/10 relative overflow-hidden">
+        <div
+          className="absolute inset-0 z-0 opacity-10 pointer-events-none"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(45deg, #fff, #fff 1px, transparent 1px, transparent 10px)",
+            backgroundSize: "20px 20px",
+          }}
+        />
 
-                <div
-                  style={{
-                    borderLeft: '3px solid #a74030',
-                  }}
-                  className='hidden tracking-normal mx-[36px] min-[768px]:mx-[40px] py-[12px] pl-[18px] bg-[#ffdede] mt-[10px] p-[10px]'
-                >
-                  <div>Something went wrong</div>
-                </div>
-              </div>
-            </div>
-            <div className='max-[991px]:h-[60vw] relative overflow-hidden'>
-              <div className='absolute inset-0'>
-                <div
-                  className='inset-0 absolute bg-[cover] bg-[no-repeat] bg-[50%]'
-                  style={{
-                    backgroundImage: `url(${slidesTwo[1].image})`,
-                  }}
-                ></div>
-              </div>
-            </div>
-          </div>
-        </GridWrapper>
-      </section>
-      <section className='py-[72px] min-[480px]:py-[80px] min-[768px]:py-[100px] min-[992px]:py-[160px] z-10 justify-center flex relative'>
         <GridWrapper>
-          <div className='grid row-[1/2] col-[2/3] gap-y-[36px] z-20 min-[480px]:gap-y-[48px] gap-x-[16px] grid-rows-[auto] grid-cols-[1fr] content-between relative'>
-            <div className='text-center grid grid-cols-[1fr]  justify-items-center justify-start gap-[16px] grid-rows-[auto] items-end'>
-              <StackedIntro type='normal' postion='centered'>
-                <div className='text-[#667479] tracking-[4px] text-[14px] font-[300] leading-[1.3em]'>
-                  FAQ
+          <div className="relative z-10">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="flex items-center gap-3 mb-4 font-mono text-[10px] text-[#FF3366] tracking-[0.4em] uppercase"
+            >
+              <Radio size={14} className="animate-pulse" />
+              COMMS_ARRAY // BROADCAST_INIT
+            </motion.div>
+            <h1 className="font-clash text-4xl md:text-7xl font-black uppercase leading-none">
+              Establish <br />
+              <span className="text-white/40">Uplink.</span>
+            </h1>
+          </div>
+        </GridWrapper>
+      </section>
+
+      {/* 2. THE COMMS HUB */}
+      <section className="py-12 md:py-24">
+        <GridWrapper>
+          <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
+            {/* LEFT: DIRECTORY & STATUS */}
+            <div className="w-full lg:w-1/3 space-y-12">
+              <div className="space-y-8">
+                <ContactMethod
+                  icon={<Mail size={20} />}
+                  label="DIRECT_ENCRYPTED_MAIL"
+                  value="q-master@apocalypse.io"
+                />
+                <ContactMethod
+                  icon={<MapPin size={20} />}
+                  label="PHYSICAL_DROP_POINT"
+                  value="Sector_7, Building_12 // Restricted_Access"
+                />
+              </div>
+
+              {/* LIVE SYSTEM STATUS (Aesthetic) */}
+              <div className="p-6 border border-white/10 bg-[#12141A] font-mono">
+                <div className="text-[10px] text-[#667479] mb-4 uppercase tracking-widest border-b border-white/10 pb-2">
+                  // SYSTEM_DIAGNOSTICS
                 </div>
-                <Heading type='large' text='Frequently asked questions' />
-              </StackedIntro>
-            </div>
-            <div className='grid z-20 gap-y-[48px] min-[768px]:gap-y-[60px] min-[992px]:gap-y-[80px] gap-x-[16px] grid-rows-[auto] grid-cols-[1fr] content-between relative'>
-              <div className='grid gap-y-[0px] grid-cols-[1fr] gap-x-[80px] min-[992px]:gap-y-[16px] min-[992px]:gap-cols-[1fr_1fr] grid-rows-[auto] content-start items-start'>
-                <div
-                  style={{
-                    borderTop: '1px solid #e4e9ec',
-                  }}
-                  className='tab-list min-[992px]:max-w-full grid-rows-[auto_auto] grid-cols-[1fr] w-full grid'
-                >
-                  {FAQ.slice(0, 3).map((faq, index) => (
-                    <TabItem
-                      question={faq.question}
-                      answer={faq.answer}
-                      key={index}
-                    />
-                  ))}
-                </div>
-                <div
-                  style={{
-                    borderTop: '1px solid #e4e9ec',
-                  }}
-                  className='tab-list min-[992px]:max-w-full grid-rows-[auto_auto] grid-cols-[1fr] w-full grid'
-                >
-                  {FAQ.slice(3, 6).map((faq, index) => (
-                    <TabItem
-                      question={faq.question}
-                      answer={faq.answer}
-                      key={index}
-                    />
-                  ))}
+                <div className="space-y-3">
+                  <StatusLine
+                    label="ENCRYPTION"
+                    value="AES-256"
+                    color="text-white"
+                  />
+                  <StatusLine
+                    label="SIGNAL_STRENGTH"
+                    value="98%"
+                    color="text-[#C5F82A]"
+                  />
+                  <StatusLine label="LATENCY" value="24ms" color="text-white" />
+                  <div className="flex items-center justify-between text-[10px]">
+                    <span className="text-[#667479]">STATUS</span>
+                    <span className="text-[#FF3366] animate-pulse">
+                      LISTENING_FOR_PINGS
+                    </span>
+                  </div>
                 </div>
               </div>
-              <Link to='/faq' className='justify-self-center'>
-                <RevealButton
-                  text='view all FAQ'
-                  borderRadius='100px'
-                  backgroundColor='#080808'
-                  textColor='white'
-                />
-              </Link>
+            </div>
+
+            {/* RIGHT: THE TRANSMISSION TERMINAL */}
+            <div className="flex-1 relative">
+              <div className="bg-[#12141A] border-2 border-white/10 p-6 md:p-10 relative overflow-hidden">
+                {/* Corner Brackets */}
+                <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#FF3366]" />
+                <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#FF3366]" />
+
+                <AnimatePresence mode="wait">
+                  {status === "idle" && (
+                    <motion.form
+                      key="form"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      onSubmit={handleTransmit}
+                      className="space-y-8"
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <TerminalInput
+                          label="SENDER_ID"
+                          placeholder="Your Name"
+                          value={formData.name}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            setFormData({ ...formData, name: e.target.value })
+                          }
+                        />
+                        <TerminalInput
+                          label="RETURN_CHANNEL"
+                          placeholder="Email@Address"
+                          type="email"
+                          value={formData.email}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            setFormData({ ...formData, email: e.target.value })
+                          }
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <label className="font-mono text-[10px] text-[#667479] uppercase tracking-widest">
+                          [TRANSMISSION_CONTENT]
+                        </label>
+                        <textarea
+                          required
+                          rows={5}
+                          value={formData.message}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              message: e.target.value,
+                            })
+                          }
+                          placeholder="INPUT_MESSAGE_DATA_"
+                          className="w-full bg-transparent border-b-2 border-white/10 focus:border-[#FF3366] outline-none font-mono text-sm py-2 resize-none transition-colors uppercase tracking-widest"
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        className="cursor-pointer w-full md:w-auto bg-white text-[#0B0C10] px-10 py-4 font-mono text-sm font-bold tracking-[0.2em] uppercase hover:bg-[#FF3366] hover:text-white transition-all flex items-center justify-center gap-3 group"
+                      >
+                        INITIALIZE_TRANSMISSION{" "}
+                        <Send
+                          size={16}
+                          className="group-hover:translate-x-1 transition-transform"
+                        />
+                      </button>
+                    </motion.form>
+                  )}
+
+                  {status === "transmitting" && (
+                    <motion.div
+                      key="loading"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="py-20 flex flex-col items-center justify-center gap-6"
+                    >
+                      <Activity
+                        size={48}
+                        className="text-[#FF3366] animate-pulse"
+                      />
+                      <div className="font-mono text-sm tracking-[0.3em] uppercase animate-pulse">
+                        NEGOTIATING_HANDSHAKE_
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {status === "established" && (
+                    <motion.div
+                      key="success"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="py-20 flex flex-col items-center justify-center gap-6 text-center"
+                    >
+                      <ShieldCheck
+                        size={64}
+                        className="text-[#C5F82A]"
+                        strokeWidth={1.5}
+                      />
+                      <div>
+                        <h3 className="font-clash text-3xl font-black uppercase mb-2">
+                          Uplink_Established.
+                        </h3>
+                        <p className="font-mono text-xs text-[#667479] uppercase tracking-widest">
+                          Transmission Received. Comms team will intercept
+                          shortly.
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => setStatus("idle")}
+                        className="cursor-pointer mt-4 font-mono text-[10px] text-[#FF3366] underline tracking-widest uppercase"
+                      >
+                        RESET_TERMINAL
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           </div>
         </GridWrapper>
       </section>
-      <SectionEight />
-    </div>
+    </main>
   );
 };
+
+// --- SUB-COMPONENTS ---
+
+const ContactMethod = ({
+  icon,
+  label,
+  value,
+}: {
+  icon: any;
+  label: string;
+  value: string;
+}) => (
+  <div className="flex gap-4 items-start group">
+    <div className="p-3 bg-[#12141A] border border-white/10 text-[#FF3366] group-hover:border-[#FF3366] transition-colors">
+      {icon}
+    </div>
+    <div className="space-y-1">
+      <div className="font-mono text-[10px] text-[#667479] tracking-widest uppercase">
+        {label}
+      </div>
+      <div className="font-mono text-sm text-white uppercase">{value}</div>
+    </div>
+  </div>
+);
+
+const StatusLine = ({
+  label,
+  value,
+  color,
+}: {
+  label: string;
+  value: string;
+  color: string;
+}) => (
+  <div className="flex justify-between items-center text-[10px]">
+    <span className="text-[#667479] uppercase">{label}</span>
+    <span className={`${color} font-bold`}>{value}</span>
+  </div>
+);
+
+const TerminalInput = ({
+  label,
+  placeholder,
+  type = "text",
+  value,
+  onChange,
+}: any) => (
+  <div className="flex flex-col gap-2">
+    <label className="font-mono text-[10px] text-[#667479] uppercase tracking-widest">
+      [{label}]
+    </label>
+    <div className="flex items-center gap-3 border-b-2 border-white/10 focus-within:border-[#FF3366] transition-colors py-2">
+      <span className="text-white/30 font-mono text-xs">$</span>
+      <input
+        required
+        type={type}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className="bg-transparent border-none outline-none w-full font-mono text-sm text-white uppercase placeholder-white/10 tracking-widest"
+      />
+    </div>
+  </div>
+);
 
 export default Contact;

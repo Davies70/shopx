@@ -1,174 +1,141 @@
-import StoryContent from './StoryContent';
-import StoryImage from './StoryImage';
-import { storyOne } from '@/data';
-import GridWrapper from './GridWrapper';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { Fingerprint, LockKeyhole } from "lucide-react";
+import IntelPhoto from "./IntelPhoto";
+import { missonImages } from "@/data";
 
-// Enhanced spring configuration for different elements
-const SPRING_CONFIG = {
-  images: { stiffness: 100, damping: 30, mass: 0.8 },
-  content: { stiffness: 120, damping: 25, mass: 0.6 },
-} as const;
+const Mission = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
 
-// Parallax ranges for different effects
-// const PARALLAX_RANGES = {
-//   subtle: [-20, 0, 20], // Subtle movement
-//   medium: [-40, 0, 40], // Medium movement
-//   strong: [-60, 0, 60], // Strong movement
-// } as const;
+  // This hook looks for textRef to trigger the opacity animation
+  const isTextInView = useInView(textRef, { once: true, margin: "-100px" });
 
-const SectionOne = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const [topIndex, setTopIndex] = useState(missonImages.length);
+  const [photoOrder, setPhotoOrder] = useState(missonImages.map((p) => p.id));
 
-  // Main scroll progress for the section
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
-
-  // Content-specific scroll progress for more refined control
-  const { scrollYProgress: contentScrollProgress } = useScroll({
-    target: contentRef,
-    offset: ['start 0.8', 'end 0.2'],
-  });
-
-  // Enhanced parallax transforms with different intensities
-  const translateY1 = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [-40, 0, 40] // Medium parallax for first image
-  );
-
-  const translateY2 = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [40, 0, -40] // Opposite direction for second image
-  );
-
-  // Content animations - subtle vertical movement and fade
-  const contentY = useTransform(
-    contentScrollProgress,
-    [0, 0.3, 0.7, 1],
-    [30, 0, 0, -30]
-  );
-
-  const contentOpacity = useTransform(
-    contentScrollProgress,
-    [0, 0.2, 0.8, 1],
-    [0.7, 1, 1, 0.7]
-  );
-
-  const contentScale = useTransform(
-    contentScrollProgress,
-    [0, 0.3, 0.7, 1],
-    [0.95, 1, 1, 0.98]
-  );
-
-  // Image-specific animations
-  const image1Scale = useTransform(
-    scrollYProgress,
-    [0, 0.3, 0.7, 1],
-    [1.1, 1, 1, 1.05]
-  );
-
-  const image2Scale = useTransform(
-    scrollYProgress,
-    [0, 0.3, 0.7, 1],
-    [1.05, 1, 1, 1.1]
-  );
-
-  const image1Rotate = useTransform(scrollYProgress, [0, 1], [-2, 2]);
-
-  const image2Rotate = useTransform(scrollYProgress, [0, 1], [2, -2]);
-
-  // Apply spring physics to all transforms
-  const springY1 = useSpring(translateY1, SPRING_CONFIG.images);
-  const springY2 = useSpring(translateY2, SPRING_CONFIG.images);
-  const springContentY = useSpring(contentY, SPRING_CONFIG.content);
-  const springContentOpacity = useSpring(contentOpacity, SPRING_CONFIG.content);
-  const springContentScale = useSpring(contentScale, SPRING_CONFIG.content);
-  const springImage1Scale = useSpring(image1Scale, SPRING_CONFIG.images);
-  const springImage2Scale = useSpring(image2Scale, SPRING_CONFIG.images);
-  const springImage1Rotate = useSpring(image1Rotate, SPRING_CONFIG.images);
-  const springImage2Rotate = useSpring(image2Rotate, SPRING_CONFIG.images);
+  const bringToFront = (id: number) => {
+    setTopIndex((prev) => prev + 1);
+    setPhotoOrder((prev) => {
+      const newOrder = prev.filter((pId) => pId !== id);
+      return [...newOrder, id];
+    });
+  };
 
   return (
     <section
-      ref={sectionRef}
-      className='flex py-[72px] min-[479px]:py-[80px] min-[768px]:py-[100px] z-10 relative justify-center min-[992px]:py-40 overflow-hidden'
+      id="mission"
+      ref={containerRef}
+      className="relative w-full min-h-[100vh] bg-[#12141A] overflow-hidden flex flex-col lg:flex-row border-t-2 border-white/10"
     >
-      <GridWrapper>
-        <div className='relative grid gap-x-1.5 row-[1/2] col-[2/3] min-[992px]:row-[1/-1] min-[992px]:col-[1/-1] max-md:gap-y-15 max-[991px]:gap-y-20 gap-y-4 grid-cols-[auto_auto] grid-rows-[auto_auto] min-[992px]:grid-cols-[auto_1fr_auto] justify-stretch items-center'>
-          {/* First Image with Enhanced Parallax */}
-          <motion.div
-            style={{
-              y: springY1,
-              scale: springImage1Scale,
-              rotate: springImage1Rotate,
-              willChange: 'transform',
-            }}
-            className='max-[991px]:row-start-2 relative border overflow-hidden w-[30vw] h-[45vw] min-[768px]:w-[20vw] min-[768px]:h-[29vw] min-[992px]:w-[15vw] min-[992px]:h-[21vw] justify-self-end'
-          >
-            <motion.div
-              style={{
-                scale: useSpring(
-                  useTransform(scrollYProgress, [0, 1], [1.2, 1]),
-                  SPRING_CONFIG.images
-                ),
-                willChange: 'transform',
-              }}
-              className='w-full h-full'
-            >
-              <StoryImage backgroundImage={storyOne.image_1} />
-            </motion.div>
-          </motion.div>
+      {/* Background Tactical Grid */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-screen"
+        style={{
+          backgroundImage:
+            "linear-gradient(#E0E0E0 1px, transparent 1px), linear-gradient(90deg, #E0E0E0 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }}
+      />
 
-          {/* Content with Enhanced Animations */}
-          <motion.div
-            ref={contentRef}
-            style={{
-              y: springContentY,
-              opacity: springContentOpacity,
-              scale: springContentScale,
-              willChange: 'transform, opacity',
-            }}
-            className=' max-[991px]:row-span-1 max-[991px]:col-span-2 w-full max-w-[700px] mx-auto max-[480px]:mt-[-18px]'
-          >
-            <StoryContent
-              title={storyOne.title}
-              description={storyOne.description}
-            />
-          </motion.div>
-
-          {/* Second Image with Enhanced Parallax */}
-          <motion.div
-            style={{
-              y: springY2,
-              scale: springImage2Scale,
-              rotate: springImage2Rotate,
-              willChange: 'transform',
-            }}
-            className='max-[991px]:row-start-2 relative border overflow-hidden w-[30vw] h-[45vw] min-[768px]:w-[20vw] min-[768px]:h-[29vw] min-[992px]:w-[15vw] min-[992px]:h-[21vw]'
-          >
-            <motion.div
-              style={{
-                scale: useSpring(
-                  useTransform(scrollYProgress, [0, 1], [1.15, 1.05]),
-                  SPRING_CONFIG.images
-                ),
-                willChange: 'transform',
-              }}
-              className='w-full h-full'
-            >
-              <StoryImage backgroundImage={storyOne.image_2} />
-            </motion.div>
-          </motion.div>
+      {/* LEFT COLUMN: The Briefing Text (This wrapper was missing!) */}
+      <div className="relative z-10 w-full lg:w-1/2 p-8 md:p-16 lg:p-24 flex flex-col justify-center pointer-events-none">
+        <div className="flex items-center gap-4 mb-8">
+          {/* TASTEFUL RED: The Fingerprint icon */}
+          <Fingerprint size={32} className="text-[#FF3366]" strokeWidth={1} />
+          <div className="flex flex-col">
+            <span className="font-mono text-[10px] text-white tracking-widest uppercase">
+              SYS.DIR // DIRECTIVE_001
+            </span>
+            <span className="font-mono text-xs text-[#E0E0E0]/50 tracking-widest uppercase">
+              CLEARANCE: OMEGA
+            </span>
+          </div>
         </div>
-      </GridWrapper>
+
+        {/* The textRef MUST be attached to a div so the animations know when to fire */}
+        <div ref={textRef} className="overflow-hidden mb-8">
+          <motion.h2
+            initial={{ y: "100%", opacity: 0 }}
+            animate={
+              isTextInView ? { y: 0, opacity: 1 } : { y: "100%", opacity: 0 }
+            }
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+            className="font-clash text-4xl sm:text-5xl md:text-6xl font-black uppercase text-white leading-[1.1] tracking-wide"
+          >
+            Survival Is Not <br />
+            <span className="text-white/80">An Accident.</span>
+          </motion.h2>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          // 1. Use whileInView instead of relying on the external isTextInView variable
+          whileInView={{ opacity: 1, y: 0 }}
+          // 2. Add viewport config so it only triggers once, similar to your old hook
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="font-mono text-sm md:text-base text-[#E0E0E0]/80 leading-relaxed max-w-xl space-y-6 pointer-events-auto"
+        >
+          <p>
+            When the grid fails and supply chains sever, your theoretical
+            preparedness means nothing. Only the physical hardware in your
+            possession dictates the outcome.
+          </p>
+          <p>
+            We don't sell lifestyle accessories. We engineer, source, and
+            distribute{" "}
+            <span className="bg-white text-[#0B0C10] px-1 font-bold">
+              MIL-SPEC OVERFLOW
+            </span>{" "}
+            and industrial-grade survival tools.
+          </p>
+
+          {/* TASTEFUL RED: The interactive redacted text hover */}
+          <p>
+            Our sourcing network remains{" "}
+            <span className="group relative cursor-pointer inline-block bg-[#0B0C10] text-[#0B0C10] hover:bg-transparent hover:text-[#FF3366] transition-colors border border-[#0B0C10] hover:border-[#FF3366] px-1">
+              [CLASSIFIED_REDACTED]
+            </span>{" "}
+            to protect supply integrity. If you are here, you already know why.
+          </p>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isTextInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-12 flex items-center gap-3 font-mono text-xs text-[#667479] uppercase tracking-widest pointer-events-auto"
+        >
+          <LockKeyhole size={14} /> END_OF_BRIEFING
+        </motion.div>
+      </div>
+
+      {/* RIGHT COLUMN: The Interactive Intel Desk */}
+      <div className="relative w-full lg:w-1/2 min-h-[50vh] lg:min-h-full p-8 md:p-16 border-t-2 lg:border-t-0 lg:border-l-2 border-white/10 bg-[#0B0C10] overflow-hidden">
+        <div className="absolute top-8 right-8 z-0 font-mono text-[10px] text-[#667479] tracking-widest uppercase text-right opacity-50 hidden sm:block pointer-events-none">
+          <p>INTERACTIVE_SURFACE</p>
+          <p className="text-[#FF3366] mt-1 animate-pulse">
+            [ DRAG TO INSPECT FILES ]
+          </p>
+        </div>
+
+        {missonImages.map((photo) => (
+          <IntelPhoto
+            key={photo.id}
+            src={photo.src}
+            alt={`Classified Intel ${photo.id}`}
+            stampText={photo.stamp}
+            initialRotation={photo.rot}
+            initialX={photo.x}
+            initialY={photo.y}
+            constraintsRef={containerRef}
+            zIndex={photoOrder.indexOf(photo.id) + 10}
+            setTopZIndex={() => bringToFront(photo.id)}
+          />
+        ))}
+      </div>
     </section>
   );
 };
 
-export default SectionOne;
+export default Mission;

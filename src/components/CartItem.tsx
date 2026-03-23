@@ -1,6 +1,6 @@
-import { X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { CartItem as CartItemType } from '@/categories';
+import { Trash2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { CartItem as CartItemType } from "@/categories";
 
 type CartItemProps = {
   cartItem: CartItemType;
@@ -15,71 +15,68 @@ const CartItem = ({ cartItem, removeCartItem }: CartItemProps) => {
   };
 
   return (
-    <AnimatePresence>
-      {
-        <motion.div
-          className='border-t w-full border-[#e5ebf0] flex items-start py-0'
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          <div className='border-t border-[#f4f9fa] flex py-0 w-full justify-between items-stretch'>
-            <img
-              src={cartItem.product.images[0]}
-              alt=''
-              className='inline-block max-w-[90px] min-w-[70px] h-full w-[70px] sm:w-[90px] sm:min-w-[90px] sm:max-w-[90px] object-cover align-middle'
-            />
-            <div className='flex w-full flex-col justify-between ml-4 mr-0 flex-1'>
-              <div className='mb-6 sm:mb-9 justify-between flex items-start mx-0'>
-                <div className='flex items-start flex-col'>
-                  <div className='mb-2 text-[12px] min-[480px]:text-base font-medium tracking-normal'>
-                    {cartItem.product.name}
-                  </div>
-                  <ul className='text-[#667479] text-sm font-light leading-[1.6em] my-0 pl-0'>
-                    <li className='tracking-normal'>
-                      <span>Size</span>
-                      <span>: </span>
-                      {cartItem.size === 'S' ? (
-                        <span>S (4-6)</span>
-                      ) : cartItem.size === 'M' ? (
-                        <span>M (8-10)</span>
-                      ) : (
-                        <span>L (12-14)</span>
-                      )}
-                    </li>
-                  </ul>
-                </div>
-                <button
-                  type='button'
-                  aria-label='Remove item from cart'
-                  className='text-[#596066] justify-center flex items-center text-xs max-w-full transition-colors duration-200 hover:text-red-500 cursor-pointer'
-                  onClick={handleRemoveCartItem}
-                >
-                  <X className='opacity-75 w-3 min-w-[12px] max-w-full inline-block align-middle transition-opacity duration-200 hover:opacity-100' />
-                </button>
-              </div>
-              <div className='flex flex-col items-start justify-between sm:items-end'>
-                <div className='mb-2 flex text-[#667479] text-[11px] items-center tracking-[4px] sm:mb-0'>
-                  <div>Qty:</div>
-                  <div
-                    className='text-[#596066] text-center tracking-[4px] bg-[rgba(244,248,250,0)] flex border border-[#e5ebf0] rounded-md focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-100 transition-all duration-200 justify-center items-center w-10 h-6 ml-2 p-1 text-xs hover:border-blue-300'
-                    style={{
-                      transition:
-                        'border-color .4s cubic-bezier(.25,.46,.45,.94)',
-                    }}
-                  >
-                    {cartItem.quantity}
-                  </div>
-                  <span className='ml-2 text-[13px] font-medium'>
-                    $ {cartItem.product.price} USD
-                  </span>
-                </div>
-              </div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.3 }}
+      className="bg-[#12141A] border border-[#E0E0E0]/10 p-3 flex gap-4 group hover:border-[#E0E0E0]/30 transition-colors"
+    >
+      {/* Product Image - High Contrast/Grayscale for tactical look */}
+      <div className="relative w-[80px] h-[100px] shrink-0 bg-[#0B0C10] overflow-hidden border border-[#E0E0E0]/5">
+        <img
+          src={cartItem.product.images[0]}
+          alt={cartItem.product.name}
+          className="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"
+        />
+        {/* Decorative corner brackets */}
+        <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#FF3366] opacity-50"></div>
+        <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#FF3366] opacity-50"></div>
+      </div>
+
+      <div className="flex flex-col justify-between flex-1 py-1">
+        {/* Header: Title & Remove */}
+        <div className="flex justify-between items-start">
+          <div>
+            <div className="text-[#E0E0E0] text-[13px] font-bold uppercase tracking-wider mb-1 leading-tight line-clamp-2">
+              {cartItem.product.name}
+            </div>
+            <div className="text-[#667479] font-mono text-[10px] tracking-widest uppercase">
+              SPEC:{" "}
+              {cartItem.size === "S"
+                ? "S(4-6)"
+                : cartItem.size === "M"
+                  ? "M(8-10)"
+                  : "L(12-14)"}
             </div>
           </div>
-        </motion.div>
-      }
-    </AnimatePresence>
+          <button
+            type="button"
+            aria-label="Abort item"
+            className="text-[#667479] hover:text-[#FF3366] transition-colors p-1"
+            onClick={handleRemoveCartItem}
+          >
+            <Trash2 size={16} strokeWidth={1.5} />
+          </button>
+        </div>
+
+        {/* Footer: Qty & Price */}
+        <div className="flex items-end justify-between mt-4">
+          <div className="flex items-center border border-[#E0E0E0]/20 bg-[#0B0C10]">
+            <div className="font-mono text-[#667479] text-[9px] px-2 py-1 tracking-widest uppercase border-r border-[#E0E0E0]/20">
+              QTY
+            </div>
+            <div className="font-mono text-white text-[11px] px-3 py-1 font-bold">
+              {cartItem.quantity.toString().padStart(2, "0")}
+            </div>
+          </div>
+
+          <div className="font-mono text-white text-[13px] tracking-widest">
+            ${cartItem.product.price.toFixed(2)}
+          </div>
+        </div>
+      </div>
+    </motion.div>
   );
 };
 

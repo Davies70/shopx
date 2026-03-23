@@ -1,19 +1,47 @@
+import React from "react";
+
 type GridWrapperProps = {
   children: React.ReactNode;
-  isClipped?: boolean;
+  /** If true, the content ignores the 1500px limit and touches the screen edges */
+  fullWidth?: boolean;
+  /** For overflow control (replaces your isClipped logic) */
+  overflowHidden?: boolean;
+  className?: string;
 };
 
-const GridWrapper = ({ children, isClipped }: GridWrapperProps) => {
+const GridWrapper = ({
+  children,
+  fullWidth = false,
+  overflowHidden = false,
+  className = "",
+}: GridWrapperProps) => {
   return (
     <div
-      className='grid grid-rows-[auto] grid-cols-[minmax(5vw,1fr)_minmax(auto,1500px)_minmax(5vw,1fr)] auto-cols-auto w-full relative gap-0 z-25'
-      style={{
-        justifyContent: isClipped ? 'center' : 'normal',
-        justifyItems: isClipped ? 'center' : 'normal',
-        overflow: isClipped ? 'hidden' : 'visible',
-      }}
+      className={`
+        grid w-full relative z-20
+        /* 1. THE GRID DEFINITION */
+        /* Left Gutter | Main Content (Max 1500px) | Right Gutter */
+        grid-cols-[minmax(1.5rem,1fr)_minmax(0,1500px)_minmax(1.5rem,1fr)]
+        
+        /* 2. OVERFLOW CONTROL */
+        ${overflowHidden ? "overflow-hidden" : "overflow-visible"}
+        
+        /* 3. CUSTOM INJECTED CLASSES */
+        ${className}
+      `}
     >
-      {children}
+      {/* By wrapping {children} in this div, we ensure that EVERYTHING 
+        passed to GridWrapper is automatically centered and constrained 
+        to the 1500px track. 
+      */}
+      <div
+        className={`
+        ${fullWidth ? "col-span-3" : "col-[2/3]"} 
+        w-full h-full
+      `}
+      >
+        {children}
+      </div>
     </div>
   );
 };

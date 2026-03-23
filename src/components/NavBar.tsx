@@ -1,12 +1,11 @@
-import { useState, useRef } from 'react';
-import { motion, MotionValue, useScroll, useTransform } from 'framer-motion';
-import MobileMenu from '@/components/MobileMenu';
-import RevealButton from './RevealButton';
-import GridWrapper from './GridWrapper';
-import { Link, useLocation } from 'react-router-dom';
-import { navLinks } from '@/data';
-import { CartItem } from '@/categories';
-import SearchBar from './SearchBar';
+import { useState, useRef } from "react";
+import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
+import MobileMenu from "@/components/MobileMenu";
+import GridWrapper from "./GridWrapper";
+import { Link, useLocation } from "react-router-dom";
+import { navLinks } from "@/data";
+import { CartItem } from "@/categories";
+import SearchBar from "./SearchBar";
 
 type NavBarProps = {
   cartItems: CartItem[];
@@ -16,52 +15,33 @@ type NavBarProps = {
 const Navbar = ({ cartItems, setIsCartOpen }: NavBarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleRef = useRef(null);
-
   const { pathname } = useLocation();
-  const includedLinks = ['/', '/shop'];
-
-  // Use Framer Motion's scroll hooks for better performance
+  const includedLinks = ["/", "/shop", "/about"];
   const { scrollY } = useScroll();
 
-  // Transform scrollY to various values
   const MotionValueBackgroundColor = useTransform(
     scrollY,
-    [0, 300],
-    ['rgba(0, 0, 0, 0)', 'rgba(255, 255, 255, 1)']
+    [0, 150],
+    ["rgba(11, 12, 16, 0)", "rgba(11, 12, 16, 0.95)"],
   );
-
   const backgroundColor: string | MotionValue = !includedLinks.includes(
-    pathname
+    pathname,
   )
-    ? 'rgba(255, 255, 255, 1)'
+    ? "rgba(11, 12, 16, 0.95)"
     : MotionValueBackgroundColor;
 
-  // More efficient color transformations using direct color values
-  const MotionValueTextColor = useTransform(
+  const MotionValueBorderColor = useTransform(
     scrollY,
-    [0, 300],
-    ['rgba(255, 255, 255, 1)', 'rgba(8, 8, 8, 1)'] // White to light black (#080808)
+    [0, 150],
+    ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.1)"],
   );
+  const borderColor = !includedLinks.includes(pathname)
+    ? "rgba(255, 255, 255, 0.1)"
+    : MotionValueBorderColor;
 
-  const textColor = !includedLinks.includes(pathname)
-    ? 'rgba(8, 8, 8, 1)'
-    : MotionValueTextColor;
-  // Separate transformation for search text (white to gray)
-
-  const MotionValueSearchTextColor = useTransform(
-    scrollY,
-    [0, 300],
-    ['rgba(255, 255, 255, 1)', 'rgba(100, 100, 100, 1)']
-  );
-
-  const searchTextColor = !includedLinks.includes(pathname)
-    ? 'rgba(100, 100, 100, 1)'
-    : MotionValueSearchTextColor;
-
-  const MotionValuenavbarHeight = useTransform(scrollY, [0, 300], [100, 60]);
-
+  const MotionValuenavbarHeight = useTransform(scrollY, [0, 150], [100, 70]);
   const navbarHeight = !includedLinks.includes(pathname)
-    ? '60px'
+    ? "70px"
     : MotionValuenavbarHeight;
 
   const toggleMobileMenu = (event: React.MouseEvent) => {
@@ -71,133 +51,118 @@ const Navbar = ({ cartItems, setIsCartOpen }: NavBarProps) => {
   };
 
   return (
-    <div className='relative w-screen'>
-      {/* <CartTray
-        isCartOpen={isCartOpen}
-        setIsCartOpen={setIsCartOpen}
-        setCartItems={setCartItems}
-        cartItems={cartItems}
-      /> */}
+    <div className="relative w-screen">
       <motion.div
         style={{
-          willChange: 'height',
+          willChange: "height, background-color, border-color",
           height: navbarHeight,
+          backgroundColor,
+          borderBottomWidth: "1px",
+          borderBottomColor: borderColor,
         }}
-        transition={{ duration: 0.4 }}
-        className='fixed top-0 left-0 bottom-auto w-full flex justify-center bg-[rgba(255,255,255,0)] before:content-[""] after:clear-both after:content-[""] z-[1000]'
+        className="fixed top-0 left-0 bottom-auto w-full flex justify-center z-[1000] backdrop-blur-sm"
       >
-        <motion.div
-          className='bg-[rgba(255,255,255,0)] h-full w-full flex justify-center'
-          style={{
-            backgroundColor,
-            willChange: 'background',
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
-        >
+        <div className="h-full w-full flex justify-center">
           <GridWrapper>
-            <div className='rol-[1/2] col-[2/3] grid justify-items-center justify-between grid-rows-[auto] grid-cols-[1fr_1fr] min-[992px]:grid-cols-[auto_1fr_auto] text-[rgb(255,255,255)] gap-x-[24px] gap-y-[16px] '>
-              <motion.div
-                className='cursor-pointer  flex uppercase  justify-self-start items-center w-[110px] pl-0  font-[500] will-change-[filter] justify-start '
-                style={{
-                  fontFamily: 'Clash Display, sans-serif',
-                  color: textColor,
-                }}
-              >
-                <Link to='/'>
-                  <div className='hidden min-[480px]:block text-[16px] text-center tracking-[4px] font-semibold'>
-                    <span>Shop</span> <br /> <span>Apocalypse</span>
+            <div className="row-[1/2] col-[2/3] grid justify-items-center justify-between grid-rows-[auto] grid-cols-[1fr_1fr] min-[992px]:grid-cols-[auto_1fr_auto] text-white gap-x-[24px] gap-y-[16px] items-center h-full">
+              <motion.div className="cursor-pointer flex uppercase justify-self-start items-center pl-0 font-[500] justify-start group">
+                <Link to="/">
+                  <div className="hidden min-[480px]:flex items-center gap-2 text-[14px] text-center tracking-[4px] font-bold uppercase">
+                    {/* TASTEFUL RED: The Logo Brackets */}
+                    <span className="text-[#FF3366] font-mono">[</span>
+                    <span className="group-hover:text-[#FF3366] transition-colors">
+                      Shop Apocalypse
+                    </span>
+                    <span className="text-[#FF3366] font-mono">]</span>
                   </div>
-
-                  <div className='font-semibold flex flex-col leading-3 gap-0 min-[480px]:hidden text-[16px] items-center text-center tracking-[3px]'>
+                  <div className="font-bold flex flex-col leading-[1.1] gap-0 min-[480px]:hidden text-[12px] items-start tracking-[3px] uppercase">
+                    <span className="text-[#FF3366]">[</span>
                     <div>Shop</div>
                     <div>Apoca</div>
-                    <div>lypse</div>
+                    <div className="flex items-center gap-1">
+                      <span>lypse</span>
+                      <span className="text-[#FF3366]">]</span>
+                    </div>
                   </div>
                 </Link>
               </motion.div>
-              <nav className='hidden min-[992px]:flex justify-self-stretch relative float-right'>
-                <div className='grid gap-[16px] grid-cols-[1fr_1fr_1fr] grid-rows-[auto] justify-between items-stretch w-full'>
-                  <div className='grid grid-flow-col grid-cols-[auto] grid-rows-[auto] gap-y-[16px] gap-x-[54px] justify-self-center row-[1/2] col-[2/3]'>
+
+              <nav className="hidden min-[992px]:flex justify-self-stretch relative float-right h-full">
+                <div className="grid gap-[16px] grid-cols-[1fr_1fr_1fr] grid-rows-[auto] justify-between items-center w-full h-full">
+                  <div className="grid grid-flow-col grid-cols-[auto] grid-rows-[auto] gap-x-[54px] justify-self-center row-[1/2] col-[2/3]">
                     {navLinks.map(({ link, url }) => (
-                      <Link to={url} key={link}>
-                        <motion.div
-                          className='row-[span_1] col-[span_1] flex static justify-center items-center h-full'
-                          style={{ color: textColor }}
-                        >
-                          <RevealButton
-                            text={link}
-                            key={link}
-                            type='normal'
-                            isPadding={false}
-                          />
-                        </motion.div>
+                      <Link to={url} key={link} className="relative group">
+                        <div className="flex static justify-center items-center h-full text-[#E0E0E0] hover:text-white transition-colors font-mono text-[11px] tracking-widest uppercase">
+                          {link}
+                        </div>
+                        {/* TASTEFUL RED: The Nav Hover Underline */}
+                        <div className="absolute -bottom-2 left-0 right-0 h-[2px] bg-[#FF3366] scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
                       </Link>
                     ))}
                   </div>
-                  <div className='flex order-[-9999] justify-self-stretch row-[span_1] col-[span_1] min-[992px]:row-[1/2] min-[992px]:col-[3/4] flex-col justify-center items-end  min-[992px]:pr-[6px]'>
-                    <SearchBar searchTextColor={searchTextColor} />
-                  </div>
+                  <SearchBar />
                 </div>
               </nav>
 
-              <div className='grid grid-flow-col grid-cols-[1fr] grid-rows-[auto] gap-y-[16px] gap-x-[10px] min-[992px]:gap-x-[18px] items-center self-center justify-self-end '>
-                <motion.a
-                  tabIndex={0}
-                  className='flex cursor-pointer'
-                  style={{ color: textColor }}
+              <div className="grid grid-flow-col grid-cols-[1fr] grid-rows-[auto] gap-x-[16px] items-center self-center justify-self-end">
+                <button
+                  className="flex cursor-pointer group items-center"
                   onClick={() => setIsCartOpen(true)}
                 >
-                  <div className='text-xs sm:text-sm grid min-h-9 h-9 items-center justify-center content-center auto-cols-fr grid-cols-[1fr_auto] grid-rows-[auto] uppercase gap-x-2 sm:gap-x-2 gap-y-4 font-light'>
-                    <div>Bag</div>
-                    <div className='flex items-center'>
-                      <span>(</span>
-                      <span className='px-0.5'>{cartItems.length}</span>
-                      <span>)</span>
+                  <div className="text-xs font-mono grid min-h-9 h-9 items-center justify-center content-center auto-cols-fr grid-cols-[auto_auto] grid-rows-[auto] uppercase gap-x-2 tracking-widest text-[#E0E0E0] group-hover:text-white transition-colors">
+                    <span className="hidden sm:block">MANIFEST</span>
+                    <div className="flex items-center bg-[#12141A] border border-white/20 px-2 py-1 group-hover:border-[#FF3366] transition-colors relative">
+                      <span
+                        className={
+                          cartItems.length > 0
+                            ? "text-[#FF3366] font-bold"
+                            : "text-[#667479]"
+                        }
+                      >
+                        {cartItems.length.toString().padStart(2, "0")}
+                      </span>
+                      {/* TASTEFUL RED: Active Cart Ping */}
+                      {cartItems.length > 0 && (
+                        <div className="absolute -top-1 -right-1 w-2 h-2 bg-[#FF3366] rounded-full animate-pulse"></div>
+                      )}
                     </div>
                   </div>
-                </motion.a>
+                </button>
 
-                <motion.button
-                  aria-label='Toggle mobile menu'
+                <button
+                  aria-label="Toggle tactical menu"
                   onClick={toggleMobileMenu}
                   ref={toggleRef}
-                  style={{ color: textColor }}
-                  className='min-[992px]:hidden block p-0 items-center relative cursor-pointer'
+                  className="min-[992px]:hidden flex items-center justify-center w-10 h-10 border border-white/20 text-[#E0E0E0] hover:text-[#FF3366] hover:border-[#FF3366] transition-colors cursor-pointer bg-[#12141A]"
                 >
-                  {/* <AlignLeft
-                    size={24}
-                    className='w-[28px] align-middle max-w-full'
-                  /> */}
                   <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    width='28'
-                    height='28'
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    stroke='currentColor'
-                    strokeWidth='2'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="square"
+                    strokeLinejoin="miter"
                   >
-                    <line x1='3' y1='6' x2='21' y2='6' />
-                    <line x1='3' y1='12' x2='21' y2='12' />
-                    <line x1='3' y1='18' x2='21' y2='18' />
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="13" y2="18" />
                   </svg>
-                </motion.button>
+                </button>
               </div>
             </div>
           </GridWrapper>
-        </motion.div>
-        <div className='min[992px]:hidden absolute w-full left-0 right-0 top-full overflow-hidden bg-amber-800 z-[2000]'>
-          <MobileMenu
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            toggleRef={toggleRef}
-          />
         </div>
       </motion.div>
+      <div className="min-[992px]:hidden">
+        <MobileMenu
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          toggleRef={toggleRef}
+        />
+      </div>
     </div>
   );
 };

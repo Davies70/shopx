@@ -1,100 +1,191 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { Search } from 'lucide-react';
-import RevealButton from './RevealButton';
-import { useRef, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { navLinks } from '@/data';
-import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from "framer-motion";
+import { Terminal, X, ChevronRight, Activity } from "lucide-react";
+import { useRef, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { navLinks } from "@/data";
 
-//implement exit mobile view on outside click
 type MobileMenuProps = {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   toggleRef: React.RefObject<HTMLButtonElement | null>;
 };
 
+const menuVariants = {
+  hidden: { clipPath: "inset(0% 0% 100% 0%)" },
+  visible: {
+    clipPath: "inset(0% 0% 0% 0%)",
+    transition: { type: "spring", stiffness: 300, damping: 35 },
+  },
+  exit: {
+    clipPath: "inset(0% 0% 100% 0%)",
+    transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] },
+  },
+};
+
 const MobileMenu = ({ isOpen, setIsOpen, toggleRef }: MobileMenuProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
-  const [query, setQuery] = useState('');
-
+  const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      menuRef.current &&
-      !menuRef.current.contains(event.target as Node) &&
-      toggleRef.current &&
-      !toggleRef.current.contains(event.target as Node)
-    ) {
+  const handleSearchQuery = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (query.trim()) {
+      navigate(`/search_results?query=${encodeURIComponent(query)}`);
       setIsOpen(false);
-    }
-  };
-
-  const handleTouchOutside = (event: TouchEvent) => {
-    if (
-      menuRef.current &&
-      !menuRef.current.contains(event.target as Node) &&
-      toggleRef.current &&
-      !toggleRef.current.contains(event.target as Node)
-    ) {
-      setIsOpen(false);
+      setQuery("");
     }
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('touchstart', handleTouchOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('touchstart', handleTouchOutside);
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        toggleRef.current &&
+        !toggleRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
     };
-  });
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [setIsOpen, toggleRef]);
 
-  const handleSearchQuery = () => {
-    navigate(`/search_results`);
-  };
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
 
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          ref={menuRef}
-          initial={{ height: 0 }}
-          animate={{ height: 'fit-content' }}
-          exit={{ height: 0 }}
-          transition={{ duration: 0.4, ease: 'easeInOut' }}
-          onClick={(e) => e.stopPropagation()} // Prevents closing when clicking inside
-          className='fixed min-w-[50px] bg-white left-0 z-50 flex w-full flex-col items-center justify-center  shadow-lg overflow-hidden'
+          variants={menuVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="fixed inset-0 z-[9999] bg-[#0B0C10] flex flex-col justify-between overflow-hidden"
         >
-          <div className='max-w-full w-full flex flex-col decorate-none p-0 border-b-[#e4e9ec] border-b justify-self-stretch px-3 justify-center items-end'>
-            <form
-              onSubmit={handleSearchQuery}
-              className='flex justify-center items-center  max-w-[500px] my-3 mx-auto w-full py-0 z-25 outline-none border bg-[#f4f8fa] border-[rgba(255,255,255,.25)] rounded-[100px] min-w-[34px] min-h-[34px] relative'
-            >
-              <input
-                className='tracking-normal flex-grow px-4 py-2 text-sm text-gray-700 bg-transparent border-none outline-none placeholder-gray-500'
-                placeholder='Search...'
-                onChange={(e) => setQuery(e.target.value)}
-                value={query}
-              />
-              <button
-                type='submit'
-                className='absolute cursor-pointer right-1 top-1/2 transform -translate-y-1/2 w-8 h-8 flex items-center justify-center text-sm text-white bg-[#e4e9ec] rounded-full hover:bg-[#d1d5db] focus:outline-none'
-              >
-                <Search className='text-black' size={12} />
-              </button>
-            </form>
-          </div>
-          <div className='grid w-full items-center justify-items-stretch justify-between auto-cols-fr auto-rows-auto gap-x-4 gap-y-0'>
-            <div className='grid auto-cols-auto grid-cols-[auto] grid-rows-[auto] gap-x-13.5 w-full grid-flow-row bg-white text-black border-t-[#e4e9ec] gap-y-0 self-center col-start-1 col-end-2 row-start-1 row-end-2 '>
-              {navLinks.map(({ url, link }) => (
-                <Link to={url} key={link} onClick={() => setIsOpen(false)}>
-                  <RevealButton text={link} type='mobileNavButton' />
-                </Link>
-              ))}
+          {/* CRT Scanline Overlay */}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-20 mix-blend-overlay z-0"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(0deg, transparent, transparent 2px, #000 2px, #000 4px)",
+            }}
+          />
+
+          {/* Top Header Bar - Strict B&W */}
+          <div className="relative z-10 flex justify-between items-center p-6 border-b border-white/20 bg-[#12141A]">
+            <div className="flex items-center gap-3">
+              <Activity size={16} className="text-white animate-pulse" />
+              <span className="font-mono text-[10px] text-white tracking-widest uppercase">
+                SYS_OVERRIDE_ACTIVE
+              </span>
             </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="text-[#667479] hover:text-white transition-colors p-2 border border-transparent hover:border-white bg-[#0B0C10]"
+            >
+              <X size={24} strokeWidth={1.5} />
+            </button>
           </div>
+
+          <div className="relative z-10 flex flex-col flex-1 px-6 py-8 overflow-y-auto custom-scrollbar">
+            {/* Terminal Search Bar - Strict B&W */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              className="mb-8"
+            >
+              <form
+                onSubmit={handleSearchQuery}
+                className="flex items-center border-b-2 border-white/50 focus-within:border-white pb-2 transition-colors"
+              >
+                <span className="text-white font-mono mr-3">$</span>
+                <input
+                  className="w-full bg-transparent border-none outline-none text-white font-mono tracking-widest uppercase placeholder-[#667479] text-sm"
+                  placeholder="ENTER_QUERY_"
+                  onChange={(e) => setQuery(e.target.value)}
+                  value={query}
+                  autoComplete="off"
+                />
+                <button
+                  type="submit"
+                  className="text-[#667479] hover:text-white ml-2"
+                >
+                  <Terminal size={18} />
+                </button>
+              </form>
+            </motion.div>
+
+            {/* Navigation Directory - Strict B&W */}
+            <nav className="flex flex-col gap-4 flex-1">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.3 }}
+                className="text-[#667479] font-mono text-[10px] tracking-widest uppercase mb-4 border-l-2 border-white pl-2"
+              >
+                ROOT_DIRECTORY //
+              </motion.div>
+
+              {navLinks.map(({ url, link }, index) => (
+                <motion.div
+                  key={link}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
+                >
+                  <Link
+                    to={url}
+                    onClick={() => setIsOpen(false)}
+                    className="group flex items-center justify-between py-3 border-b border-white/10 hover:border-white/50 transition-colors"
+                  >
+                    <div className="flex items-center gap-4">
+                      <span className="font-mono text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                        [ ]
+                      </span>
+                      <span className="font-mono text-xl sm:text-2xl text-[#E0E0E0] group-hover:text-white uppercase tracking-[0.15em] font-bold transition-colors">
+                        {link}
+                      </span>
+                    </div>
+                    <ChevronRight
+                      size={20}
+                      className="text-[#667479] group-hover:text-white transition-colors"
+                    />
+                  </Link>
+                </motion.div>
+              ))}
+            </nav>
+          </div>
+
+          {/* Bottom Footer Readout */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.8 }}
+            className="relative z-10 p-6 border-t border-white/20 bg-[#12141A] font-mono text-[9px] text-[#667479] tracking-widest flex justify-between items-end uppercase shrink-0"
+          >
+            <div className="flex flex-col gap-1">
+              <span>SECURE_CONNECTION: ESTABLISHED</span>
+              <span>ENCRYPTION: 256-BIT</span>
+            </div>
+            <div className="text-right">
+              <span className="text-white">V 2.4.0</span>
+            </div>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
