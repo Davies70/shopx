@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ShieldAlert } from "lucide-react";
+import { X, ShieldAlert, Clock, Activity } from "lucide-react";
 import CartTrayFooter from "./CartTrayFooter";
 import CartItem from "./CartItem";
 import { removeCartItem } from "@/services";
@@ -21,11 +21,10 @@ const backdropVariants = {
 };
 
 const trayVariants = {
-  hidden: { x: "100%", borderLeftWidth: "0px" },
+  hidden: { x: "100%" },
   visible: {
     x: 0,
-    borderLeftWidth: "4px",
-    transition: { type: "spring", stiffness: 100, damping: 20, mass: 1 },
+    transition: { type: "spring", stiffness: 120, damping: 20, mass: 1 },
   },
   exit: { x: "100%", transition: { duration: 0.3, ease: [0.76, 0, 0.24, 1] } },
 };
@@ -38,6 +37,13 @@ const CartTray = ({
 }: CartTrayProps) => {
   const [total, setTotal] = useState(0);
   const [isDisabled, setIsDisabled] = useState(false);
+  const [time, setTime] = useState(new Date());
+
+  // Tactical Clock Logic
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const sum = cartItems
@@ -53,7 +59,6 @@ const CartTray = ({
 
   const handleCheckOut = (e: React.MouseEvent) => {
     e.preventDefault();
-    e.stopPropagation();
     setIsDisabled(true);
   };
 
@@ -65,7 +70,7 @@ const CartTray = ({
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="z-[5000] bg-[rgba(8,8,8,.8)] inset-0 fixed flex flex-row justify-end items-stretch"
+          className="z-[5000] bg-black/80 inset-0 fixed flex justify-end items-stretch"
           onClick={() => setIsCartOpen(false)}
         >
           <motion.div
@@ -74,38 +79,72 @@ const CartTray = ({
             animate="visible"
             exit="exit"
             onClick={(e) => e.stopPropagation()}
-            className="w-[95%] sm:w-[90%] md:w-[500px] max-w-[625px] bg-[#0B0C10] border-l-[#FF3366] overflow-hidden flex flex-col shadow-[-20px_0_50px_rgba(0,0,0,0.5)]"
+            className="w-full sm:w-[500px] bg-[#0B0C10] border-l-2 border-[#FF3366] overflow-hidden flex flex-col shadow-[-20px_0_50px_rgba(0,0,0,0.5)]"
           >
-            {/* Tactical Header */}
-            <div className="px-6 md:px-8 z-50 bg-[#12141A] border-b-2 border-[#E0E0E0]/10 flex justify-between items-center w-full min-h-[70px]">
-              <div className="flex items-center gap-3">
-                <div className="w-2.5 h-2.5 bg-[#FF3366] rounded-full animate-pulse"></div>
-                <span className="text-[#E0E0E0] font-mono tracking-widest text-[12px] uppercase font-bold">
-                  INVENTORY_MANIFEST
-                </span>
-              </div>
+            {/* 1. TACTICAL HEADER (Mobile Optimized) */}
+            <div className="relative bg-[#12141A] border-b border-white/10 z-50">
+              {/* Scanline Overlay for Header Only */}
+              <div
+                className="absolute inset-0 opacity-[0.03] pointer-events-none"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(0deg, #fff, #fff 1px, transparent 1px, transparent 2px)",
+                  backgroundSize: "100% 3px",
+                }}
+              />
 
-              <div className="flex items-center gap-6">
-                <div className="font-mono text-[#667479] text-[10px] uppercase tracking-widest">
-                  ITEMS:{" "}
-                  <span className="text-white">[{cartItems.length}]</span>
+              <div className="px-4 md:px-8 py-4 flex flex-col gap-4">
+                {/* Top Row: System Status & Close */}
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <Activity
+                      size={14}
+                      className="text-[#FF3366] animate-pulse"
+                    />
+                    <span className="font-mono text-[9px] text-[#667479] tracking-[0.3em] uppercase">
+                      System_Live // active_session
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => setIsCartOpen(false)}
+                    className="p-2 border border-white/10 text-white hover:border-[#FF3366] hover:text-[#FF3366] transition-all group"
+                  >
+                    <X size={20} />
+                  </button>
                 </div>
-                <button
-                  onClick={() => setIsCartOpen(false)}
-                  className="text-[#667479] hover:text-[#FF3366] transition-colors flex items-center gap-2 group"
-                >
-                  <span className="font-mono text-[10px] tracking-widest uppercase hidden sm:block opacity-0 group-hover:opacity-100 transition-opacity">
-                    CLOSE_AIRLOCK
-                  </span>
-                  <X size={20} strokeWidth={2} />
-                </button>
+
+                {/* Bottom Row: Manifest Title & Tactical Clock */}
+                <div className="flex justify-between items-end border-t border-white/5 pt-4">
+                  <div className="flex flex-col">
+                    <span className="font-mono text-[10px] text-[#FF3366] uppercase tracking-widest font-bold">
+                      Inventory_Manifest
+                    </span>
+                    <h2 className="font-clash text-2xl text-white uppercase tracking-tight">
+                      Asset_Cache{" "}
+                      <span className="text-white/20">
+                        [{cartItems.length.toString().padStart(2, "0")}]
+                      </span>
+                    </h2>
+                  </div>
+
+                  <div className="flex flex-col items-end font-mono">
+                    <div className="flex items-center gap-2 text-[#C5F82A] text-[10px] tracking-widest">
+                      <Clock size={10} />
+                      {time.toLocaleTimeString("en-GB", { hour12: false })}
+                    </div>
+                    <div className="text-[8px] text-[#667479] uppercase tracking-tighter">
+                      MT_ZULU_TIME
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Body */}
-            <div className="z-25 bg-[#0B0C10] relative flex flex-1 flex-col overflow-hidden">
-              {/* Scrollable Items List */}
-              <div className="flex-[1_1_auto] overflow-y-auto custom-scrollbar px-6 md:px-8 py-6 space-y-6">
+            {/* 2. BODY / MANIFEST LIST */}
+            <div className="flex-1 overflow-hidden flex flex-col relative">
+              <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
+
+              <div className="flex-1 overflow-y-auto custom-scrollbar px-4 md:px-8 py-6 space-y-6 relative z-10">
                 {cartItems.map((cartItem) => (
                   <CartItem
                     cartItem={cartItem}
@@ -114,43 +153,53 @@ const CartTray = ({
                   />
                 ))}
 
-                {/* Empty State HUD */}
+                {/* Empty State */}
                 {cartItems.length === 0 && (
-                  <div className="h-full flex flex-col justify-center items-center text-center mt-20">
+                  <div className="h-full flex flex-col justify-center items-center text-center py-20">
                     <ShieldAlert
                       size={64}
-                      className="text-[#FF3366] mb-6 opacity-80"
+                      className="text-[#FF3366] mb-6 opacity-40 animate-pulse"
                       strokeWidth={1}
                     />
                     <h3 className="text-white font-mono uppercase tracking-widest text-lg mb-2">
-                      CACHE_DEPLETED
+                      Cache_Empty
                     </h3>
-                    <p className="text-[#667479] font-mono text-xs uppercase tracking-widest mb-8 max-w-[250px] leading-relaxed">
-                      WARNING: Proceeding without adequate supplies severely
-                      reduces survival probability.
+                    <p className="text-[#667479] font-mono text-[10px] uppercase tracking-widest mb-8 max-w-[200px] leading-relaxed">
+                      Zero operational assets detected in current requisition
+                      loadout.
                     </p>
-                    <Link to="/shop" onClick={() => setIsCartOpen(false)}>
-                      <button className="bg-[#12141A] border border-[#FF3366] text-[#FF3366] hover:bg-[#FF3366] hover:text-white px-8 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all">
-                        ACCESS_ARMORY
+                    <Link
+                      to="/shop"
+                      onClick={() => setIsCartOpen(false)}
+                      className="w-full max-w-[240px]"
+                    >
+                      <button className="w-full bg-white text-[#0B0C10] hover:bg-[#FF3366] hover:text-white py-4 font-mono text-[11px] font-black tracking-[0.2em] uppercase transition-all">
+                        Open_Armory
                       </button>
                     </Link>
                   </div>
                 )}
               </div>
 
-              {/* Spoof Warning */}
+              {/* Error Warning (Sticky bottom of list) */}
               {isDisabled && cartItems.length > 0 && (
-                <div className="mx-6 md:mx-8 mb-4 border-l-4 border-[#FF3366] bg-[#FF3366]/10 p-3">
-                  <p className="font-mono text-[10px] text-[#FF3366] tracking-widest uppercase">
-                    [ ERROR: EXTERNAL_NETWORK_OFFLINE ] Checkout disabled in
-                    simulation mode.
+                <div className="mx-4 md:mx-8 mb-4 border border-[#FF3366]/30 bg-[#FF3366]/5 p-3 flex gap-3 items-center">
+                  <ShieldAlert size={16} className="text-[#FF3366]" />
+                  <p className="font-mono text-[9px] text-[#FF3366] tracking-widest uppercase leading-tight">
+                    [ FATAL: Checkout_Uplink_Failed ] <br />
+                    Secure gateway restricted to live operatives only.
                   </p>
                 </div>
               )}
 
-              {/* Footer */}
+              {/* 3. FOOTER */}
               {cartItems.length !== 0 && (
-                <CartTrayFooter total={total} handleCheckOut={handleCheckOut} />
+                <div className="border-t border-white/10">
+                  <CartTrayFooter
+                    total={total}
+                    handleCheckOut={handleCheckOut}
+                  />
+                </div>
               )}
             </div>
           </motion.div>
