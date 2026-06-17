@@ -57,8 +57,11 @@ const SearchBar = () => {
           }}
           onSubmit={(e) => {
             e.preventDefault();
-            if (query.trim())
+            if (query.trim()) {
               navigate(`/search_results?query=${encodeURIComponent(query)}`);
+              setIsSearchOpen(false);
+              setQuery("");
+            }
           }}
         >
           <span className="text-[#FF3366] font-mono text-sm mr-2">{">"}</span>

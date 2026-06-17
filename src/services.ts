@@ -1,6 +1,7 @@
-import { categories, Category, Product, CartItem } from './categories';
+import { categories, Category, Product, CartItem } from "./categories";
 
-const SHOPAPO = 'shopaopcalypse-cartItem';
+const SHOPAPO = "shopaopcalypse-cartItem";
+const allProducts = categories.flatMap((category) => category.products);
 
 export const getCategory = (id: string): Category | null => {
   const category = categories.find((category) => category.id === id);
@@ -8,19 +9,38 @@ export const getCategory = (id: string): Category | null => {
 };
 
 export const getProduct = (id: string): Product | null => {
-  return categories.flatMap((c) => c.products).find((p) => p.id === id) || null;
+  return allProducts.find((p) => p.id === id) || null;
 };
 
 export const getProductImages = (id: string): string[] | [] => {
-  return (
-    categories.flatMap((c) => c.products).find((p) => p.id === id)?.images || []
-  );
+  return getProduct(id)?.images || [];
+};
+
+export const getDisplayPrice = (product: Product): number => {
+  return product.discount?.isDiscounted && product.discount.discountPrice
+    ? product.discount.discountPrice
+    : product.price;
+};
+
+export const formatPrice = (price: number): string => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  }).format(price);
 };
 
 // Get all cart items from localStorage
 export const getCartItems = (): CartItem[] => {
-  const data = localStorage.getItem(SHOPAPO);
-  return data ? (JSON.parse(data) as CartItem[]) : [];
+  try {
+    const data = localStorage.getItem(SHOPAPO);
+    if (!data) return [];
+    const parsed = JSON.parse(data);
+    return Array.isArray(parsed) ? (parsed as CartItem[]) : [];
+  } catch {
+    localStorage.removeItem(SHOPAPO);
+    return [];
+  }
 };
 
 // Save all cart items to localStorage
@@ -37,7 +57,10 @@ export const addOrUpdateCartItem = (cartItem: CartItem): CartItem[] => {
 
   if (index > -1) {
     // Item exists, update quantity
-    cartItems[index].quantity += cartItem.quantity;
+    cartItems[index].quantity = Math.min(
+      99,
+      cartItems[index].quantity + cartItem.quantity,
+    );
   } else {
     // Item does not exist, add new
     cartItems.push(cartItem);
@@ -57,15 +80,13 @@ export const updateCartItemQuantity = (productId: string, quantity: number) => {
   const cartItems = getCartItems();
   const index = cartItems.findIndex((c) => c.product.id === productId);
   if (index > -1) {
-    cartItems[index].quantity = quantity;
+    cartItems[index].quantity = Math.max(1, Math.min(99, quantity));
     saveCartItems(cartItems);
   }
 };
 
 export const getRelatedProducts = (id: string, quantity: number): Product[] => {
-  const filtered = categories
-    .flatMap((c) => c.products)
-    .filter((p) => p.id !== id);
+  const filtered = allProducts.filter((p) => p.id !== id);
 
   // Shuffle the array
   for (let i = filtered.length - 1; i > 0; i--) {
@@ -78,7 +99,7 @@ export const getRelatedProducts = (id: string, quantity: number): Product[] => {
 };
 
 export const getSearchResults = (quantity: number): Product[] => {
-  const filtered = categories.flatMap((c) => c.products);
+  const filtered = [...allProducts];
 
   // Shuffle the array
   for (let i = filtered.length - 1; i > 0; i--) {
@@ -87,4 +108,26 @@ export const getSearchResults = (quantity: number): Product[] => {
   }
 
   return filtered.slice(0, quantity);
+};
+
+export const searchProducts = (query: string): Product[] => {
+  const normalized = query.trim().toLowerCase();
+  if (!normalized) return [];
+
+  return allProducts.filter((product) => {
+    const searchable = [
+      product.id,
+      product.name,
+      product.shortDescription,
+      product.longDescription,
+      product.color,
+      product.whyWeMadeIt,
+      ...(product.tags ?? []),
+    ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+
+    return searchable.includes(normalized);
+  });
 };

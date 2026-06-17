@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, ChevronLeft, X, Target } from "lucide-react";
 import { useLocation } from "react-router-dom";
@@ -18,7 +18,17 @@ const LightBox = ({ setIsLightBoxOpen }: LightBoxProps) => {
   const id = location.pathname.split("/").pop() || "";
   const images = getProductImages(id);
 
-  // Keyboard Navigation: PREMIUM UX
+  const paginate = useCallback(
+    (newDirection: number) => {
+      const nextIndex = current + newDirection;
+      if (nextIndex >= 0 && nextIndex < images.length) {
+        setDirection(newDirection);
+        setCurrent(nextIndex);
+      }
+    },
+    [current, images.length],
+  );
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") paginate(1);
@@ -27,7 +37,7 @@ const LightBox = ({ setIsLightBoxOpen }: LightBoxProps) => {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [current]);
+  }, [paginate, setIsLightBoxOpen]);
 
   // Scroll thumbnail into view
   useEffect(() => {
@@ -44,13 +54,9 @@ const LightBox = ({ setIsLightBoxOpen }: LightBoxProps) => {
     }
   }, [current]);
 
-  const paginate = (newDirection: number) => {
-    const nextIndex = current + newDirection;
-    if (nextIndex >= 0 && nextIndex < images.length) {
-      setDirection(newDirection);
-      setCurrent(nextIndex);
-    }
-  };
+  if (images.length === 0) {
+    return null;
+  }
 
   return (
     <motion.div

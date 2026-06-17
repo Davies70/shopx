@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ShieldAlert, Clock, Activity } from "lucide-react";
 import CartTrayFooter from "./CartTrayFooter";
 import CartItem from "./CartItem";
-import { removeCartItem } from "@/services";
+import { getDisplayPrice, removeCartItem } from "@/services";
 import { useEffect, useState } from "react";
 import { CartItem as CartItemType } from "@/categories";
 import { Link } from "react-router-dom";
@@ -47,7 +47,7 @@ const CartTray = ({
 
   useEffect(() => {
     const sum = cartItems
-      .map((c) => c.product.price * c.quantity)
+      .map((c) => getDisplayPrice(c.product) * c.quantity)
       .reduce((acc, curr) => curr + acc, 0);
     setTotal(sum);
   }, [cartItems]);

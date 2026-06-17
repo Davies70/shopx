@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { slidesTwo } from "@/data";
 import { Cctv, ScanEye, ExternalLink } from "lucide-react";
+import { type Slide } from "@/types";
 
 const SectionEight = () => {
   // Grab 4 images for the feeds
@@ -96,18 +97,17 @@ const FeedImage = ({
   delay,
   id,
 }: {
-  slide: any;
+  slide: Slide;
   delay: number;
   id: string;
 }) => {
   return (
-    <motion.a
-      href="#"
+    <motion.div
       initial={{ opacity: 0, filter: "blur(10px)" }}
       whileInView={{ opacity: 1, filter: "blur(0px)" }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay }}
-      className="relative aspect-square bg-[#0B0C10] overflow-hidden group border border-transparent hover:border-[#FF3366] transition-colors cursor-crosshair block"
+      className="relative aspect-square bg-[#0B0C10] overflow-hidden group border border-transparent hover:border-[#FF3366] transition-colors cursor-crosshair"
     >
       {/* The Image */}
       <div
@@ -145,7 +145,7 @@ const FeedImage = ({
         <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-[#FF3366]" />
         <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-[#FF3366]" />
       </div>
-    </motion.a>
+    </motion.div>
   );
 };
 

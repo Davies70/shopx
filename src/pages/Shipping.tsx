@@ -1,5 +1,6 @@
 import { Truck, Globe, Package, ShieldCheck, Map } from "lucide-react";
 import GridWrapper from "@/components/GridWrapper";
+import { type ReactNode } from "react";
 
 const Shipping = () => {
   return (
@@ -55,7 +56,15 @@ const Shipping = () => {
   );
 };
 
-const ProtocolBox = ({ icon, title, desc }: any) => (
+const ProtocolBox = ({
+  icon,
+  title,
+  desc,
+}: {
+  icon: ReactNode;
+  title: string;
+  desc: string;
+}) => (
   /* Adjusted padding for mobile (p-6) and desktop (md:p-8) */
   <div className="p-6 md:p-8 border border-white/10 bg-[#12141A] hover:border-[#FF3366] transition-colors group">
     <div className="text-[#FF3366] mb-4 md:mb-6 group-hover:scale-110 transition-transform">

@@ -4,6 +4,8 @@ import GridWrapper from "@/components/GridWrapper";
 import { ChevronDown, ShieldAlert, Cpu, Terminal, Search } from "lucide-react";
 import { faqData } from "@/data";
 
+type FaqRecord = (typeof faqData)[number];
+
 const Faq = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [openId, setOpenId] = useState<string | null>(null);
@@ -127,7 +129,7 @@ const FaqItem = ({
   isOpen,
   toggle,
 }: {
-  item: any;
+  item: FaqRecord;
   isOpen: boolean;
   toggle: () => void;
 }) => {

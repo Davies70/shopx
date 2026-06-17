@@ -49,7 +49,7 @@ export const firstFeaturedCards: FeaturedType = {
     "images/fullhelm_5.jpg",
   ],
   title: " DoomsDay Helmet",
-  link: "tactical_head_protection",
+  link: "headgear",
 };
 
 export const secondFeaturedCards: FeaturedType = {
@@ -60,7 +60,7 @@ export const secondFeaturedCards: FeaturedType = {
     "images/camo_googles_1.jpg",
   ],
   title: "Camo for Endtimes",
-  link: "mission_ready_eye_gear",
+  link: "optics",
 };
 
 type Story = {
@@ -107,14 +107,14 @@ export const footerNavigationLinks = [
 export const footerProductLinks = [
   {
     name: "Head",
-    link: "/category/tactical_head_protection",
+    link: "/shop/headgear",
   },
   {
     name: "Eyes",
-    link: "/category/mission_ready_eye_gear",
+    link: "/shop/optics",
   },
-  { name: "Armor", link: "/category/armored_outerwear" },
-  { name: "Handwear", link: "/category/survival_handwear" },
+  { name: "Armor", link: "/shop/armor" },
+  { name: "Handwear", link: "/shop/gloves" },
 
   { name: "Shop All", link: "/shop" },
 ];
@@ -279,7 +279,7 @@ export const featured = [
     count: "14_ASSETS",
     size: "large", // Spans multiple rows/cols
     image: "images/vest_2.jpg",
-    link: "/category/armor",
+    link: "/shop/armor",
   },
   {
     id: "cat_02",
@@ -287,7 +287,7 @@ export const featured = [
     count: "08_ASSETS",
     size: "small",
     image: "images/camo_googles_1.jpg",
-    link: "/category/optics",
+    link: "/shop/optics",
   },
   {
     id: "cat_03",
@@ -295,7 +295,7 @@ export const featured = [
     count: "22_ASSETS",
     size: "small",
     image: "images/glove_8.jpg",
-    link: "/category/gloves",
+    link: "/shop/gloves",
   },
 ];
 

@@ -36,7 +36,7 @@ const Featured = ({ cards }: FeaturedProps) => {
             <div className='text-[15px] text-[#667479] leading-[1.65em] font-[400] tracking-[0]'>
               {cards.text}
             </div>
-            <Link to={`/category/${cards.link}`}>
+            <Link to={`/shop/${cards.link}`}>
               <RevealButtonWithIcon
                 text='view full product'
                 isTextPadding={false}

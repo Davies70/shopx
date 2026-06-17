@@ -1,6 +1,7 @@
 import { Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { CartItem as CartItemType } from "@/categories";
+import { formatPrice, getDisplayPrice } from "@/services";
 
 type CartItemProps = {
   cartItem: CartItemType;
@@ -72,7 +73,7 @@ const CartItem = ({ cartItem, removeCartItem }: CartItemProps) => {
           </div>
 
           <div className="font-mono text-white text-[13px] tracking-widest">
-            ${cartItem.product.price.toFixed(2)}
+            {formatPrice(getDisplayPrice(cartItem.product) * cartItem.quantity)}
           </div>
         </div>
       </div>

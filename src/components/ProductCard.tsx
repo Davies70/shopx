@@ -3,6 +3,7 @@ import { Target, ShieldAlert, ArrowUpRight } from "lucide-react";
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { formatPrice } from "@/services";
 
 type ProductCardProps = {
   product: Product;
@@ -98,9 +99,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
       onAnimationComplete={handleAnimationComplete}
       onMouseEnter={handleHoverStart}
       onMouseLeave={handleHoverEnd}
-      // Improved Mobile Support: Triggering "hover" state on touch
-      onTouchStart={handleHoverStart}
-      onTouchEnd={handleHoverEnd}
     >
       <div
         className="group bg-white border-2 border-[#080808] flex flex-col h-full transition-all duration-300 relative overflow-hidden"
@@ -216,15 +214,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 {product.discount?.isDiscounted ? (
                   <div className="flex flex-col">
                     <span className="line-through text-gray-400 text-[9px] sm:text-[10px]">
-                      ${product.price}
+                      {formatPrice(product.price)}
                     </span>
                     <span className="text-[#FF3366] font-bold text-[13px] sm:text-[15px]">
-                      ${product.discount.discountPrice}
+                      {formatPrice(product.discount.discountPrice ?? product.price)}
                     </span>
                   </div>
                 ) : (
                   <span className="text-[#080808] font-bold text-[13px] sm:text-[15px]">
-                    ${product.price}.00
+                    {formatPrice(product.price)}
                   </span>
                 )}
               </div>

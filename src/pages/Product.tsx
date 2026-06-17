@@ -1,8 +1,6 @@
-import { useState, useRef } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import gsap from "gsap";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import {
   ShieldCheck,
   ShoppingCart,
@@ -19,6 +17,8 @@ import {
   getProduct,
   getRelatedProducts,
   addOrUpdateCartItem,
+  formatPrice,
+  getDisplayPrice,
 } from "@/services";
 import { CartItem } from "@/categories";
 
@@ -37,12 +37,13 @@ const Product = ({
   const [size, setSize] = useState<"M" | "L" | "S">("M");
   const [quantity, setQuantity] = useState<number>(1);
   const [isAdding, setIsAdding] = useState<boolean>(false);
-  const scrollRef = useRef<HTMLDivElement | null>(null);
-
-  gsap.registerPlugin(ScrollToPlugin);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   const product = params.id ? getProduct(params.id) : null;
-  const relatedProducts = params.id ? getRelatedProducts(params.id, 3) : [];
+  const relatedProducts = useMemo(
+    () => (params.id ? getRelatedProducts(params.id, 3) : []),
+    [params.id],
+  );
 
   const handleAddToCart = (e: React.FormEvent) => {
     e.preventDefault();
@@ -102,9 +103,11 @@ const Product = ({
                   <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-[#FF3366] z-20 pointer-events-none" />
 
                   <motion.img
+                    key={product.images[selectedImageIndex]}
                     initial={{ opacity: 0, scale: 1.1 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    src={product.images[0]}
+                    src={product.images[selectedImageIndex]}
+                    alt={product.name}
                     className="w-full h-full object-cover grayscale-[0.3] contrast-125 transition-all duration-700 group-hover:grayscale-0"
                   />
 
@@ -116,19 +119,31 @@ const Product = ({
                 {/* Sub-Feeds (Thumbnails) */}
                 <div className="grid grid-cols-4 gap-2">
                   {product.images.map((img, i) => (
-                    <div
+                    <button
                       key={i}
-                      className="aspect-square border border-white/10 grayscale hover:grayscale-0 transition-all cursor-pointer bg-[#12141A]"
+                      type="button"
+                      onClick={() => setSelectedImageIndex(i)}
+                      aria-label={`View ${product.name} image ${i + 1}`}
+                      className={`aspect-square border transition-all cursor-pointer bg-[#12141A] ${
+                        selectedImageIndex === i
+                          ? "border-[#FF3366] grayscale-0"
+                          : "border-white/10 grayscale hover:grayscale-0"
+                      }`}
                     >
-                      <img src={img} className="w-full h-full object-cover" />
-                    </div>
+                      <img
+                        src={img}
+                        alt={`${product.name} thumbnail ${i + 1}`}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </button>
                   ))}
                 </div>
               </div>
             </div>
 
             {/* RIGHT: CONFIGURATION TERMINAL */}
-            <div ref={scrollRef} className="space-y-8">
+            <div className="space-y-8">
               <div className="space-y-4 border-b border-white/10 pb-8">
                 <div className="flex items-center justify-between">
                   <div className="font-mono text-[10px] text-[#667479] tracking-widest uppercase flex items-center gap-2">
@@ -145,7 +160,12 @@ const Product = ({
                 </h1>
 
                 <div className="font-mono text-3xl text-white font-bold tracking-tighter">
-                  ${product.price}.00{" "}
+                  {formatPrice(getDisplayPrice(product))}{" "}
+                  {product.discount?.isDiscounted && (
+                    <span className="text-sm text-[#667479] line-through ml-2">
+                      {formatPrice(product.price)}
+                    </span>
+                  )}
                   <span className="text-xs text-[#667479] ml-2">USD</span>
                 </div>
               </div>
@@ -215,7 +235,7 @@ const Product = ({
                   <button
                     type="submit"
                     disabled={isAdding}
-                    className="flex-1 cursor-pointer group relative overflow-hidden bg-white text-[#0B0C10] py-4 font-mono text-sm font-black tracking-[0.2em] uppercase transition-all"
+                    className="flex-1 cursor-pointer group relative overflow-hidden bg-white text-[#0B0C10] py-4 px-4 font-mono text-xs sm:text-sm font-black tracking-[0.12em] sm:tracking-[0.2em] uppercase transition-all disabled:cursor-wait disabled:opacity-80"
                   >
                     <span className="relative z-10 flex items-center justify-center gap-3">
                       {isAdding ? "NEGOTIATING_UPLINK..." : "REQUISITION_ASSET"}
@@ -328,7 +348,7 @@ const StatusLine = ({
   label,
   value,
 }: {
-  icon: any;
+  icon: ReactNode;
   label: string;
   value: string;
 }) => (

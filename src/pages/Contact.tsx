@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ChangeEvent, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import GridWrapper from "@/components/GridWrapper";
 import { Mail, MapPin, Radio, Send, ShieldCheck, Activity } from "lucide-react";
@@ -232,7 +232,7 @@ const ContactMethod = ({
   label,
   value,
 }: {
-  icon: any;
+  icon: ReactNode;
   label: string;
   value: string;
 }) => (
@@ -264,13 +264,21 @@ const StatusLine = ({
   </div>
 );
 
+type TerminalInputProps = {
+  label: string;
+  placeholder: string;
+  type?: "text" | "email";
+  value: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+};
+
 const TerminalInput = ({
   label,
   placeholder,
   type = "text",
   value,
   onChange,
-}: any) => (
+}: TerminalInputProps) => (
   <div className="flex flex-col gap-2">
     <label className="font-mono text-[10px] text-[#667479] uppercase tracking-widest">
       [{label}]

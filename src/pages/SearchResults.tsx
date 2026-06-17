@@ -9,35 +9,41 @@ import {
   ArrowRight,
   ShieldAlert,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import GridWrapper from "@/components/GridWrapper";
 import SectionEight from "@/components/SurveillanceGrid";
-import { getSearchResults } from "@/services";
+import { formatPrice, getDisplayPrice, searchProducts } from "@/services";
 import { Product } from "@/categories";
 
 const SearchResults = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState("");
   const [products, setProducts] = useState<Product[]>([]);
   const [isScanning, setIsScanning] = useState(false);
 
-  // Initial Load & Query Trigger
   useEffect(() => {
-    handleQuery();
-  }, []);
-
-  const handleQuery = () => {
+    const nextQuery = searchParams.get("query") ?? "";
+    setQuery(nextQuery);
     setIsScanning(true);
-    // Simulate tactical database latency
-    setTimeout(() => {
-      const results = getSearchResults(10);
+
+    const timer = window.setTimeout(() => {
+      const results = searchProducts(nextQuery);
       setProducts(results);
       setIsScanning(false);
-    }, 1200);
-  };
+    }, 350);
+
+    return () => window.clearTimeout(timer);
+  }, [searchParams]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    handleQuery();
+    const trimmedQuery = query.trim();
+    if (trimmedQuery) {
+      setSearchParams({ query: trimmedQuery });
+    } else {
+      setSearchParams({});
+      setProducts([]);
+    }
   };
 
   return (
@@ -209,7 +215,7 @@ const SearchResultItem = ({
 
           <div className="pt-4 flex items-center justify-between border-t border-white/5">
             <div className="font-mono text-lg font-bold">
-              ${product.price}.00
+              {formatPrice(getDisplayPrice(product))}
             </div>
             <Link
               to={`/products/${product.id}`}

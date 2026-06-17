@@ -2,35 +2,46 @@
 
 
 @layer base {
-  /* * {
-    @apply border-border outline-ring/50;
-  } */
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    background: #0b0c10;
+    scroll-behavior: smooth;
+  }
+
   body {
-    /* @apply bg-background text-foreground;
-    @apply overflow-x-hidden; */
-    font-family: 'General Sans';
-    letter-spacing: 5px;
-   
-    
+    margin: 0;
+    min-width: 320px;
+    overflow-x: hidden;
+    background: #0b0c10;
+    color: #e0e0e0;
+    font-family: "General Sans", system-ui, sans-serif;
+    letter-spacing: 0;
   }
 
   .logo {
-    font-family: 'Clash Display';
+    font-family: "Clash Display", system-ui, sans-serif;
+  }
+
+  button,
+  input,
+  textarea {
+    font: inherit;
   }
 }
 
 @font-face {
-  font-family: 'General Sans';
-  src: url('/fonts/general-sans/GeneralSans-Regular.otf') format('opentype');
- 
+  font-family: "General Sans";
+  src: url("/fonts/general-sans/GeneralSans-Regular.otf") format("opentype");
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Clash Display';
-  src: url('/fonts/clashdisplay/ClashDisplay-Regular.otf') format('opentype');
-  
+  font-family: "Clash Display";
+  src: url("/fonts/clashdisplay/ClashDisplay-Regular.otf") format("opentype");
   font-style: normal;
   font-display: swap;
 }

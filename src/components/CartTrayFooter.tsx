@@ -1,3 +1,5 @@
+import { formatPrice } from "@/services";
+
 type CartFooterProps = {
   total: number;
   handleCheckOut: (e: React.MouseEvent) => void;
@@ -17,7 +19,7 @@ const CartTrayFooter = ({ total, handleCheckOut }: CartFooterProps) => {
           </span>
         </div>
         <div className="text-[#FF3366] text-xl font-bold tracking-wider">
-          ${total.toFixed(2)}
+          {formatPrice(total)}
         </div>
       </div>
 
